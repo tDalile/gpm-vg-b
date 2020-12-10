@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1jt4pfn" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
-  <decision id="Decision_0ygdi0w" name="Versicherungsfähigkeit prüfen">
+  <decision id="dmn-versicherungsfaehigkeit-pruefen" name="Versicherungsfähigkeit prüfen">
     <informationRequirement id="InformationRequirement_0gma0v5">
-      <requiredDecision href="#Decision_01ruiya" />
+      <requiredDecision href="#dmn-risikofaktor-alter" />
     </informationRequirement>
     <informationRequirement id="InformationRequirement_0j7jq7c">
-      <requiredDecision href="#Decision_18trq9w" />
+      <requiredDecision href="#dmn-risikofaktor-bmi" />
     </informationRequirement>
     <informationRequirement id="InformationRequirement_1ucbb7z">
-      <requiredDecision href="#Decision_05ub0wh" />
+      <requiredDecision href="#dmn-risikofaktor-krankenhistorie" />
     </informationRequirement>
     <decisionTable id="DecisionTable_1596vwh" hitPolicy="FIRST">
-      <input id="InputClause_02rasbz" label="Tarif">
+      <input id="InputClause_02rasbz" label="Tarif" biodi:width="192">
         <inputExpression id="LiteralExpression_0wrf2r1" typeRef="string">
           <text></text>
         </inputExpression>
         <inputValues id="UnaryTests_08biz0a">
-          <text>"permium","basis"</text>
+          <text>"basis","premium"</text>
         </inputValues>
       </input>
       <input id="InputClause_0impc0y" camunda:inputVariable="age">
@@ -41,7 +41,7 @@
       </output>
       <rule id="DecisionRule_1dbq9yy">
         <inputEntry id="UnaryTests_0xcf8d3">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1lrspot">
           <text></text>
@@ -58,7 +58,7 @@
       </rule>
       <rule id="DecisionRule_0qahpup">
         <inputEntry id="UnaryTests_0sbzgdn">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_03bel51">
           <text></text>
@@ -75,7 +75,7 @@
       </rule>
       <rule id="DecisionRule_11oaa9y">
         <inputEntry id="UnaryTests_1wyob8o">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0rd2eio">
           <text>&lt;50</text>
@@ -92,7 +92,7 @@
       </rule>
       <rule id="DecisionRule_09h4jho">
         <inputEntry id="UnaryTests_18ry31z">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jbkcc7">
           <text>[50..70)</text>
@@ -109,7 +109,7 @@
       </rule>
       <rule id="DecisionRule_14u5adc">
         <inputEntry id="UnaryTests_1ha0tqh">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1uabamy">
           <text>&lt;50</text>
@@ -126,7 +126,7 @@
       </rule>
       <rule id="DecisionRule_0r61neu">
         <inputEntry id="UnaryTests_06aahd8">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1czbshm">
           <text>[50..70)</text>
@@ -143,7 +143,7 @@
       </rule>
       <rule id="DecisionRule_0ahmd96">
         <inputEntry id="UnaryTests_06d45yf">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1tkl3b3">
           <text>&lt;50</text>
@@ -160,7 +160,7 @@
       </rule>
       <rule id="DecisionRule_09hh0qf">
         <inputEntry id="UnaryTests_12xseel">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1jjn66w">
           <text>&gt;=70</text>
@@ -177,7 +177,7 @@
       </rule>
       <rule id="DecisionRule_0rdtibz">
         <inputEntry id="UnaryTests_1c5t3ff">
-          <text>"permium"</text>
+          <text>"premium"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_00m79ay">
           <text>&lt;50</text>
@@ -351,7 +351,7 @@
       </rule>
     </decisionTable>
   </decision>
-  <decision id="Decision_01ruiya" name="Risikofaktor Alter">
+  <decision id="dmn-risikofaktor-alter" name="Risikofaktor Alter">
     <decisionTable id="DecisionTable_0tvlaxz">
       <input id="InputClause_02ybqte" label="Alter des Kunden">
         <inputExpression id="LiteralExpression_0t75ni6" typeRef="integer" />
@@ -398,9 +398,17 @@
           <text>100</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1kr77ym">
+        <inputEntry id="UnaryTests_0mnb6f3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s8vjz2">
+          <text></text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
-  <decision id="Decision_18trq9w" name="Risikofaktor BMI">
+  <decision id="dmn-risikofaktor-bmi" name="Risikofaktor BMI">
     <decisionTable id="DecisionTable_0tiz9vd">
       <input id="InputClause_1szfar3" label="BMI des Kunden" biodi:width="185">
         <inputExpression id="LiteralExpression_1tcg7v9" typeRef="integer" />
@@ -452,9 +460,9 @@
       </rule>
     </decisionTable>
   </decision>
-  <decision id="Decision_05ub0wh" name="Risikofaktor Krankhistorie">
+  <decision id="dmn-risikofaktor-krankenhistorie" name="Risikofaktor Krankhistorie">
     <informationRequirement id="InformationRequirement_15wwono">
-      <requiredDecision href="#Decision_1hyyp4u" />
+      <requiredDecision href="#dmn-vorerkrankungen" />
     </informationRequirement>
     <decisionTable id="DecisionTable_1ewq507">
       <input id="InputClause_0lpruya" label="Krankenhistorie des Kunden">
@@ -463,7 +471,7 @@
           <text>"Keine Vorerkranungen","Risikogruppe 1","Risikogruppe 2","Risikogruppe 3"</text>
         </inputValues>
       </input>
-      <output id="OutputClause_1k4th8e" label="Risikofaktor Krankenhistorie" name="Risikofaktor Krank" typeRef="string" />
+      <output id="OutputClause_1k4th8e" label="Risikofaktor Krankenhistorie" name="Risikofaktor Krank" typeRef="string" biodi:width="238" />
       <rule id="DecisionRule_0gdfi2y">
         <inputEntry id="UnaryTests_10ftqhu">
           <text>"Keine Vorerkranungen"</text>
@@ -499,7 +507,7 @@
       </rule>
     </decisionTable>
   </decision>
-  <decision id="Decision_1hyyp4u" name="Vorerkranungen">
+  <decision id="dmn-vorerkrankungen" name="Vorerkranungen">
     <decisionTable id="DecisionTable_17rhdrz">
       <input id="InputClause_065g1fo" label="Erkrankungen">
         <inputExpression id="LiteralExpression_045ryh0" typeRef="string" />
@@ -548,10 +556,10 @@
   </decision>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
-      <dmndi:DMNShape dmnElementRef="Decision_0ygdi0w">
+      <dmndi:DMNShape dmnElementRef="dmn-versicherungsfaehigkeit-pruefen">
         <dc:Bounds height="80" width="180" x="980" y="170" />
       </dmndi:DMNShape>
-      <dmndi:DMNShape id="DMNShape_1arrwyv" dmnElementRef="Decision_01ruiya">
+      <dmndi:DMNShape id="DMNShape_1arrwyv" dmnElementRef="dmn-risikofaktor-alter">
         <dc:Bounds height="80" width="180" x="440" y="80" />
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="DMNEdge_1740m9e" dmnElementRef="InformationRequirement_0gma0v5">
@@ -560,7 +568,7 @@
         <di:waypoint x="1070" y="150" />
         <di:waypoint x="1070" y="170" />
       </dmndi:DMNEdge>
-      <dmndi:DMNShape id="DMNShape_0uq9opf" dmnElementRef="Decision_18trq9w">
+      <dmndi:DMNShape id="DMNShape_0uq9opf" dmnElementRef="dmn-risikofaktor-bmi">
         <dc:Bounds height="80" width="180" x="440" y="170" />
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="DMNEdge_0t4oepq" dmnElementRef="InformationRequirement_0j7jq7c">
@@ -574,7 +582,7 @@
         <di:waypoint x="1070" y="270" />
         <di:waypoint x="1070" y="250" />
       </dmndi:DMNEdge>
-      <dmndi:DMNShape id="DMNShape_1l4ck4k" dmnElementRef="Decision_05ub0wh">
+      <dmndi:DMNShape id="DMNShape_1l4ck4k" dmnElementRef="dmn-risikofaktor-krankenhistorie">
         <dc:Bounds height="80" width="180" x="440" y="260" />
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="DMNEdge_1exg786" dmnElementRef="InformationRequirement_15wwono">
@@ -582,7 +590,7 @@
         <di:waypoint x="420" y="300" />
         <di:waypoint x="440" y="300" />
       </dmndi:DMNEdge>
-      <dmndi:DMNShape id="DMNShape_0qho50n" dmnElementRef="Decision_1hyyp4u">
+      <dmndi:DMNShape id="DMNShape_0qho50n" dmnElementRef="dmn-vorerkrankungen">
         <dc:Bounds height="80" width="180" x="160" y="260" />
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>
