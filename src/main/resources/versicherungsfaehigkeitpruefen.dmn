@@ -278,7 +278,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1nj00k5">
-        <description>manuel?</description>
+        <description>manuell?</description>
         <inputEntry id="UnaryTests_09i5eam">
           <text>"basis"</text>
         </inputEntry>
@@ -296,7 +296,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_065v3l9">
-        <description>manuel?</description>
+        <description>manuell?</description>
         <inputEntry id="UnaryTests_1wvy9k3">
           <text>"basis"</text>
         </inputEntry>
@@ -314,7 +314,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0adlc7z">
-        <description>manuel?</description>
+        <description>manuell?</description>
         <inputEntry id="UnaryTests_0v4xu3j">
           <text>"basis"</text>
         </inputEntry>
@@ -332,7 +332,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1i8g1jm">
-        <description>manuel?</description>
+        <description>manuell?</description>
         <inputEntry id="UnaryTests_0t8a3z2">
           <text>"basis"</text>
         </inputEntry>

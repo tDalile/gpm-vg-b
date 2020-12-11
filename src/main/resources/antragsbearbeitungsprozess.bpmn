@@ -525,13 +525,13 @@ output: rf_krankenhistorie</bpmn:text>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1fgr3g2">
       <bpmndi:BPMNShape id="Participant_0dnngm2_di" bpmnElement="Participant_0dnngm2" isHorizontal="true">
-        <dc:Bounds x="150" y="790" width="5560" height="860" />
+        <dc:Bounds x="150" y="790" width="4760" height="860" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_12df464_di" bpmnElement="Lane_12df464" isHorizontal="true">
-        <dc:Bounds x="180" y="790" width="5530" height="450" />
+        <dc:Bounds x="180" y="790" width="4730" height="450" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_068bq09_di" bpmnElement="Lane_068bq09" isHorizontal="true">
-        <dc:Bounds x="180" y="1240" width="5530" height="410" />
+        <dc:Bounds x="180" y="1240" width="4730" height="410" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_18wsw0y_di" bpmnElement="TextAnnotation_18wsw0y">
         <dc:Bounds x="3590" y="950" width="100" height="78" />
@@ -927,10 +927,10 @@ output: rf_krankenhistorie</bpmn:text>
         <di:waypoint x="4520" y="1396" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1h1d9ml_di" bpmnElement="Participant_0dwyafn" isHorizontal="true">
-        <dc:Bounds x="150" y="190" width="5560" height="550" />
+        <dc:Bounds x="150" y="190" width="4760" height="550" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1tk543f_di" bpmnElement="Lane_1tk543f" isHorizontal="true">
-        <dc:Bounds x="180" y="190" width="5530" height="550" />
+        <dc:Bounds x="180" y="190" width="4730" height="550" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_17ri47f_di" bpmnElement="TextAnnotation_17ri47f">
         <dc:Bounds x="610" y="490" width="100" height="78" />
