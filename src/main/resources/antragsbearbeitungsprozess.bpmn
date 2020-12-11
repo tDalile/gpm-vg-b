@@ -20,6 +20,7 @@
         <bpmn:flowNodeRef>Gateway_0mpcagm</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1h2b9jc</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0dzck6x</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0wpoapu</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_12df464" name="Sachbearbeiter">
         <bpmn:flowNodeRef>Activity_0mxl4sm</bpmn:flowNodeRef>
@@ -47,6 +48,7 @@
         <bpmn:flowNodeRef>Activity_0j5ay0y</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1wy2rk6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0sj7rly</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_04osk1d</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_1wyyje1" name="ja" sourceRef="Gateway_0kgputz" targetRef="Activity_0osytj2" />
@@ -91,7 +93,7 @@
     </bpmn:userTask>
     <bpmn:userTask id="Activity_0kr0g5a" name="Risikozuschlagsbegründung hinzufügen">
       <bpmn:incoming>Flow_0qva09p</bpmn:incoming>
-      <bpmn:outgoing>Flow_1c5ylot</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1hccg4l</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_0xdi3k4" name="Überprüfung">
       <bpmn:incoming>Flow_1rvbkdl</bpmn:incoming>
@@ -169,8 +171,7 @@
     </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="Gateway_12v987f">
       <bpmn:incoming>Flow_0mo7yuu</bpmn:incoming>
-      <bpmn:incoming>Flow_1vidpx0</bpmn:incoming>
-      <bpmn:incoming>Flow_1c5ylot</bpmn:incoming>
+      <bpmn:incoming>Flow_1y1h0sm</bpmn:incoming>
       <bpmn:outgoing>Flow_0arcmm7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0mo7yuu" name="ja" sourceRef="Gateway_198pt63" targetRef="Gateway_12v987f" />
@@ -183,9 +184,9 @@
     <bpmn:sequenceFlow id="Flow_07k74bi" name="ja" sourceRef="Gateway_0mpcagm" targetRef="Activity_0za7vp3" />
     <bpmn:sequenceFlow id="Flow_0l3kan9" sourceRef="Activity_0za7vp3" targetRef="Activity_0dzck6x" />
     <bpmn:sequenceFlow id="Flow_0qva09p" sourceRef="Activity_0dzck6x" targetRef="Activity_0kr0g5a" />
-    <bpmn:sequenceFlow id="Flow_1c5ylot" sourceRef="Activity_0kr0g5a" targetRef="Gateway_12v987f" />
+    <bpmn:sequenceFlow id="Flow_1c5ylot" sourceRef="Activity_0wpoapu" targetRef="Gateway_04osk1d" />
     <bpmn:sequenceFlow id="Flow_1fo8nfv" sourceRef="Activity_1h2b9jc" targetRef="Gateway_0mpcagm" />
-    <bpmn:sequenceFlow id="Flow_1vidpx0" name="nein" sourceRef="Gateway_0mpcagm" targetRef="Gateway_12v987f" />
+    <bpmn:sequenceFlow id="Flow_1vidpx0" name="nein" sourceRef="Gateway_0mpcagm" targetRef="Gateway_04osk1d" />
     <bpmn:sequenceFlow id="Flow_1u0eba8" sourceRef="Gateway_168kwdt" targetRef="Activity_02eph5e" />
     <bpmn:sequenceFlow id="Flow_182rhkt" sourceRef="Activity_02eph5e" targetRef="Event_16euqad" />
     <bpmn:sequenceFlow id="Flow_1qep6pw" sourceRef="Activity_1bsgx0j" targetRef="Activity_0fxb6ce" />
@@ -223,30 +224,29 @@
       <bpmn:incoming>Flow_0q09bxe</bpmn:incoming>
       <bpmn:outgoing>Flow_049lcr7</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:textAnnotation id="TextAnnotation_1wf8hld">
-      <bpmn:text>manuelle Tasks können auch automatisierungsferne tasks sein (nicht zuweisbar)</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_1vrck84" sourceRef="Activity_0mxl4sm" targetRef="TextAnnotation_1wf8hld" />
+    <bpmn:exclusiveGateway id="Gateway_04osk1d">
+      <bpmn:incoming>Flow_1c5ylot</bpmn:incoming>
+      <bpmn:incoming>Flow_1vidpx0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y1h0sm</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1y1h0sm" sourceRef="Gateway_04osk1d" targetRef="Gateway_12v987f" />
+    <bpmn:sequenceFlow id="Flow_1hccg4l" sourceRef="Activity_0kr0g5a" targetRef="Activity_0wpoapu" />
+    <bpmn:serviceTask id="Activity_0wpoapu" name="Risikozuschlagsbegründung anhängen">
+      <bpmn:incoming>Flow_1hccg4l</bpmn:incoming>
+      <bpmn:outgoing>Flow_1c5ylot</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_18wsw0y">
       <bpmn:text>parallele visuelle Sichtung, wie aussteigen bei Fehler?</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_0pdj6ay">
       <bpmn:text>Zeigen: Antragsdaten + 3 Risikof.</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_00ejw5k">
-      <bpmn:text>technische Umsetzung?</bpmn:text>
-    </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_11e9g9o">
       <bpmn:text>Handlungsbedarf?</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_1hdxa1w">
-      <bpmn:text>Wie kann man diesen Operator visuell besser darstellen?</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_1ej7565" sourceRef="Activity_0kr0g5a" targetRef="TextAnnotation_00ejw5k" />
     <bpmn:association id="Association_047emcz" sourceRef="Activity_0xdi3k4" targetRef="TextAnnotation_0pdj6ay" />
     <bpmn:association id="Association_1t4va2l" sourceRef="Event_1kirr60" targetRef="TextAnnotation_11e9g9o" />
     <bpmn:association id="Association_0ak4fuy" sourceRef="Activity_0a2aiol" targetRef="TextAnnotation_18wsw0y" />
-    <bpmn:association id="Association_0d3b9rh" sourceRef="Gateway_12v987f" targetRef="TextAnnotation_1hdxa1w" />
     <bpmn:textAnnotation id="TextAnnotation_147fr8n">
       <bpmn:text>input: bmi
 output:rf_bmi</bpmn:text>
@@ -272,6 +272,10 @@ output: nicht vf, vf oder manuell</bpmn:text>
 output: rf_krankenhistorie</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0j9pp0z" sourceRef="Activity_1wy2rk6" targetRef="TextAnnotation_196fhsu" />
+    <bpmn:textAnnotation id="TextAnnotation_00ejw5k">
+      <bpmn:text>technische Umsetzung?</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1ej7565" sourceRef="Activity_0wpoapu" targetRef="TextAnnotation_00ejw5k" />
   </bpmn:process>
   <bpmn:process id="Process_09kx5qb" isExecutable="false">
     <bpmn:laneSet id="LaneSet_115onbr">
@@ -487,14 +491,8 @@ output: rf_krankenhistorie</bpmn:text>
       <bpmndi:BPMNShape id="TextAnnotation_0pdj6ay_di" bpmnElement="TextAnnotation_0pdj6ay">
         <dc:Bounds x="3210" y="1400" width="100" height="51" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_00ejw5k_di" bpmnElement="TextAnnotation_00ejw5k">
-        <dc:Bounds x="4090" y="1200" width="100" height="38" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_11e9g9o_di" bpmnElement="TextAnnotation_11e9g9o">
         <dc:Bounds x="4730" y="881" width="100" height="38" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1hdxa1w_di" bpmnElement="TextAnnotation_1hdxa1w">
-        <dc:Bounds x="3330" y="870" width="193" height="42" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_147fr8n_di" bpmnElement="TextAnnotation_147fr8n">
         <dc:Bounds x="2660" y="871" width="99.99274099883856" height="39.48896631823461" />
@@ -510,6 +508,9 @@ output: rf_krankenhistorie</bpmn:text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_196fhsu_di" bpmnElement="TextAnnotation_196fhsu">
         <dc:Bounds x="2910" y="790" width="229.9833042973287" height="39.48896631823461" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_00ejw5k_di" bpmnElement="TextAnnotation_00ejw5k">
+        <dc:Bounds x="4520" y="1250" width="100" height="38" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0zppvr1_di" bpmnElement="Flow_0zppvr1">
         <di:waypoint x="2360" y="955" />
@@ -596,10 +597,9 @@ output: rf_krankenhistorie</bpmn:text>
         <di:waypoint x="4190" y="1320" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1c5ylot_di" bpmnElement="Flow_1c5ylot">
-        <di:waypoint x="4240" y="1280" />
-        <di:waypoint x="4240" y="1080" />
-        <di:waypoint x="3380" y="1080" />
-        <di:waypoint x="3380" y="1005" />
+        <di:waypoint x="4410" y="1280" />
+        <di:waypoint x="4410" y="1070" />
+        <di:waypoint x="3405" y="1070" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1fo8nfv_di" bpmnElement="Flow_1fo8nfv">
         <di:waypoint x="3590" y="1320" />
@@ -607,11 +607,11 @@ output: rf_krankenhistorie</bpmn:text>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1vidpx0_di" bpmnElement="Flow_1vidpx0">
         <di:waypoint x="3690" y="1295" />
-        <di:waypoint x="3690" y="1110" />
-        <di:waypoint x="3360" y="1110" />
-        <di:waypoint x="3360" y="985" />
+        <di:waypoint x="3690" y="1200" />
+        <di:waypoint x="3380" y="1200" />
+        <di:waypoint x="3380" y="1095" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3699" y="1253" width="21" height="14" />
+          <dc:Bounds x="3699" y="1271" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1u0eba8_di" bpmnElement="Flow_1u0eba8">
@@ -684,6 +684,14 @@ output: rf_krankenhistorie</bpmn:text>
         <di:waypoint x="2580" y="980" />
         <di:waypoint x="2630" y="980" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y1h0sm_di" bpmnElement="Flow_1y1h0sm">
+        <di:waypoint x="3380" y="1045" />
+        <di:waypoint x="3380" y="1005" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hccg4l_di" bpmnElement="Flow_1hccg4l">
+        <di:waypoint x="4290" y="1320" />
+        <di:waypoint x="4360" y="1320" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_0n4liaw_di" bpmnElement="Activity_0mxl4sm">
         <dc:Bounds x="2150" y="940" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -701,9 +709,6 @@ output: rf_krankenhistorie</bpmn:text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ji99y8_di" bpmnElement="Activity_1y8pv3j">
         <dc:Bounds x="2310" y="810" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1wf8hld_di" bpmnElement="TextAnnotation_1wf8hld">
-        <dc:Bounds x="2120" y="840" width="180" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_198pt63_di" bpmnElement="Gateway_198pt63" isMarkerVisible="true">
         <dc:Bounds x="3215" y="955" width="50" height="50" />
@@ -813,14 +818,12 @@ output: rf_krankenhistorie</bpmn:text>
       <bpmndi:BPMNShape id="Activity_1uw18lw_di" bpmnElement="Activity_0sj7rly">
         <dc:Bounds x="2780" y="940" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1vrck84_di" bpmnElement="Association_1vrck84">
-        <di:waypoint x="2190" y="940" />
-        <di:waypoint x="2176" y="889" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1ej7565_di" bpmnElement="Association_1ej7565">
-        <di:waypoint x="4202" y="1280" />
-        <di:waypoint x="4162" y="1238" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Gateway_04osk1d_di" bpmnElement="Gateway_04osk1d" isMarkerVisible="true">
+        <dc:Bounds x="3355" y="1045" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1dwkt43_di" bpmnElement="Activity_0wpoapu">
+        <dc:Bounds x="4360" y="1280" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_047emcz_di" bpmnElement="Association_047emcz">
         <di:waypoint x="3248" y="1360" />
         <di:waypoint x="3257" y="1400" />
@@ -832,10 +835,6 @@ output: rf_krankenhistorie</bpmn:text>
       <bpmndi:BPMNEdge id="Association_0ak4fuy_di" bpmnElement="Association_0ak4fuy">
         <di:waypoint x="3681" y="940" />
         <di:waypoint x="3704" y="918" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0d3b9rh_di" bpmnElement="Association_0d3b9rh">
-        <di:waypoint x="3380" y="955" />
-        <di:waypoint x="3380" y="912" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1g6cst0_di" bpmnElement="Association_1g6cst0">
         <di:waypoint x="2693" y="940" />
@@ -856,6 +855,10 @@ output: rf_krankenhistorie</bpmn:text>
       <bpmndi:BPMNEdge id="Association_0j9pp0z_di" bpmnElement="Association_0j9pp0z">
         <di:waypoint x="2968" y="940" />
         <di:waypoint x="2961" y="829" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1ej7565_di" bpmnElement="Association_1ej7565">
+        <di:waypoint x="4460" y="1312" />
+        <di:waypoint x="4520" y="1286" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1h1d9ml_di" bpmnElement="Participant_0dwyafn" isHorizontal="true">
         <dc:Bounds x="150" y="80" width="5560" height="550" />
