@@ -507,7 +507,7 @@
       </rule>
     </decisionTable>
   </decision>
-  <decision id="dmn-vorerkrankungen" name="Vorerkranungen">
+  <decision id="dmn-vorerkrankungen" name="Vorerkrankungen">
     <decisionTable id="DecisionTable_17rhdrz">
       <input id="InputClause_065g1fo" label="Erkrankungen">
         <inputExpression id="LiteralExpression_045ryh0" typeRef="string" />
