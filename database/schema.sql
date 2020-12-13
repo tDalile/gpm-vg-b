@@ -1,8 +1,9 @@
-ALTER TABLE Kunde
+ALTER TABLE IF EXISTS Kunde
     DROP CONSTRAINT IF EXISTS fk_kunde_versicherter;
 DROP TABLE IF EXISTS Antrag;
 DROP TABLE IF EXISTS Vorerkrankung;
 DROP TABLE IF EXISTS Versicherungspolice;
+DROP TABLE IF EXISTS Krankenhistorie;
 DROP TABLE IF EXISTS Versicherter;
 DROP TABLE IF EXISTS Kunde;
 DROP TABLE IF EXISTS Anschrift;
@@ -12,6 +13,7 @@ DROP TABLE IF EXISTS Erkrankung;
 DROP TABLE IF EXISTS Tarif;
 DROP TABLE IF EXISTS Antragsklassifizierung;
 
+DROP SEQUENCE IF EXISTS krankenhistorie_id_seq;
 DROP SEQUENCE IF EXISTS versicherter_id_seq;
 DROP SEQUENCE IF EXISTS antrag_id_seq;
 DROP SEQUENCE IF EXISTS erkrankung_id_seq;
@@ -128,10 +130,34 @@ VALUES (3, 'Page', 'Eliot', '1987-02-21', 'd', 155, 57, 2, 12693);
 ALTER TABLE Kunde
     ADD CONSTRAINT fk_kunde_versicherter FOREIGN KEY (versicherter_id) REFERENCES Versicherter (versicherter_id);
 
-
---ALTER TABLE Kunde ADD COLUMN
-
 -- mehrfache Abhängigkeit
+
+CREATE SEQUENCE krankenhistorie_id_seq;
+CREATE TABLE Krankenhistorie
+(
+    krankenhistorie_id INT PRIMARY KEY
+);
+
+INSERT INTO Krankenhistorie
+VALUES (nextval('krankenhistorie_id_seq'));
+INSERT INTO Krankenhistorie
+VALUES (nextval('krankenhistorie_id_seq'));
+
+CREATE TABLE Vorerkrankung
+(
+    krankenhistorie_id INT NOT NULL,
+    erkrankung_id      INT NOT NULL,
+    FOREIGN KEY (krankenhistorie_id) REFERENCES Krankenhistorie (krankenhistorie_id),
+    FOREIGN KEY (erkrankung_id) REFERENCES Erkrankung (erkrankung_id)
+);
+
+INSERT INTO Vorerkrankung
+VALUES (1, 1);
+INSERT INTO Vorerkrankung
+VALUES (2, 2);
+INSERT INTO Vorerkrankung
+VALUES (2, 3);
+
 
 CREATE SEQUENCE versicherungspolice_id_seq;
 CREATE TABLE Versicherungspolice
@@ -145,6 +171,8 @@ CREATE TABLE Versicherungspolice
     initiale_beitragshoehe     NUMERIC(10, 2) NOT NULL,
     vertragsbeginn             DATE           NOT NULL,
     tarif_id                   INT            NOT NULL,
+    krankenhistorie_id         INT            NULL,
+    FOREIGN KEY (krankenhistorie_id) REFERENCES Krankenhistorie (krankenhistorie_id),
     FOREIGN KEY (kundennr) REFERENCES Kunde (kundennr),
     FOREIGN KEY (tarif_id) REFERENCES Tarif (tarif_id)
 );
@@ -159,10 +187,16 @@ VALUES (nextval('versicherungspolice_id_seq'), 12693, false, NULL, NULL, 97.54, 
 CREATE SEQUENCE antrag_id_seq;
 CREATE TABLE Antrag
 (
-    antrag_id                 INT PRIMARY KEY,
-    antragsklassifizierung_id INT,
-    antragsdatum              DATE NOT NULL,
-    versicherungspolice_id    INT  NOT NULL,
+    antrag_id                    INT PRIMARY KEY,
+    antragsklassifizierung_id    INT,
+    antragsdatum                 DATE         NOT NULL,
+    bmi                          VARCHAR(255) NULL,
+    risikofaktor_alter           INT          NULL,
+    risikofaktor_bmi             INT          NULL,
+    risikofaktor_krankenhistorie INT          NULL,
+    versicherungspolice_id       INT          NULL,
+    krankenhistorie_id           INT          NULL,
+    FOREIGN KEY (krankenhistorie_id) REFERENCES Krankenhistorie (krankenhistorie_id),
     FOREIGN KEY (antragsklassifizierung_id) REFERENCES Antragsklassifizierung (klassifizierung_id),
     FOREIGN KEY (versicherungspolice_id) REFERENCES Versicherungspolice (versicherungspolice_id)
 );
@@ -171,19 +205,3 @@ INSERT INTO Antrag
 VALUES (nextval('antrag_id_seq'), 1, now(), 1);
 INSERT INTO Antrag
 VALUES (nextval('antrag_id_seq'), 2, now(), 2);
-
-
-CREATE TABLE Vorerkrankung
-(
-    versicherungspolice_id INT NOT NULL,
-    erkrankung_id          INT NOT NULL,
-    FOREIGN KEY (versicherungspolice_id) REFERENCES Versicherungspolice (versicherungspolice_id),
-    FOREIGN KEY (erkrankung_id) REFERENCES Erkrankung (erkrankung_id)
-);
-
-INSERT INTO Vorerkrankung
-VALUES (1, 1);
-INSERT INTO Vorerkrankung
-VALUES (2, 2);
-INSERT INTO Vorerkrankung
-VALUES (2, 3);
