@@ -1,4 +1,4 @@
-package de.thkoeln.inf.sysges.camunda.servletwar.starter.imstarter;
+package de.thkoeln.inf.gpm.vgb;
 
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -22,7 +22,7 @@ public class ProcessUnitTest {
   @Rule
   public static ProcessEngineRule rule = TestCoverageProcessEngineRuleBuilder.create().build();
 
-  private static final String PROCESS_DEFINITION_KEY = "imstarter";
+  private static final String PROCESS_DEFINITION_KEY = "vgb";
 
   static {
     LogFactory.useSlf4jLogging(); // MyBatis
@@ -37,16 +37,16 @@ public class ProcessUnitTest {
    * Just tests if the process definition is deployable.
    */
   @Test
-  @Deployment(resources = "imstartercollaboration.bpmn")
+  @Deployment(resources = "antragsbearbeitungsprozess.bpmn")
   public void testParsingAndDeployment() {
     // nothing is done here, as we just want to check for exceptions during deployment
   }
 
   @Test
-  @Deployment(resources = "imstartercollaboration.bpmn")
+  @Deployment(resources = "antragsbearbeitungsprozess.bpmn")
   public void testHappyPath() {
 	  //ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
-	  
+
 	  // Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
   }
 

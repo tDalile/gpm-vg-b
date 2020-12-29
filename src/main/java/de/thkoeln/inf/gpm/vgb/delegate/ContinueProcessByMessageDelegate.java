@@ -1,14 +1,9 @@
-package de.thkoeln.inf.sysges.camunda.servletwar.starter.imstarter;
+package de.thkoeln.inf.gpm.vgb.delegate;
 
-
-import java.util.logging.Logger;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.camunda.bpm.engine.runtime.EventSubscription;
-import org.camunda.bpm.engine.runtime.Execution;
-import org.camunda.bpm.engine.runtime.MessageCorrelationResult;
 
 import java.util.HashMap;
 import java.util.Map;

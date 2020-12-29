@@ -1,12 +1,11 @@
-package de.thkoeln.inf.sysges.camunda.servletwar.starter.imstarter;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+package de.thkoeln.inf.gpm.vgb.delegate;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This is an easy adapter implementation 
