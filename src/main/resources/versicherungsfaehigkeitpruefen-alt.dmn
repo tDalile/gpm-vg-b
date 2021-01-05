@@ -203,9 +203,147 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ydh3fk">
-          <text></text>
+          <text>100</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1jspat5">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0inwam1">
+        <inputEntry id="UnaryTests_1exzhtd">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rpwupe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xm8e2b">
+          <text>100</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t63pp8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00k67f0">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01d8wbd">
+        <inputEntry id="UnaryTests_1fddxs2">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eie8bp">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sszf7i">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15nb21b">
+          <text>&lt;50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fpeksb">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0lxlrez">
+        <inputEntry id="UnaryTests_0wag70i">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h2knvg">
+          <text>[50..70)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n55epd">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16hkvov">
+          <text>&lt;50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rjp141">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mh0m26">
+        <inputEntry id="UnaryTests_1m474ej">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14x81vi">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f2sbyz">
+          <text>[50..70)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wzh0gd">
+          <text>&lt;50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vyp7kn">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nj00k5">
+        <description></description>
+        <inputEntry id="UnaryTests_09i5eam">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0njd6om">
+          <text>[50..70)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ody528">
+          <text>[50..70)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p2n2fx">
+          <text>&lt;50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1phd5ur">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_065v3l9">
+        <description></description>
+        <inputEntry id="UnaryTests_1wvy9k3">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vwm65j">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_050eqk8">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_030glnb">
+          <text>&gt;=50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ynqzp1">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05k0xnm">
+        <inputEntry id="UnaryTests_1k2n1ab">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05ew2u0">
+          <text>&gt;=70</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03ptb0m">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kfap3v">
+          <text>&lt;50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1analam">
+          <text>"versicherungsfähig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ndvi3n">
+        <inputEntry id="UnaryTests_1razszz">
+          <text>"basis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l5ovvr">
+          <text>&lt;50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a21n04">
+          <text>&gt;=70</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wli28n">
+          <text>&lt;50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0whkkh3">
           <text>"versicherungsfähig"</text>
         </outputEntry>
       </rule>
