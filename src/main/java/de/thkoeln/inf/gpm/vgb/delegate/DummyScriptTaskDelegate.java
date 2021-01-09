@@ -20,8 +20,14 @@ public class DummyScriptTaskDelegate implements JavaDelegate {
         Date geburtstag = (Date) execution.getVariable("mgeburtsdatum");
 
 
+        Double groesseMeter = (Double)execution.getVariable("mgroesse") / 100;
+        Double gewicht = (Double)execution.getVariable("mgewicht");
 
-        Double bmi = (Double)execution.getVariable("mgewicht") / Math.sqrt((Double) execution.getVariable("mgroesse")/100);
+        //basic formula: weight/height(m)²
+        Double bmi = gewicht / Math.pow(groesseMeter,2.0);
+        //round to 2 digits
+        bmi = Math.round(bmi * 100.0)/100.0;
+
 
         /**
         * TODO: Compute each variable

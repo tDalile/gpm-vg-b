@@ -1,0 +1,121 @@
+<form role="form" name="variablesForm">
+  <script cam-script type="text/form-script">
+    camForm.on('form-loaded', function() {
+      camForm.variableManager.fetchVariable('mkundennr');
+      camForm.variableManager.fetchVariable('mversicherter_id');
+      camForm.variableManager.fetchVariable('mvorname');
+      camForm.variableManager.fetchVariable('mnachname');
+      camForm.variableManager.fetchVariable('mgeschlecht');
+      camForm.variableManager.fetchVariable('mtarif');
+      camForm.variableManager.fetchVariable('mvorerkrankung');
+      camForm.variableManager.fetchVariable('alter');
+      camForm.variableManager.fetchVariable('rf_alter');
+      camForm.variableManager.fetchVariable('bmi');
+      camForm.variableManager.fetchVariable('rf_bmi');
+      camForm.variableManager.fetchVariable('rf_krankenhistorie');
+      camForm.variableManager.fetchVariable('risikokategorie');
+
+    });
+    camForm.on('variables-restored', function() {
+      $scope.mkundennr = camForm.variableManager.variableValue('mkundennr');
+      $scope.mversicherter_id = camForm.variableManager.variableValue('mversicherter_id');
+      $scope.mvorname = camForm.variableManager.variableValue('mvorname');
+      $scope.mnachname = camForm.variableManager.variableValue('mnachname');
+      $scope.mgeschlecht = camForm.variableManager.variableValue('mgeschlecht');
+      $scope.mtarif = camForm.variableManager.variableValue('mtarif');
+      $scope.mvorerkrankung = camForm.variableManager.variableValue('mvorerkrankung');
+      $scope.alter = camForm.variableManager.variableValue('alter');
+      $scope.rfalter = camForm.variableManager.variableValue('rf_alter');
+      $scope.bmi = camForm.variableManager.variableValue('bmi');
+      $scope.rfbmi = camForm.variableManager.variableValue('rf_bmi');
+      $scope.rfkrankenhistorie = camForm.variableManager.variableValue('rf_krankenhistorie');
+      $scope.risikokategorie = camForm.variableManager.variableValue('risikokategorie');
+      console.log("setting variables to scope");
+    });
+  </script>
+
+
+  <div class="row">
+
+    <div class="col-xs-6">
+      <h2>Ablehnungsbegründung</h2>
+
+      <!-- Ablehnungsnachricht -->
+      Sehr geehrter
+      <span ng-if="mgeschlecht == 'weiblich'">Frau</span>
+      <span ng-if="mgeschlecht == 'maennlich'">Herr</span>
+      {{mvorname}} {{mnachname}},
+      <br><br>
+      Es tut uns außerordentlich leid, Ihnen mitteilen zu müssen, dass wir Ihnen aufgrund
+      <div class="form-group">
+        <label for="ablehnungsnachricht"></label>
+        <div class="controls">
+        <textarea class="form-control"
+                  cam-variable-name="ablehnungsnachricht"
+                  cam-variable-type="String"
+                  placeholder="Grund..."
+                  rows="10"></textarea>
+        </div>
+      </div>
+      keinen passenden Tarif bei uns anbieten können.
+      <br><br>
+      Mit freundlichen Grüßen
+      <br><br>
+      Ihre Versicherungsgesellschaft B
+    </div>
+
+    <div class="col-xs-6">
+      <h2>Zusammenfassung</h2>
+
+      <!-- Antragszusammenfassung -->
+
+      <table>
+
+        <tr>
+          <td>Kundennummer:</td>
+          <td>{{ mkundennr }}</td>
+        </tr>
+
+        <tr>
+          <td>Versicherungsnummer:</td>
+          <td>{{mversicherter_id}}</td>
+        </tr>
+
+      </table>
+
+      <h4>Ablehnungsgrund:</h4>
+
+      <table>
+        <tr>
+          <td>Tarif:</td>
+          <td>{{ mtarif }}</td>
+        </tr>
+
+        <tr>
+          <td>Risikofaktor Alter:</td>
+          <td>{{rfalter}} (Alter: {{alter}})</td>
+        </tr>
+
+        <tr>
+          <td>Risikofaktor BMI:</td>
+          <td>{{rfbmi}} (BMI: {{bmi}})</td>
+        </tr>
+
+        <tr>
+          <td>Risikofaktor Krankehistorie:</td>
+          <td>{{rfkrankenhistorie}} (Risikokategorie: {{riskokategorie}}, Vorerkrankung: {{mvorerkrankung}})</td>
+        </tr>
+
+
+      </table>
+
+
+
+
+
+    </div>
+
+  </div>
+
+
+</form>

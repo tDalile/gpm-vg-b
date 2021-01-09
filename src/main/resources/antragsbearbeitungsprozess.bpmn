@@ -71,11 +71,11 @@
       <bpmn:outgoing>Flow_1bslhts</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_032kue7" messageRef="Message_1hdarxq" />
     </bpmn:startEvent>
-    <bpmn:sendTask id="AblehnungsnachrichtVersendenTask" name="Ablehnungsnachricht versenden" camunda:delegateExpression="${continueProcessByMessageDelegate}">
+    <bpmn:sendTask id="AblehnungsnachrichtVersendenTask" name="Ablehnungsnachricht versenden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.ContinueProcessByRejectionMessageDelegate">
       <bpmn:incoming>Flow_0q1hsu3</bpmn:incoming>
       <bpmn:outgoing>Flow_182rhkt</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:userTask id="AblehnungsbegrundungHinzufugenTask" name="Ablehnungsbegründung hinzufügen">
+    <bpmn:userTask id="AblehnungsbegrundungHinzufugenTask" name="Ablehnungsbegründung hinzufügen" camunda:formKey="embedded:app:forms/rejection-message.html">
       <bpmn:incoming>NeinSequenceFlow</bpmn:incoming>
       <bpmn:outgoing>Flow_0q1hsu3</bpmn:outgoing>
     </bpmn:userTask>
@@ -175,7 +175,7 @@
         <bpmn:targetRef>DatenbankDataStoreReference1</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:userTask id="AblehnungsgrundAnzeigenTask" name="Ablehnungsgrund anzeigen">
+    <bpmn:userTask id="AblehnungsgrundAnzeigenTask" name="Ablehnungsgrund anzeigen" camunda:formKey="embedded:app:forms/show-rejection-message.html">
       <bpmn:incoming>Flow_1cbc860</bpmn:incoming>
       <bpmn:outgoing>Flow_1xeni61</bpmn:outgoing>
     </bpmn:userTask>
@@ -210,8 +210,8 @@
     <bpmn:sequenceFlow id="Flow_0i55j18" sourceRef="AntragsprozessGestartetStartEvent" targetRef="Gateway_1az1ia7" />
   </bpmn:process>
   <bpmn:message id="Message_1hdarxq" name="instantiationMessage" />
-  <bpmn:message id="Message_1f441az" name="receivedMessage" />
-  <bpmn:message id="Message_1uw6e3j" name="Message_3dsqb8j" />
+  <bpmn:message id="Message_1f441az" name="receivedRevisionMessage" />
+  <bpmn:message id="Message_1uw6e3j" name="receivedRejectionMessage" />
   <bpmn:message id="Message_1t6j2hs" name="Message_03rfn30" />
   <bpmn:message id="Message_09pbgk1" name="Message_3ds5ivv" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
