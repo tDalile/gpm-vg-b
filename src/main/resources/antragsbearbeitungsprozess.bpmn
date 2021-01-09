@@ -19,12 +19,13 @@
         <bpmn:flowNodeRef>RisikofaktorBMITask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RisikofaktorAlterTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>UberarbeitungsanfrageSendenTask</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>VollstandigGateway</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>UberprufeAntragTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AntragImSystemEingegangenStartEvent</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AblehnungsnachrichtVersendenTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AblehnungsbegrundungHinzufugenTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AntragsbestatigungAngenommenEndEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>VollstandigGateway</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0c1gz0l</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataStoreReference id="DatenbankDataStoreReference" name="Datenbank" />
@@ -56,17 +57,12 @@
       <bpmn:outgoing>Flow_0q09bxe</bpmn:outgoing>
     </bpmn:businessRuleTask>
     <bpmn:businessRuleTask id="RisikofaktorAlterTask" name="Risikofaktor Alter" camunda:decisionRef="dmn-risikofaktor-alter">
-      <bpmn:incoming>JaSequenceFlow</bpmn:incoming>
+      <bpmn:incoming>Flow_1lk1a5c</bpmn:incoming>
       <bpmn:outgoing>Flow_1isxvnh</bpmn:outgoing>
     </bpmn:businessRuleTask>
     <bpmn:sendTask id="UberarbeitungsanfrageSendenTask" name="Überarbeitungsanfrage senden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.ContinueProcessByMessageDelegate">
       <bpmn:incoming>NeinSequenceFlow1</bpmn:incoming>
     </bpmn:sendTask>
-    <bpmn:exclusiveGateway id="VollstandigGateway" name="vollständig ?">
-      <bpmn:incoming>Flow_0gra15k</bpmn:incoming>
-      <bpmn:outgoing>JaSequenceFlow</bpmn:outgoing>
-      <bpmn:outgoing>NeinSequenceFlow1</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:userTask id="UberprufeAntragTask" name="Überprüfe Antrag" camunda:formKey="embedded:app:forms/check-claim.html">
       <bpmn:incoming>Flow_1bslhts</bpmn:incoming>
       <bpmn:outgoing>Flow_0gra15k</bpmn:outgoing>
@@ -92,7 +88,7 @@
     <bpmn:sequenceFlow id="Flow_049lcr7" sourceRef="VorerkrankungenTask" targetRef="RisikofaktorKrankhistorieTask" />
     <bpmn:sequenceFlow id="Flow_0q09bxe" sourceRef="RisikofaktorBMITask" targetRef="VorerkrankungenTask" />
     <bpmn:sequenceFlow id="Flow_1isxvnh" sourceRef="RisikofaktorAlterTask" targetRef="RisikofaktorBMITask" />
-    <bpmn:sequenceFlow id="JaSequenceFlow" name="ja" sourceRef="VollstandigGateway" targetRef="RisikofaktorAlterTask">
+    <bpmn:sequenceFlow id="JaSequenceFlow" name="ja" sourceRef="VollstandigGateway" targetRef="Activity_0c1gz0l">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_claimComplete}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="NeinSequenceFlow1" name="nein" sourceRef="VollstandigGateway" targetRef="UberarbeitungsanfrageSendenTask">
@@ -107,6 +103,16 @@
     <bpmn:endEvent id="AntragsbestatigungAngenommenEndEvent" name="Antragsbestätigung angenommen">
       <bpmn:incoming>JaSequenceFlow1</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="VollstandigGateway" name="vollständig ?">
+      <bpmn:incoming>Flow_0gra15k</bpmn:incoming>
+      <bpmn:outgoing>JaSequenceFlow</bpmn:outgoing>
+      <bpmn:outgoing>NeinSequenceFlow1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1lk1a5c" sourceRef="Activity_0c1gz0l" targetRef="RisikofaktorAlterTask" />
+    <bpmn:serviceTask id="Activity_0c1gz0l" name="DummyScript" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.DummyScriptTaskDelegate">
+      <bpmn:incoming>JaSequenceFlow</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lk1a5c</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_0a2s4ds">
       <bpmn:text>input: alter output: rf__alter</bpmn:text>
     </bpmn:textAnnotation>
@@ -158,27 +164,11 @@
       <bpmn:outgoing>Flow_0vr0k9o</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1kjs8hp" messageRef="Message_1f441az" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="UberarbeitungAntragTask" name="Überarbeitung Antrag">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="kundennr" label="Kundennummer" type="long" />
-          <camunda:formField id="eintritt" label="Eintrittsdatum" type="date" />
-          <camunda:formField id="versicherter_id" label="Versichertennummer" type="long" />
-          <camunda:formField id="nachname" label="Nachname" type="string" />
-          <camunda:formField id="vorname" label="Vorname" type="string" />
-          <camunda:formField id="geburtsdatum" label="Geburtsdatum" type="date" />
-          <camunda:formField id="geschlecht" label="Geschlecht" type="enum">
-            <camunda:value id="maennlich" name="Männlich" />
-            <camunda:value id="weiblich" name="Weiblich" />
-          </camunda:formField>
-          <camunda:formField id="groesse" label="Größe (cm)" type="long" />
-          <camunda:formField id="gewicht" label="Gewicht (kg)" type="long" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="UberarbeitungAntragTask" name="Überarbeitung Antrag" camunda:formKey="embedded:app:forms/start-form.html">
       <bpmn:incoming>Flow_0vr0k9o</bpmn:incoming>
       <bpmn:outgoing>Flow_1fhmoab</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="AntragAnpassenTask" name="Antrag anpassen" camunda:delegateExpression="${editClaimDelegate}">
+    <bpmn:serviceTask id="AntragAnpassenTask" name="Antrag anpassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.EditClaimDelegate">
       <bpmn:incoming>Flow_1fhmoab</bpmn:incoming>
       <bpmn:outgoing>Flow_122gdmp</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0ewjjav">
@@ -195,21 +185,7 @@
     <bpmn:dataStoreReference id="DatenbankDataStoreReference1" name="Datenbank" />
     <bpmn:startEvent id="AntragsprozessGestartetStartEvent" name="Antragsprozess gestartet" camunda:formKey="embedded:app:forms/start-form.html">
       <bpmn:extensionElements>
-        <camunda:executionListener event="start" class="de.thkoeln.inf.gpm.vgb.listener.ProcessStartEventListener" />
-        <camunda:formData>
-          <camunda:formField id="kundennr" label="Kundennummer" type="long" />
-          <camunda:formField id="eintritt" label="Eintrittsdatum" type="date" />
-          <camunda:formField id="versicherter_id" label="Versichertennummer" type="long" />
-          <camunda:formField id="nachname" label="Nachname" type="string" />
-          <camunda:formField id="vorname" label="Vorname" type="string" />
-          <camunda:formField id="geburtsdatum" label="Geburtsdatum" type="date" />
-          <camunda:formField id="geschlecht" label="Geschlecht" type="enum">
-            <camunda:value id="maennlich" name="Männlich" />
-            <camunda:value id="weiblich" name="Weiblich" />
-          </camunda:formField>
-          <camunda:formField id="groesse" label="Größe (cm)" type="long" />
-          <camunda:formField id="gewicht" label="Gewicht (kg)" type="long" />
-        </camunda:formData>
+        <camunda:executionListener class="de.thkoeln.inf.gpm.vgb.listener.ProcessStartEventListener" event="start" />
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0i55j18</bpmn:outgoing>
     </bpmn:startEvent>
@@ -266,20 +242,21 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0gra15k_di" bpmnElement="Flow_0gra15k">
         <di:waypoint x="2290" y="1030" />
-        <di:waypoint x="2395" y="1030" />
+        <di:waypoint x="2325" y="1030" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0zppvr1_di" bpmnElement="NeinSequenceFlow1">
-        <di:waypoint x="2420" y="1005" />
-        <di:waypoint x="2420" y="860" />
+        <di:waypoint x="2350" y="1005" />
+        <di:waypoint x="2350" y="820" />
+        <di:waypoint x="2370" y="820" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2439" y="943" width="21" height="14" />
+          <dc:Bounds x="2369" y="928" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1wyyje1_di" bpmnElement="JaSequenceFlow">
-        <di:waypoint x="2445" y="1030" />
-        <di:waypoint x="2540" y="1030" />
+        <di:waypoint x="2375" y="1030" />
+        <di:waypoint x="2400" y="1030" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2526" y="1053" width="8" height="14" />
+          <dc:Bounds x="2469" y="1053" width="8" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1isxvnh_di" bpmnElement="Flow_1isxvnh">
@@ -313,6 +290,10 @@
         <di:waypoint x="3210" y="1030" />
         <di:waypoint x="3245" y="1030" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lk1a5c_di" bpmnElement="Flow_1lk1a5c">
+        <di:waypoint x="2500" y="1030" />
+        <di:waypoint x="2540" y="1030" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_16euqad_di" bpmnElement="AntragAbgelehntEndEvent">
         <dc:Bounds x="3422" y="662" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -342,12 +323,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ji99y8_di" bpmnElement="UberarbeitungsanfrageSendenTask">
         <dc:Bounds x="2370" y="780" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0kgputz_di" bpmnElement="VollstandigGateway" isMarkerVisible="true">
-        <dc:Bounds x="2395" y="1005" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2389" y="1065" width="62" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0n4liaw_di" bpmnElement="UberprufeAntragTask">
         <dc:Bounds x="2190" y="990" width="100" height="80" />
@@ -384,6 +359,15 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_147fr8n_di" bpmnElement="TextAnnotation_147fr8n">
         <dc:Bounds x="2680" y="840" width="100" height="39" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0kgputz_di" bpmnElement="VollstandigGateway" isMarkerVisible="true">
+        <dc:Bounds x="2325" y="1005" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2319" y="1065" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hs3vm6_di" bpmnElement="Activity_0c1gz0l">
+        <dc:Bounds x="2400" y="990" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_04nxgcf_di" bpmnElement="Association_04nxgcf">
         <di:waypoint x="2588" y="990" />

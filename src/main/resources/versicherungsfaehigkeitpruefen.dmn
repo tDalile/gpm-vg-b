@@ -213,10 +213,12 @@
   </decision>
   <decision id="dmn-risikofaktor-alter" name="Risikofaktor Alter">
     <decisionTable id="DecisionTable_0tvlaxz">
-      <input id="InputClause_02ybqte" label="Alter des Kunden">
-        <inputExpression id="LiteralExpression_0t75ni6" typeRef="integer" />
+      <input id="InputClause_02ybqte" label="Alter des Kunden" biodi:width="192">
+        <inputExpression id="LiteralExpression_0t75ni6" typeRef="integer">
+          <text>alter</text>
+        </inputExpression>
       </input>
-      <output id="OutputClause_1q5i5f9" label="Bewertung des Alters" name="Risikofaktor Alter" typeRef="integer" />
+      <output id="OutputClause_1q5i5f9" label="Bewertung des Alters" name="rf_alter" typeRef="integer" />
       <rule id="DecisionRule_01nkct9">
         <inputEntry id="UnaryTests_1gzt8jd">
           <text>&lt;=40</text>
