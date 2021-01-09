@@ -37,26 +37,26 @@
       <bpmn:outgoing>NeinSequenceFlow</bpmn:outgoing>
       <bpmn:outgoing>JaSequenceFlow1</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:businessRuleTask id="VersicherungsfahigkeitPrufenTask" name="Versicherungsfähigkeit prüfen" camunda:decisionRef="dmn-versicherungsfaehigkeit-pruefen">
+    <bpmn:businessRuleTask id="VersicherungsfahigkeitPrufenTask" name="Versicherungsfähigkeit prüfen" camunda:resultVariable="int_entitledToInsurance" camunda:decisionRef="dmn-versicherungsfaehigkeit-pruefen" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_102uf7s</bpmn:incoming>
       <bpmn:outgoing>Flow_13amgq1</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="RisikofaktorKrankhistorieTask" name="Risikofaktor Krankhistorie" camunda:decisionRef="dmn-risikofaktor-krankenhistorie">
+    <bpmn:businessRuleTask id="RisikofaktorKrankhistorieTask" name="Risikofaktor Krankhistorie" camunda:resultVariable="rf_krankenhistorie" camunda:decisionRef="dmn-risikofaktor-krankenhistorie" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_049lcr7</bpmn:incoming>
       <bpmn:outgoing>Flow_102uf7s</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="VorerkrankungenTask" name="Vorerkrankungen" camunda:decisionRef="dmn-vorerkrankungen">
+    <bpmn:businessRuleTask id="VorerkrankungenTask" name="Vorerkrankungen" camunda:resultVariable="risikokategorie" camunda:decisionRef="dmn-vorerkrankungen" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_0q09bxe</bpmn:incoming>
       <bpmn:outgoing>Flow_049lcr7</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0qbmad6">
         <bpmn:targetRef>DatenbankDataStoreReference</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="RisikofaktorBMITask" name="Risikofaktor BMI" camunda:decisionRef="dmn-risikofaktor-bmi">
+    <bpmn:businessRuleTask id="RisikofaktorBMITask" name="Risikofaktor BMI" camunda:resultVariable="rf_bmi" camunda:decisionRef="dmn-risikofaktor-bmi" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_1isxvnh</bpmn:incoming>
       <bpmn:outgoing>Flow_0q09bxe</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="RisikofaktorAlterTask" name="Risikofaktor Alter" camunda:decisionRef="dmn-risikofaktor-alter">
+    <bpmn:businessRuleTask id="RisikofaktorAlterTask" name="Risikofaktor Alter" camunda:resultVariable="rf_alter" camunda:decisionRef="dmn-risikofaktor-alter" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_1lk1a5c</bpmn:incoming>
       <bpmn:outgoing>Flow_1isxvnh</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -83,7 +83,7 @@
     <bpmn:sequenceFlow id="Flow_102uf7s" sourceRef="RisikofaktorKrankhistorieTask" targetRef="VersicherungsfahigkeitPrufenTask" />
     <bpmn:sequenceFlow id="Flow_182rhkt" sourceRef="AblehnungsnachrichtVersendenTask" targetRef="AntragAbgelehntEndEvent" />
     <bpmn:sequenceFlow id="NeinSequenceFlow" name="nein" sourceRef="VersicherungsfahgigGateway" targetRef="AblehnungsbegrundungHinzufugenTask">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!int_entitledToInsurance}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance=="nicht versicherungsfaehig"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_049lcr7" sourceRef="VorerkrankungenTask" targetRef="RisikofaktorKrankhistorieTask" />
     <bpmn:sequenceFlow id="Flow_0q09bxe" sourceRef="RisikofaktorBMITask" targetRef="VorerkrankungenTask" />
@@ -98,7 +98,7 @@
     <bpmn:sequenceFlow id="Flow_1bslhts" sourceRef="AntragImSystemEingegangenStartEvent" targetRef="UberprufeAntragTask" />
     <bpmn:sequenceFlow id="Flow_0q1hsu3" sourceRef="AblehnungsbegrundungHinzufugenTask" targetRef="AblehnungsnachrichtVersendenTask" />
     <bpmn:sequenceFlow id="JaSequenceFlow1" name="ja" sourceRef="VersicherungsfahgigGateway" targetRef="AntragsbestatigungAngenommenEndEvent">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance=="versicherungsfaehig"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="AntragsbestatigungAngenommenEndEvent" name="Antragsbestätigung angenommen">
       <bpmn:incoming>JaSequenceFlow1</bpmn:incoming>
@@ -225,6 +225,10 @@
       <bpmndi:BPMNShape id="Lane_068bq09_di" bpmnElement="AbteilungsleiterLane" isHorizontal="true">
         <dc:Bounds x="180" y="1130" width="4760" height="410" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1lk1a5c_di" bpmnElement="Flow_1lk1a5c">
+        <di:waypoint x="2500" y="1030" />
+        <di:waypoint x="2540" y="1030" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0mo7yuu_di" bpmnElement="JaSequenceFlow1">
         <di:waypoint x="3295" y="1030" />
         <di:waypoint x="3532" y="1030" />
@@ -290,10 +294,6 @@
         <di:waypoint x="3210" y="1030" />
         <di:waypoint x="3245" y="1030" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1lk1a5c_di" bpmnElement="Flow_1lk1a5c">
-        <di:waypoint x="2500" y="1030" />
-        <di:waypoint x="2540" y="1030" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_16euqad_di" bpmnElement="AntragAbgelehntEndEvent">
         <dc:Bounds x="3422" y="662" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -345,6 +345,15 @@
           <dc:Bounds x="3506" y="1055" width="89" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0kgputz_di" bpmnElement="VollstandigGateway" isMarkerVisible="true">
+        <dc:Bounds x="2325" y="1005" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2319" y="1065" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hs3vm6_di" bpmnElement="Activity_0c1gz0l">
+        <dc:Bounds x="2400" y="990" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0a2s4ds_di" bpmnElement="TextAnnotation_0a2s4ds">
         <dc:Bounds x="2530" y="810" width="140" height="39" />
       </bpmndi:BPMNShape>
@@ -359,15 +368,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_147fr8n_di" bpmnElement="TextAnnotation_147fr8n">
         <dc:Bounds x="2680" y="840" width="100" height="39" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0kgputz_di" bpmnElement="VollstandigGateway" isMarkerVisible="true">
-        <dc:Bounds x="2325" y="1005" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2319" y="1065" width="62" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0hs3vm6_di" bpmnElement="Activity_0c1gz0l">
-        <dc:Bounds x="2400" y="990" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_04nxgcf_di" bpmnElement="Association_04nxgcf">
         <di:waypoint x="2588" y="990" />

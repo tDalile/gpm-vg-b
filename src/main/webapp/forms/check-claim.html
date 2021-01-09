@@ -10,6 +10,8 @@
       camForm.variableManager.fetchVariable('mgeschlecht');
       camForm.variableManager.fetchVariable('mgroesse');
       camForm.variableManager.fetchVariable('mgewicht');
+      camForm.variableManager.fetchVariable('mtarif');
+      camForm.variableManager.fetchVariable('mvorerkrankung');
     });
     camForm.on('variables-restored', function() {
       $scope.mkundennr = camForm.variableManager.variableValue('mkundennr');
@@ -21,6 +23,8 @@
       $scope.mgeschlecht = camForm.variableManager.variableValue('mgeschlecht');
       $scope.mgroesse = camForm.variableManager.variableValue('mgroesse');
       $scope.mgewicht = camForm.variableManager.variableValue('mgewicht');
+      $scope.mtarif = camForm.variableManager.variableValue('mtarif');
+      $scope.mvorerkrankung = camForm.variableManager.variableValue('mvorerkrankung');
       console.log("setting variables to scope");
     });
   </script>
@@ -73,6 +77,26 @@
     </table>
 
   </data>
+
+  <h2>Tarifauswahl:</h2>
+  <table>
+
+    <tr>
+      <td>Tarif:</td>
+      <td>{{ mtarif }}</td>
+    </tr>
+
+  </table>
+
+  <h2>Vorerkrankung:</h2>
+  <table>
+
+    <tr>
+      <td>Krankheit:</td>
+      <td>{{ mvorerkrankung }}</td>
+    </tr>
+
+  </table>
 
   <h2>Weiterverarbeitung</h2>
 

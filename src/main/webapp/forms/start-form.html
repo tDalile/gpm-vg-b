@@ -44,7 +44,6 @@
   </span>
     </p>
 
-
     <!-- Versicherter ID -->
     <div class="form-group">
       <label for="versicherter_id">Versicherungsnummer</label>
@@ -59,7 +58,51 @@
                ng-maxlength="25" />
       </div>
     </div>
-</div>
+
+    <!-- TODO: Automatic generation (Idea: DB -> List/Enum -> Form -> Script) -->
+    <h2>Vorerkrankungen</h2>
+
+    <!-- Vorerkrankungen -->
+    <div class="form-group">
+      <label for="vorerkrankung">Vorerkrankung</label>
+      <div class="controls">
+
+        <!--select box -->
+        <select class="form-control"
+                cam-variable-name="vorerkrankung"
+                cam-variable-type="String">
+          <option value="weisheitszaehne">Weisheitszähne</option>
+          <option value="raucherlunge">Raucherlunge</option>
+          <option value="fettleber">Fettleber</option>
+          <option value="herzfehler">Herzfehler</option>
+        </select>
+
+      </div>
+    </div>
+
+    <h2>Tarifauswahl</h2>
+
+    <!-- Tarif -->
+    <div class="form-group">
+      <label for="tarif">Tarifart</label>
+      <div class="controls">
+
+        <!--select box -->
+        <select class="form-control"
+                cam-variable-name="tarif"
+                cam-variable-type="String">
+          <option value="basis">Basis</option>
+          <option value="premium">Premium</option>
+        </select>
+
+      </div>
+    </div>
+
+    <!-- TODO: nh-change Script für Informationsfenster -->
+    <!-- Hinweisfenster Tarif -->
+
+
+  </div>
   <div class="col-xs-6">
     <h2>Versicherungsdaten</h2>
 

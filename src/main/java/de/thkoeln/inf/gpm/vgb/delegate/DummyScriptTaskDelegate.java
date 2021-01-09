@@ -21,7 +21,7 @@ public class DummyScriptTaskDelegate implements JavaDelegate {
 
 
 
-        Double bmi = (Double)execution.getVariable("mgewicht") / Math.sqrt((Double) execution.getVariable("mgroesse"));
+        Double bmi = (Double)execution.getVariable("mgewicht") / Math.sqrt((Double) execution.getVariable("mgroesse")/100);
 
         /**
         * TODO: Compute each variable
@@ -44,6 +44,6 @@ public class DummyScriptTaskDelegate implements JavaDelegate {
         LocalDate gLocD = gLocDT.toLocalDate();
 
         int alter;
-        return alter = Period.between(LocalDate.now(), gLocD).getYears();
+        return alter = Period.between(gLocD, LocalDate.now()).getYears();
     }
 }

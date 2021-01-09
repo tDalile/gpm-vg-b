@@ -49,6 +49,8 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
 		 processVariables.put("mgeschlecht", execution.getVariable("geschlecht"));
 		 processVariables.put("mgroesse", execution.getVariable("groesse"));
 		 processVariables.put("mgewicht", execution.getVariable("gewicht"));
+		 processVariables.put("mtarif", execution.getVariable("tarif"));
+		 processVariables.put("mvorerkrankung", execution.getVariable("vorerkrankung"));
 
 		 //TODO: Implement constant approach
 		 //processVariables.put("mversicherter_id", execution.getVariable(ProcessVariableConstants.VERSICHERTER_ID));
