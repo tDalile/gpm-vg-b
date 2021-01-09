@@ -30,11 +30,23 @@ public class ContinueProcessByMessageDelegate implements JavaDelegate {
 		// set the correlation id to identify the waiting process
 		String correlationId = (String) processVariables.get("correlationId");
 
-		runtimeService.createMessageCorrelation("ReceivedMessage")
+		runtimeService
+		.createMessageCorrelation("receivedMessage")
 		.setVariables(processVariables)
 		// set the correlation id as processInstanceBusinessKey of the waiting process
 		.processInstanceBusinessKey(correlationId)
 		.correlate();
-		
+		/*
+		processVariables.put("kundennr", execution.getVariable("mkundennr"));
+		processVariables.put("eintritt", execution.getVariable("meintritt"));
+		processVariables.put("versicherter_id", execution.getVariable("mversicherter_id"));
+		processVariables.put("nachname", execution.getVariable("mnachname"));
+		processVariables.put("vorname", execution.getVariable("mvorname"));
+		processVariables.put("geburtsdatum", execution.getVariable("mgeburtsdatum"));
+		processVariables.put("geschlecht", execution.getVariable("mgeschlecht"));
+		processVariables.put("groesse", execution.getVariable("mgroesse"));
+		processVariables.put("gewicht", execution.getVariable("mgewicht"));
+
+		 */
 	  }
 }
