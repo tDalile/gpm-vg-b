@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class Claim(
     val id: Int?,
-    val claimDate: String,
+    val claimDate: String, // TODO brauchen wir nicht RIP
     val bmi: Double,
     val riskFactorAge: Long?,
     val riskFactorBmi: Long?,

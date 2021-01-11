@@ -13,7 +13,7 @@ class InsurancePolicy(
     val riskSurchargeReason: String,
     val monthlyContribution: Double,
     val initialContributionAmount: Double,
-    val startOfContract: String,
+    val startOfContract: String, // TODO neues datum hinzufügen.
     val customer: Customer,
     val tariff: Tariff,
     val medicalHistory: MedicalHistory

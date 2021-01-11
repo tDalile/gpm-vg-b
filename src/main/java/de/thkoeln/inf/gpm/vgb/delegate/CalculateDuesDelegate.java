@@ -26,7 +26,7 @@ public class CalculateDuesDelegate implements JavaDelegate {
         double initialDue = 110.0;
         double multiplier = 10.0;
 
-
+        // TODO fix div/0
         double monthlyDue = multiplier * age + riskDue;
 
         if (monthlyDue > initialDue) monthlyDue = initialDue + riskDue;
@@ -40,10 +40,10 @@ public class CalculateDuesDelegate implements JavaDelegate {
         processVariables = delegateExecution.getVariables();
 
         // TODO: change names of the variables
-        age = (int) processVariables.get("age");
-        riskDue = (double) processVariables.get("riskDue");
+        age = (int) processVariables.get("alter");
+        riskDue = 0.0; // (double) processVariables.get("riskDue");
 
-        processVariables.put("monthlyDue", calculateDue());
+        processVariables.put("monthlyDue", (long) calculateDue());
 
         delegateExecution.setVariables(processVariables);
     }
