@@ -13,30 +13,30 @@
     <decisionTable id="DecisionTable_1596vwh" hitPolicy="FIRST">
       <input id="InputClause_02rasbz" label="Tarif" biodi:width="192">
         <inputExpression id="LiteralExpression_0wrf2r1" typeRef="string">
-          <text></text>
+          <text>mtarif</text>
         </inputExpression>
         <inputValues id="UnaryTests_08biz0a">
           <text>"basis","premium"</text>
         </inputValues>
       </input>
-      <input id="InputClause_0impc0y" camunda:inputVariable="age">
+      <input id="InputClause_0impc0y" label="Risikofaktor Alter" camunda:inputVariable="age">
         <inputExpression id="LiteralExpression_169rrmp" typeRef="integer">
-          <text>Risikofaktor Alter</text>
+          <text>rf_alter</text>
         </inputExpression>
       </input>
       <input id="InputClause_071muss" label="Risikofaktor BMI" biodi:width="192">
         <inputExpression id="LiteralExpression_0gt28p4" typeRef="integer">
-          <text>Risikofaktor BMI</text>
+          <text>rf_bmi</text>
         </inputExpression>
       </input>
       <input id="InputClause_0g8tlvk" label="Risikofaktor Krankenhistorie">
         <inputExpression id="LiteralExpression_14fxb46" typeRef="integer">
-          <text>Risikofaktor Krank</text>
+          <text>rf_krankenhistorie</text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Klassifizierung" typeRef="string" biodi:width="192">
+      <output id="Output_1" label="Klassifizierung" name="int_entitledToInsurance" typeRef="string" biodi:width="192">
         <outputValues id="UnaryTests_1e9g1cv">
-          <text>"versicherungsfähig","nicht versicherungsfähig","manuell"</text>
+          <text>"versicherungsfaehig","nicht versicherungsfaehig","manuell"</text>
         </outputValues>
       </output>
       <rule id="DecisionRule_1dbq9yy">
@@ -53,7 +53,7 @@
           <text>100</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1jtw05e">
-          <text>"nicht versicherungsfähig"</text>
+          <text>"nicht versicherungsfaehig"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0qahpup">
@@ -70,7 +70,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_05h0t85">
-          <text>"nicht versicherungsfähig"</text>
+          <text>"nicht versicherungsfaehig"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_11oaa9y">
@@ -87,7 +87,7 @@
           <text>&lt;50</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1emdbfy">
-          <text>"versicherungsfähig"</text>
+          <text>"versicherungsfaehig"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_09h4jho">
@@ -104,7 +104,7 @@
           <text>&lt;50</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0tedp9j">
-          <text>"versicherungsfähig"</text>
+          <text>"versicherungsfaehig"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_14u5adc">
@@ -121,7 +121,7 @@
           <text>&lt;50</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0iknsdy">
-          <text>"versicherungsfähig"</text>
+          <text>"versicherungsfaehig"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0r61neu">
@@ -206,17 +206,19 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1jspat5">
-          <text>"versicherungsfähig"</text>
+          <text>"versicherungsfaehig"</text>
         </outputEntry>
       </rule>
     </decisionTable>
   </decision>
   <decision id="dmn-risikofaktor-alter" name="Risikofaktor Alter">
-    <decisionTable id="DecisionTable_0tvlaxz">
-      <input id="InputClause_02ybqte" label="Alter des Kunden">
-        <inputExpression id="LiteralExpression_0t75ni6" typeRef="integer" />
+    <decisionTable id="DecisionTable_0tvlaxz" hitPolicy="FIRST">
+      <input id="InputClause_02ybqte" label="Alter des Kunden" biodi:width="192">
+        <inputExpression id="LiteralExpression_0t75ni6" typeRef="integer">
+          <text>alter</text>
+        </inputExpression>
       </input>
-      <output id="OutputClause_1q5i5f9" label="Bewertung des Alters" name="Risikofaktor Alter" typeRef="integer" />
+      <output id="OutputClause_1q5i5f9" label="Bewertung des Alters" name="rf_alter" typeRef="integer" />
       <rule id="DecisionRule_01nkct9">
         <inputEntry id="UnaryTests_1gzt8jd">
           <text>&lt;=40</text>
@@ -259,21 +261,24 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1kr77ym">
+        <description>999 Damit in jedem Fall manuell getriggert wird</description>
         <inputEntry id="UnaryTests_0mnb6f3">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0s8vjz2">
-          <text></text>
+          <text>999</text>
         </outputEntry>
       </rule>
     </decisionTable>
   </decision>
   <decision id="dmn-risikofaktor-bmi" name="Risikofaktor BMI">
-    <decisionTable id="DecisionTable_0tiz9vd">
+    <decisionTable id="DecisionTable_0tiz9vd" hitPolicy="FIRST">
       <input id="InputClause_1szfar3" label="BMI des Kunden" biodi:width="185">
-        <inputExpression id="LiteralExpression_1tcg7v9" typeRef="integer" />
+        <inputExpression id="LiteralExpression_1tcg7v9" typeRef="double">
+          <text>bmi</text>
+        </inputExpression>
       </input>
-      <output id="OutputClause_04gj2g3" label="Risikofaktor BMI" name="Risikofaktor BMI" typeRef="integer" />
+      <output id="OutputClause_04gj2g3" label="Risikofaktor BMI" name="rf_bmi" typeRef="integer" />
       <rule id="DecisionRule_1p0086i">
         <description>Hier muss manuell geprüft werden</description>
         <inputEntry id="UnaryTests_0kcqi6n">
@@ -326,15 +331,17 @@
     </informationRequirement>
     <decisionTable id="DecisionTable_1ewq507">
       <input id="InputClause_0lpruya" label="Krankenhistorie des Kunden">
-        <inputExpression id="LiteralExpression_1b4pj7h" typeRef="string" />
+        <inputExpression id="LiteralExpression_1b4pj7h" typeRef="string">
+          <text>risikokategorie</text>
+        </inputExpression>
         <inputValues id="UnaryTests_04mc94t">
-          <text>"Keine Vorerkranungen","Risikogruppe 1","Risikogruppe 2","Risikogruppe 3"</text>
+          <text>"keine vorerkrankungen","risikogruppe 1","risikogruppe 2","risikogruppe 3"</text>
         </inputValues>
       </input>
-      <output id="OutputClause_1k4th8e" label="Risikofaktor Krankenhistorie" name="Risikofaktor Krank" typeRef="string" biodi:width="238" />
+      <output id="OutputClause_1k4th8e" label="Risikofaktor Krankenhistorie" name="rf_krankenhistorie" typeRef="integer" biodi:width="238" />
       <rule id="DecisionRule_0gdfi2y">
         <inputEntry id="UnaryTests_10ftqhu">
-          <text>"Keine Vorerkranungen"</text>
+          <text>"keine vorerkrankungen"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_15u1xj9">
           <text>0</text>
@@ -342,7 +349,7 @@
       </rule>
       <rule id="DecisionRule_0whd88s">
         <inputEntry id="UnaryTests_00urzrp">
-          <text>"Risikogruppe 1"</text>
+          <text>"risikogruppe 1"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0lvkqk9">
           <text>20</text>
@@ -350,7 +357,7 @@
       </rule>
       <rule id="DecisionRule_128v3ft">
         <inputEntry id="UnaryTests_0lzfb18">
-          <text>"Risikogruppe 2"</text>
+          <text>"risikogruppe 2"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1yifk7w">
           <text>50</text>
@@ -359,7 +366,7 @@
       <rule id="DecisionRule_0xvqzy2">
         <description>Ab hier wird abgelehnt</description>
         <inputEntry id="UnaryTests_1vebct8">
-          <text>"Risikogruppe 3"</text>
+          <text>"risikogruppe 3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_16qddf0">
           <text>100</text>
@@ -370,46 +377,48 @@
   <decision id="dmn-vorerkrankungen" name="Vorerkrankungen">
     <decisionTable id="DecisionTable_17rhdrz">
       <input id="InputClause_065g1fo" label="Erkrankungen">
-        <inputExpression id="LiteralExpression_045ryh0" typeRef="string" />
-        <inputValues id="UnaryTests_1loznwd">
-          <text>"Raucherlunge","Herzfehler","Fettleber","Weisheitszähne"</text>
+        <inputExpression id="LiteralExpression_045ryh0" typeRef="string">
+          <text>mvorerkrankung</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_14j4woz">
+          <text>"raucherlunge","herzfehler","fettleber","weisheitszaehne"</text>
         </inputValues>
       </input>
-      <output id="OutputClause_1qs9x5l" label="Risikokategorie" name="Risikokategorie" typeRef="string">
+      <output id="OutputClause_1qs9x5l" label="Risikokategorie" name="risikokategorie" typeRef="string">
         <outputValues id="UnaryTests_0t185rp">
           <text>"Keine Vorerkranungen","Risikogruppe 1","Risikogruppe 2","Risikogruppe 3"</text>
         </outputValues>
       </output>
       <rule id="DecisionRule_1fgspxg">
         <inputEntry id="UnaryTests_0kwgafv">
-          <text>"Weisheitszähne"</text>
+          <text>"weisheitszaehne"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_07cxdw9">
-          <text>"Keine Vorerkranungen"</text>
+          <text>"keine vorerkrankungen"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1pre7ab">
         <inputEntry id="UnaryTests_18umc9k">
-          <text>"Raucherlunge"</text>
+          <text>"raucherlunge"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1d8uotb">
-          <text>"Risikogruppe 1"</text>
+          <text>"risikogruppe 1"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_10c11ha">
         <inputEntry id="UnaryTests_0j4axb2">
-          <text>"Fettleber"</text>
+          <text>"fettleber"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1egwvbo">
-          <text>"Risikogruppe 2"</text>
+          <text>"risikogruppe 2"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1qjmqei">
         <inputEntry id="UnaryTests_0n8uzoi">
-          <text>"Herzfehler"</text>
+          <text>"herzfehler"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0m7mols">
-          <text>"Risikogruppe 3"</text>
+          <text>"risikogruppe 3"</text>
         </outputEntry>
       </rule>
     </decisionTable>
