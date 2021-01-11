@@ -8,10 +8,7 @@ import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Locations : IntIdTable() {
-    val zipCode = varchar("plz", 5)
-    val name = varchar("name", 255)
-}
+class Location(val id: Int? = null, val zipCode: String, val name: String)
 
 class LocationDao(id: EntityID<Int>) : IntEntity(id) {
     private var zipCode by Locations.zipCode
@@ -42,4 +39,7 @@ class LocationDao(id: EntityID<Int>) : IntEntity(id) {
     fun toLocation() = Location(id.value, zipCode, name)
 }
 
-class Location(val id: Int? = null, val zipCode: String, val name: String)
+object Locations : IntIdTable() {
+    val zipCode = varchar("plz", 5)
+    val name = varchar("name", 255)
+}

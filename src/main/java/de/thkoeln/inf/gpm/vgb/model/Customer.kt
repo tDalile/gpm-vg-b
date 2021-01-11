@@ -6,10 +6,11 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Customers : IntIdTable() {
-    val entry = varchar("eintrittdatum", 50)
-    val insurantId = integer("versicherterId").nullable()
-}
+class Customer(
+    val id: Int?,
+    val entry: String,
+    val insurantId: Int?
+)
 
 class CustomerDao(id: EntityID<Int>): IntEntity(id) {
     private var entry by Customers.entry
@@ -44,10 +45,7 @@ class CustomerDao(id: EntityID<Int>): IntEntity(id) {
     }
 }
 
-class Customer(
-    val id: Int?,
-    val entry: String,
-    val insurantId: Int?
-)
-
-
+object Customers : IntIdTable() {
+    val entry = varchar("eintrittdatum", 50)
+    val insurantId = integer("versicherterId").nullable()
+}

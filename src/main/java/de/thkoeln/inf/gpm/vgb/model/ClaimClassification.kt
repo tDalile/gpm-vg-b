@@ -7,9 +7,7 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
-object ClaimClassifications : IntIdTable() {
-    val description = text("beschreibung")
-}
+class ClaimClassification(val id: Int? = null, val description: String)
 
 class ClaimClassificationDao(id: EntityID<Int>) : IntEntity(id) {
     private var description by ClaimClassifications.description
@@ -35,4 +33,6 @@ class ClaimClassificationDao(id: EntityID<Int>) : IntEntity(id) {
     fun toClaimClassification() = ClaimClassification(id.value, description)
 }
 
-class ClaimClassification(val id: Int? = null, val description: String)
+object ClaimClassifications : IntIdTable() {
+    val description = text("beschreibung")
+}

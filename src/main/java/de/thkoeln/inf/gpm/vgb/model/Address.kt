@@ -6,11 +6,12 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Addresses : IntIdTable() {
-    val street = text("Strasse")
-    val houseNumber = text("Hausnummer")
-    val location = reference("Ort", Locations)
-}
+class Address(
+    val id: Int?,
+    val street: String,
+    val houseNumber: String,
+    val location: Location
+)
 
 class AddressDao(id: EntityID<Int>) : IntEntity(id) {
     private var street by Addresses.street
@@ -45,9 +46,8 @@ class AddressDao(id: EntityID<Int>) : IntEntity(id) {
     fun toAddress() = Address(id.value, street, houseNumber, location.toLocation())
 }
 
-class Address(
-    val id: Int?,
-    val street: String,
-    val houseNumber: String,
-    val location: Location
-)
+object Addresses : IntIdTable() {
+    val street = text("Strasse")
+    val houseNumber = text("Hausnummer")
+    val location = reference("Ort", Locations)
+}

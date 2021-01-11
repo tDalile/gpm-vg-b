@@ -6,10 +6,14 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Diseases : IntIdTable() {
-    val category = integer("kategorie")
-    val description = text("beschreibung")
-}
+
+class Disease(
+    val id: Int?,
+    val category: Int,
+    val description: String
+
+)
+
 
 class DiseaseDao(id: EntityID<Int>) : IntEntity(id) {
     private var category by Diseases.category
@@ -19,7 +23,7 @@ class DiseaseDao(id: EntityID<Int>) : IntEntity(id) {
         /**
          * Update or create [Disease] in database
          */
-        fun save(disease: Disease) : Disease? = transaction {
+        fun save(disease: Disease): Disease? = transaction {
             val newDisease = if (disease.id == null) {
                 new { update(disease) }
             } else {
@@ -41,4 +45,7 @@ class DiseaseDao(id: EntityID<Int>) : IntEntity(id) {
 }
 
 
-class Disease(val id: Int?, val category: Int, val description: String)
+object Diseases : IntIdTable() {
+    val category = integer("kategorie")
+    val description = text("beschreibung")
+}

@@ -6,16 +6,18 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Insurants : IntIdTable() {
-    val name = text("Name")
-    val firstName = text("Vorname")
-    val birthdate = text("Geburtstag")
-    val sex = char("Geschlecht")
-    val size = integer("Groesse")
-    val weight = integer("Gewicht")
-    val address = reference("Adresse", Addresses)
-    val customerId = reference("Kundennr", Customers)
-}
+class Insurant(
+    val id: Int?,
+    val name: String,
+    val firstName: String,
+    val birthdate: String,
+    val sex: Char,
+    val size: Long,
+    val weight: Long,
+    val address: Address,
+    val customer: Customer
+)
+
 
 class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     private var name by Insurants.name
@@ -77,14 +79,13 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     )
 }
 
-class Insurant(
-    val id: Int?,
-    val name: String,
-    val firstName: String,
-    val birthdate: String,
-    val sex: Char,
-    val size: Long,
-    val weight: Long,
-    val address: Address,
-    val customer: Customer
-)
+object Insurants : IntIdTable() {
+    val name = text("Name")
+    val firstName = text("Vorname")
+    val birthdate = text("Geburtstag")
+    val sex = char("Geschlecht")
+    val size = integer("Groesse")
+    val weight = integer("Gewicht")
+    val address = reference("Adresse", Addresses)
+    val customerId = reference("Kundennr", Customers)
+}

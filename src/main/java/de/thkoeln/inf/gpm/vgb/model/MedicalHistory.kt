@@ -6,7 +6,8 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object MedicalHistories : IntIdTable()
+class MedicalHistory(val id: Int?)
+
 
 class MedicalHistoryDao(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<MedicalHistoryDao>(MedicalHistories) {
@@ -22,4 +23,4 @@ class MedicalHistoryDao(id: EntityID<Int>) : IntEntity(id) {
     fun toMedicalHistory() = MedicalHistory(id.value)
 }
 
-class MedicalHistory(val id: Int?)
+object MedicalHistories : IntIdTable()

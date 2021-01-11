@@ -6,10 +6,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Preconditions : IntIdTable() {
-    val medicalHistory = reference("krankenhistorie", MedicalHistories)
-    val disease = reference("Erkrankung", Diseases)
-}
+class Precondition(val id: Int?, val medicalHistory: MedicalHistory, val disease: Disease)
 
 class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
     private var medicalHistory by MedicalHistoryDao referencedOn Preconditions.medicalHistory
@@ -45,4 +42,7 @@ class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
     }
 }
 
-class Precondition(val id: Int?, val medicalHistory: MedicalHistory, val disease: Disease)
+object Preconditions : IntIdTable() {
+    val medicalHistory = reference("krankenhistorie", MedicalHistories)
+    val disease = reference("Erkrankung", Diseases)
+}

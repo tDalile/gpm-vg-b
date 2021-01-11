@@ -6,9 +6,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Tariffs : IntIdTable() {
-    val description = text("beschreibung")
-}
+class Tariff(val id: Int? = null, val description: String)
 
 class TariffDao(id: EntityID<Int>) : IntEntity(id) {
     private var description by Tariffs.description
@@ -34,4 +32,6 @@ class TariffDao(id: EntityID<Int>) : IntEntity(id) {
     fun toTariff() = Tariff(id.value, description)
 }
 
-class Tariff(val id: Int? = null, val description: String)
+object Tariffs : IntIdTable() {
+    val description = text("beschreibung")
+}
