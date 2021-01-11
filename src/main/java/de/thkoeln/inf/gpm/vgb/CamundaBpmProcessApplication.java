@@ -1,8 +1,6 @@
-package de.thkoeln.inf.sysges.camunda.servletwar.starter.imstarter;
+package de.thkoeln.inf.gpm.vgb;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import de.thkoeln.inf.gpm.vgb.model.util.DbSetup;
 import org.camunda.bpm.application.PostDeploy;
 import org.camunda.bpm.application.ProcessApplication;
 import org.camunda.bpm.application.impl.ServletProcessApplication;
@@ -22,12 +20,11 @@ public class CamundaBpmProcessApplication extends ServletProcessApplication {
    */
   @PostDeploy
   public void onDeploymentFinished(ProcessEngine processEngine) {
-
+    DbSetup.INSTANCE.getDbWithDocker(); // TODO change to getDb(); while not using docker
     // start an initial process instance
 //    Map<String, Object> variables = new HashMap<String, Object>();
 //    variables.put("name", "John");
 //    
 //    processEngine.getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
   }
-
 }
