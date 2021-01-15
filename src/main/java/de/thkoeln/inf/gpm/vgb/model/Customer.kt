@@ -7,12 +7,12 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class Customer(
-    val id: Int?,
-    val entry: String,
-    val insurantId: Int?
+        val id: Int?,
+        val entry: String,
+        val insurantId: Int?
 )
 
-class CustomerDao(id: EntityID<Int>): IntEntity(id) {
+class CustomerDao(id: EntityID<Int>) : IntEntity(id) {
     private var entry by Customers.entry
     private var insurantId by Customers.insurantId // InsurantDao referencedOn Customers.insurant
 
@@ -20,7 +20,7 @@ class CustomerDao(id: EntityID<Int>): IntEntity(id) {
         /**
          * Update or create [Customer] in database
          */
-        fun save(customer: Customer) : Customer? = transaction {
+        fun save(customer: Customer): Customer? = transaction {
             val newCustomer = if (customer.id == null) {
                 new { update(customer) }
             } else {

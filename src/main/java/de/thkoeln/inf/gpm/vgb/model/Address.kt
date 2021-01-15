@@ -7,10 +7,10 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class Address(
-    val id: Int?,
-    val street: String,
-    val houseNumber: String,
-    val location: Location
+        val id: Int?,
+        val street: String,
+        val houseNumber: String,
+        val location: Location
 )
 
 class AddressDao(id: EntityID<Int>) : IntEntity(id) {
@@ -22,7 +22,7 @@ class AddressDao(id: EntityID<Int>) : IntEntity(id) {
         /**
          * Update or create [Address] in database
          */
-        fun save(address: Address) : Address? = transaction {
+        fun save(address: Address): Address? = transaction {
             val location = LocationDao.save(address.location) ?: return@transaction null
             val locationDao = LocationDao.findById(location.id!!) ?: return@transaction null
             val newAddress = if (address.id == null) {

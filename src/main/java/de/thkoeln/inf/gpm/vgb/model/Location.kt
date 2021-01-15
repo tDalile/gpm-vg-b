@@ -4,8 +4,6 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
-import org.jetbrains.exposed.sql.StdOutSqlLogger
-import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class Location(val id: Int? = null, val zipCode: String, val name: String)
@@ -18,7 +16,7 @@ class LocationDao(id: EntityID<Int>) : IntEntity(id) {
         /**
          * Update or create [Location] in database
          */
-        fun save(location: Location) : Location? = transaction {
+        fun save(location: Location): Location? = transaction {
             val newLocation = if (location.id == null) {
                 new { update(location) }
             } else {

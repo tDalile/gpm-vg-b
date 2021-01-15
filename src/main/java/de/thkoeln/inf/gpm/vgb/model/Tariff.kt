@@ -12,7 +12,7 @@ class TariffDao(id: EntityID<Int>) : IntEntity(id) {
     private var description by Tariffs.description
 
     companion object : IntEntityClass<TariffDao>(Tariffs) {
-        fun save(tariff: Tariff) : Tariff? = transaction {
+        fun save(tariff: Tariff): Tariff? = transaction {
             val newTariff = if (tariff.id == null) {
                 new { update(tariff) }
             } else {

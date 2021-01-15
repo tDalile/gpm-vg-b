@@ -1,6 +1,5 @@
 package de.thkoeln.inf.gpm.vgb.model.external;
 
-import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
 import org.camunda.bpm.engine.delegate.VariableScope;
 
@@ -12,16 +11,16 @@ public class ExternalProcessContext {
         this.execution = execution;
     }
 
+    public Customer getCustomer() {
+        return (Customer) execution.getVariable(ProcessVariableConstants.EXT_CUSTOMER);
+    }
+
     /*public void setCustomer(Customer customer) {
         execution.setVariable(EXT_CUSTOMER, customer);
     }
     */
-    public void setCustomer (Customer customer) {
+    public void setCustomer(Customer customer) {
         execution.setVariable(ProcessVariableConstants.EXT_CUSTOMER, customer);
-    }
-
-    public Customer getCustomer() {
-        return (Customer) execution.getVariable(ProcessVariableConstants.EXT_CUSTOMER);
     }
 
     /*

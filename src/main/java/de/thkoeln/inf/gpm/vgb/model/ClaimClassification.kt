@@ -13,7 +13,7 @@ class ClaimClassificationDao(id: EntityID<Int>) : IntEntity(id) {
     private var description by ClaimClassifications.description
 
     companion object : IntEntityClass<ClaimClassificationDao>(ClaimClassifications) {
-        fun save(claimClassification: ClaimClassification) : ClaimClassification? = transaction {
+        fun save(claimClassification: ClaimClassification): ClaimClassification? = transaction {
             val newClaimClassification = if (claimClassification.id == null) {
                 new { update(claimClassification) }
             } else {

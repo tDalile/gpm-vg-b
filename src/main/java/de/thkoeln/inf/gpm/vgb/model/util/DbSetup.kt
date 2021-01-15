@@ -8,17 +8,17 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object DbSetup {
     val db by lazy {
         Database.connect(
-            "jdbc:postgresql://localhost:5432/GPM",
-            driver = "org.postgresql.Driver",
-            user = "POSTGRES", password = "POSTGRES"
+                "jdbc:postgresql://localhost:5432/GPM",
+                driver = "org.postgresql.Driver",
+                user = "POSTGRES", password = "POSTGRES"
         )
     }
 
     val dbWithDocker by lazy {
         Database.connect(
-            "jdbc:postgresql://host.docker.internal:5432/GPM",
-            driver = "org.postgresql.Driver",
-            user = "POSTGRES", password = "POSTGRES"
+                "jdbc:postgresql://host.docker.internal:5432/GPM",
+                driver = "org.postgresql.Driver",
+                user = "POSTGRES", password = "POSTGRES"
         )
     }
 
@@ -71,31 +71,31 @@ object DbSetup {
         val medicalHistory1 = MedicalHistoryDao.save(MedicalHistory(null))
         val precondition1 = PreconditionDao.save(Precondition(null, medicalHistory1, disease)) ?: return
         val insurancePolicy1 = InsurancePolicyDao.save(
-            InsurancePolicy(
-                null,
-                false,
-                200.0,
-                "Nicht ok",
-                42.0,
-                39.0,
-                "01/06/2009",
-                customer1,
-                tariff2,
-                medicalHistory1
-            )
+                InsurancePolicy(
+                        null,
+                        false,
+                        200.0,
+                        "Nicht ok",
+                        42.0,
+                        39.0,
+                        "01/06/2009",
+                        customer1,
+                        tariff2,
+                        medicalHistory1
+                )
         ) ?: return
         val claim1 = ClaimDao.save(
-            Claim(
-                null,
-                "20/10/1990",
-                30.4,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            )
+                Claim(
+                        null,
+                        "20/10/1990",
+                        30.4,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                )
         )
         println("finished")
     }

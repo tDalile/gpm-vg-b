@@ -14,7 +14,7 @@ class MedicalHistoryDao(id: EntityID<Int>) : IntEntity(id) {
         /**
          * Update or create [MedicalHistory] in database
          */
-        fun save(medicalHistory: MedicalHistory) : MedicalHistory = transaction {
+        fun save(medicalHistory: MedicalHistory): MedicalHistory = transaction {
             if (medicalHistory.id != null) return@transaction medicalHistory
             new { }.toMedicalHistory()
         }

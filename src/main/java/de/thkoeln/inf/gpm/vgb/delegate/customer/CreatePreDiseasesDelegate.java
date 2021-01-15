@@ -1,4 +1,4 @@
-package de.thkoeln.inf.gpm.vgb.delegate;
+package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;

@@ -8,15 +8,15 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 
 class Claim(
-    val id: Int?,
-    val claimDate: String, // TODO brauchen wir nicht RIP
-    val bmi: Double,
-    val riskFactorAge: Long?,
-    val riskFactorBmi: Long?,
-    val riskFactorMedicalHistory: Long?,
-    val claimClassification: ClaimClassification?,
-    val insurancePolicy: InsurancePolicy?,
-    val medicalHistory: MedicalHistory?
+        val id: Int?,
+        val claimDate: String, // TODO brauchen wir nicht RIP
+        val bmi: Double,
+        val riskFactorAge: Long?,
+        val riskFactorBmi: Long?,
+        val riskFactorMedicalHistory: Long?,
+        val claimClassification: ClaimClassification?,
+        val insurancePolicy: InsurancePolicy?,
+        val medicalHistory: MedicalHistory?
 )
 
 class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
@@ -51,10 +51,10 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
     }
 
     private fun update(
-        claim: Claim,
-        claimClassificationDao: ClaimClassificationDao?,
-        insurancePolicyDao: InsurancePolicyDao?,
-        medicalHistoryDao: MedicalHistoryDao?
+            claim: Claim,
+            claimClassificationDao: ClaimClassificationDao?,
+            insurancePolicyDao: InsurancePolicyDao?,
+            medicalHistoryDao: MedicalHistoryDao?
     ) {
         this.claimDate = claim.claimDate
         this.bmi = claim.bmi
@@ -67,15 +67,15 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
     }
 
     fun toClaim() = Claim(
-        id.value,
-        claimDate,
-        bmi,
-        riskFactorAge,
-        riskFactorBmi,
-        riskFactorMedicalHistory,
-        claimClassification?.toClaimClassification(),
-        insurancePolicy?.toInsurancePolicy(),
-        medicalHistory?.toMedicalHistory()
+            id.value,
+            claimDate,
+            bmi,
+            riskFactorAge,
+            riskFactorBmi,
+            riskFactorMedicalHistory,
+            claimClassification?.toClaimClassification(),
+            insurancePolicy?.toInsurancePolicy(),
+            medicalHistory?.toMedicalHistory()
     )
 }
 

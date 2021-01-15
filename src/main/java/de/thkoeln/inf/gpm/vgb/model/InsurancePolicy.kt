@@ -7,16 +7,16 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class InsurancePolicy(
-    val id: Int?,
-    val isNewCustomer: Boolean,
-    val riskSurcharge: Double,
-    val riskSurchargeReason: String,
-    val monthlyContribution: Double,
-    val initialContributionAmount: Double,
-    val startOfContract: String, // TODO neues datum hinzufügen.
-    val customer: Customer,
-    val tariff: Tariff,
-    val medicalHistory: MedicalHistory
+        val id: Int?,
+        val isNewCustomer: Boolean,
+        val riskSurcharge: Double,
+        val riskSurchargeReason: String,
+        val monthlyContribution: Double,
+        val initialContributionAmount: Double,
+        val startOfContract: String, // TODO neues datum hinzufügen.
+        val customer: Customer,
+        val tariff: Tariff,
+        val medicalHistory: MedicalHistory
 )
 
 class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
@@ -57,10 +57,10 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
     }
 
     private fun update(
-        insurancePolicy: InsurancePolicy,
-        customerDao: CustomerDao,
-        tariffDao: TariffDao,
-        medicalHistoryDao: MedicalHistoryDao
+            insurancePolicy: InsurancePolicy,
+            customerDao: CustomerDao,
+            tariffDao: TariffDao,
+            medicalHistoryDao: MedicalHistoryDao
     ) {
         this.isNewCustomer = insurancePolicy.isNewCustomer
         this.riskSurcharge = insurancePolicy.riskSurcharge
@@ -74,16 +74,16 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
     }
 
     fun toInsurancePolicy() = InsurancePolicy(
-        id.value,
-        isNewCustomer,
-        riskSurcharge,
-        riskSurchargeReason,
-        monthlyContribution,
-        initialContributionAmount,
-        startOfContract,
-        customer.toCustomer(),
-        tariff.toTariff(),
-        medicalHistory.toMedicalHistory()
+            id.value,
+            isNewCustomer,
+            riskSurcharge,
+            riskSurchargeReason,
+            monthlyContribution,
+            initialContributionAmount,
+            startOfContract,
+            customer.toCustomer(),
+            tariff.toTariff(),
+            medicalHistory.toMedicalHistory()
     )
 }
 

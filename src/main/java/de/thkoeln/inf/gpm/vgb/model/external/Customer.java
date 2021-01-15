@@ -7,13 +7,13 @@ import java.util.Date;
 @Table(name = "Kunde")
 public class Customer {
 
-        @Id
-        @Column(name = "kundennr")
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long kundennr;
+    @Id
+    @Column(name = "kundennr")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long kundennr;
 
-        private Date eintritt;
-        private Long versicherter_id;
+    private Date eintritt;
+    private Long versicherter_id;
 
     public Customer(Long kundennr, Date eintritt, Long versicherter_id) {
         this.kundennr = kundennr;
@@ -21,12 +21,12 @@ public class Customer {
         this.versicherter_id = versicherter_id;
     }
 
-    public void setKundennr(Long kundennr) {
-        this.kundennr = kundennr;
-    }
-
     public Long getKundennr() {
         return kundennr;
+    }
+
+    public void setKundennr(Long kundennr) {
+        this.kundennr = kundennr;
     }
 
     public Date getEintritt() {

@@ -7,15 +7,15 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class Insurant(
-    val id: Int?,
-    val name: String,
-    val firstName: String,
-    val birthdate: String,
-    val sex: Char,
-    val size: Long,
-    val weight: Long,
-    val address: Address,
-    val customer: Customer
+        val id: Int?,
+        val name: String,
+        val firstName: String,
+        val birthdate: String,
+        val sex: Char,
+        val size: Long,
+        val weight: Long,
+        val address: Address,
+        val customer: Customer
 )
 
 
@@ -67,15 +67,15 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     }
 
     fun toInsurant() = Insurant(
-        id.value,
-        name,
-        firstName,
-        birthdate,
-        sex,
-        size.toLong(),
-        weight.toLong(),
-        address.toAddress(),
-        customer.toCustomer()
+            id.value,
+            name,
+            firstName,
+            birthdate,
+            sex,
+            size.toLong(),
+            weight.toLong(),
+            address.toAddress(),
+            customer.toCustomer()
     )
 }
 

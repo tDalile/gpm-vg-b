@@ -1,4 +1,4 @@
-package de.thkoeln.inf.gpm.vgb.delegate;
+package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
 
 import org.camunda.bpm.engine.RuntimeService;
@@ -13,7 +13,7 @@ import java.util.Map;
  * illustrating how a Java Delegate can be used 
  * from within a BPMN 2.0 Send Task to reply to another process
  */
-public class ContinueProcessByApprovedPolicyMessageDelegate implements JavaDelegate {
+public class ContinueProcessByObjectionMessageDelegate implements JavaDelegate {
 
 	 /**
 	 *
@@ -31,7 +31,7 @@ public class ContinueProcessByApprovedPolicyMessageDelegate implements JavaDeleg
 		String correlationId = (String) processVariables.get("correlationId");
 
 		runtimeService
-		.createMessageCorrelation("approvedPolicyMessage")
+		.createMessageCorrelation("objectionMessage")
 		.setVariables(processVariables)
 		// set the correlation id as processInstanceBusinessKey of the waiting process
 		.processInstanceBusinessKey(correlationId)

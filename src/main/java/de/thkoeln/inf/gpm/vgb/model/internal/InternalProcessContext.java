@@ -1,8 +1,5 @@
 package de.thkoeln.inf.gpm.vgb.model.internal;
 
-import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
-import de.thkoeln.inf.gpm.vgb.model.external.ExternalProcessContext;
-import de.thkoeln.inf.gpm.vgb.model.internal.InternalProcessContext;
 import org.camunda.bpm.engine.delegate.VariableScope;
 
 public class InternalProcessContext {

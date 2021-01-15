@@ -8,9 +8,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 
 class Disease(
-    val id: Int?,
-    val category: Int,
-    val description: String
+        val id: Int?,
+        val category: Int,
+        val description: String
 
 )
 

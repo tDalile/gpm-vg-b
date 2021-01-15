@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class RiskSurchargeJustificationDelegate implements JavaDelegate {
-  Logger log = LoggerFactory.getLogger("EditClaimDelegate");
+  Logger log = LoggerFactory.getLogger("AttachRiskSurchargeDelegate");
 
   public void execute(DelegateExecution execution) throws Exception {
     log.info("Risikozuschlagsbegründung hinzugefügt");

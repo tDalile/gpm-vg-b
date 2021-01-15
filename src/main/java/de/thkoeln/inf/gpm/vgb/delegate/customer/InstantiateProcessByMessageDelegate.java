@@ -1,4 +1,4 @@
-package de.thkoeln.inf.gpm.vgb.delegate;
+package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;

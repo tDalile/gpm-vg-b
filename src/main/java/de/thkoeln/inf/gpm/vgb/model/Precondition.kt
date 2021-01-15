@@ -16,7 +16,7 @@ class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
         /**
          * Update or create [Address] in database
          */
-        fun save(precondition: Precondition) : Precondition? = transaction {
+        fun save(precondition: Precondition): Precondition? = transaction {
             val medicalHistory = MedicalHistoryDao.save(precondition.medicalHistory)
             val medicalHistoryDao = MedicalHistoryDao.findById(medicalHistory.id!!) ?: return@transaction null
             val disease = DiseaseDao.save(precondition.disease) ?: return@transaction null
