@@ -1,0 +1,28 @@
+# docker exec -it gpm-vg-b_camunda_1 bash
+# open browser with url: http://localhost:8080/camunda-welcome/index.html
+
+version: "3.8"
+services:
+  camunda:
+    image: "camunda/camunda-bpm-platform:tomcat-latest"
+    container_name: "camunda"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/vgb.war:/camunda/webapps/vgb.war
+      - ./tomcat/tomcat-users.xml:/camunda/conf/tomcat-users.xml
+      - ./tomcat/context.xml:/camunda/webapps/manager/META-INF/context.xml
+#  psql:
+#    container_name: gpm-db
+#    image: postgres:11.4
+#    ports:
+#      - 5432:5432
+#    environment:
+#      POSTGRES_USER: POSTGRES
+#      POSTGRES_PASSWORD: POSTGRES
+#      POSTGRES_DB: GPM
+#    volumes:
+#      - psql_vol:/var/lib/postgresql/datas
+
+volumes:
+  psql_vol:

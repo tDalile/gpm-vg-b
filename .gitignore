@@ -1,6 +1,3 @@
-tomcat
-tomcat/*
-docker-compose.yml
 
 # Built application files
 *.apk
