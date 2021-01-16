@@ -1,8 +1,9 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
+import de.thkoeln.inf.gpm.vgb.model.Customer;
+import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import util.DbSetup;
 
 import java.util.Map;
 
@@ -12,23 +13,22 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Map<String, Object> processVariables = delegateExecution.getVariables();
 
-        long customerId = (long) processVariables.get("customerId");
+        int customerId = (int) processVariables.get("customerId");
         String customerPassword = (String) processVariables.get("customerPassword");
 
-        if (verifyCredentials(customerId, customerPassword)) {
+        val customer = Customer.findById(customerId);
+
+        if (verifyCredentials(customer, customerId, customerPassword)) {
             delegateExecution.setVariable("loginIsSuccessful", true);
-            delegateExecution.setVariable("customerId", 1L);
-            delegateExecution.setVariable("insurantId", 2L);
+            delegateExecution.setVariable("customerId", customer.getId());
+            delegateExecution.setVariable("insurantId", customer.getInsurantId());
         }
         else {
             delegateExecution.setVariable("loginIsSuccessful", false);
         }
     }
 
-    private boolean verifyCredentials(long id, String password) {
-        // TODO check credentials in db
-
-        DbSetup.INSTANCE.insertDummyData();
-        return id == 12345L && password.equals("demo");
+    private boolean verifyCredentials(Customer customer, long id, String password) {
+        return customer.getId().equals((int) id);
     }
 }

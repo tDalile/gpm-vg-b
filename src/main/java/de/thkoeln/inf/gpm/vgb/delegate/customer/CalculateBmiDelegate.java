@@ -1,5 +1,7 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
+import de.thkoeln.inf.gpm.vgb.model.Insurant;
+import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
@@ -12,10 +14,10 @@ public class CalculateBmiDelegate implements JavaDelegate {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
-        double bmi = calcBmi(
-                (long) processVariables.get("insurantWeight"),
-                (long) processVariables.get("insurantSize")
-        );
+        val insurantId = (int) processVariables.get("insurantId");
+        val insurant = Insurant.findById(insurantId);
+
+        double bmi = calcBmi(insurant.getWeight(), insurant.getSize());
 
         delegateExecution.setVariable("insurantBmi", bmi);
     }

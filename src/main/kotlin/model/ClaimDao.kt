@@ -1,24 +1,16 @@
-package de.thkoeln.inf.gpm.vgb.model
+package model
 
-import model.*
+import de.thkoeln.inf.gpm.vgb.model.Claim
+import de.thkoeln.inf.gpm.vgb.model.MedicalHistory
+import de.thkoeln.inf.gpm.vgb.model.Precondition
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
-
-class Claim(
-    val id: Int?,
-    val claimDate: String, // TODO brauchen wir nicht RIP
-    val bmi: Double,
-    val riskFactorAge: Long?,
-    val riskFactorBmi: Long?,
-    val riskFactorMedicalHistory: Long?,
-    val claimClassification: ClaimClassification?,
-    val insurancePolicy: InsurancePolicy?,
-    val medicalHistory: MedicalHistory?
-)
 
 class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
     private var claimDate by Claims.claimDate
@@ -45,6 +37,10 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
 
             newClaim?.toClaim()
         }
+
+        fun delete(id: Int) = Claims.deleteWhere { Claims.id eq id }
+
+        fun findAll(): List<Claim> = ClaimDao.all().map { it.toClaim() }
     }
 
     private fun update(
@@ -63,15 +59,15 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
     }
 
     fun toClaim() = Claim(
-            id.value,
-            claimDate,
-            bmi,
-            riskFactorAge,
-            riskFactorBmi,
-            riskFactorMedicalHistory,
-            claimClassification?.toClaimClassification(),
-            insurancePolicy?.toInsurancePolicy(),
-            medicalHistory?.toMedicalHistory()
+        id.value,
+        claimDate,
+        bmi,
+        riskFactorAge,
+        riskFactorBmi,
+        riskFactorMedicalHistory,
+        isInsurable,
+        insurancePolicy?.toInsurancePolicy(),
+        medicalHistory?.toMedicalHistory()
     )
 }
 

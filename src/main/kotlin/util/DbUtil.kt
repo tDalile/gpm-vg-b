@@ -62,43 +62,47 @@ object DbUtil {
 
     fun insertDummyData() {
         println("insert dummy data")
-        val location1 = LocationDao.save(Location(null, "51515", "Olpe")) ?: return
-        val disease = DiseaseDao.save(Disease(null, 3, "Herzfehler")) ?: return
-        val tariff1 = TariffDao.save(Tariff(null, "Basis")) ?: return
-        val tariff2 = TariffDao.save(Tariff(null, "Premium")) ?: return
-        ClaimClassificationDao.save(ClaimClassification(null, "versicherungsfähig"))
-        ClaimClassificationDao.save(ClaimClassification(null, "nicht versicherungsfähig"))
-        val address1 = AddressDao.save(Address(null, "Am Glockenberg", "10", location1)) ?: return
-        val customer1 = CustomerDao.save(Customer(null, "01/01/2020", null)) ?: return
-        InsurantDao.save(Insurant(null, "Fischer", "Jens", "01/06/2001", 'm', 191, 75, address1, customer1))
-        val medicalHistory1 = MedicalHistoryDao.save(MedicalHistory(null))
-        val precondition1 = PreconditionDao.save(Precondition(null, medicalHistory1, disease)) ?: return
-        val insurancePolicy1 = InsurancePolicyDao.save(
-                InsurancePolicy(
-                        null,
-                        false,
-                        200.0,
-                        "Nicht ok",
-                        42.0,
-                        39.0,
-                        "01/06/2009",
-                        customer1,
-                        tariff2,
-                        medicalHistory1
-                )
-        ) ?: return
-        val claim1 = ClaimDao.save(
-                Claim(
-                        null,
-                        "20/10/1990",
-                        30.4,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                )
+
+        val gm = Location.createOrUpdate(Location("51643", "Gummersbach"))
+        val stein = Address.createOrUpdate(Address("Steinmülleralle", "7b", gm))
+        val heart = Disease.createOrUpdate(Disease(3, "Herzfehler"))
+        val customer = Customer.createOrUpdate(Customer("01/01/2020"))
+        val insurant = Insurant.createOrUpdate(
+            Insurant(
+                "Fischer2",
+                "Jens",
+                "02/05/2020",
+                'm',
+                187,
+                78,
+                stein,
+                customer
+            )
+        )
+        val medicalHistory = MedicalHistory.createOrUpdate(MedicalHistory())
+        val precondition = Precondition.createOrUpdate(Precondition(medicalHistory, heart))
+        val claim = Claim.createOrUpdate(Claim(
+            "01/01/2022",
+            35.0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            medicalHistory
+        ))
+        val policy = InsurancePolicy.createOrUpdate(
+            InsurancePolicy(
+                false,
+                null,
+                null,
+                35.7,
+                33.2,
+                "01/06/2021",
+                true,
+                customer,
+                medicalHistory
+            )
         )
         println("finished")
     }
