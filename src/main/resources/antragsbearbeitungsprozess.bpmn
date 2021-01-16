@@ -242,7 +242,7 @@
       <bpmn:outgoing>Flow_0vomkln</bpmn:outgoing>
       <bpmn:outgoing>Flow_1egcjbr</bpmn:outgoing>
     </bpmn:eventBasedGateway>
-    <bpmn:intermediateCatchEvent id="Event_0a6lw8q" name="Widerspruch eingereicht">
+    <bpmn:intermediateCatchEvent id="Event_0a6lw8q">
       <bpmn:incoming>Flow_0vomkln</bpmn:incoming>
       <bpmn:outgoing>Flow_15wnwmj</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0c1also" messageRef="Message_05lu0on" />
