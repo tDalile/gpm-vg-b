@@ -1,6 +1,8 @@
 package util
 
 import de.thkoeln.inf.gpm.vgb.model.*
+import de.thkoeln.inf.gpm.vgb.model.Insurant
+import de.thkoeln.inf.gpm.vgb.model.internal.Policy
 import model.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -23,6 +25,10 @@ object DbUtil {
         )
     }
 
+    fun <T> runInTransaction(statement: () -> T) = transaction {
+        statement()
+    }
+
     fun recreateSchema() {
         dropSchema()
         createSchema()
@@ -39,16 +45,12 @@ object DbUtil {
         SchemaUtils.drop(Addresses)
         SchemaUtils.drop(Locations)
         SchemaUtils.drop(Diseases)
-        SchemaUtils.drop(Tariffs)
-        SchemaUtils.drop(ClaimClassifications)
     }
 
     fun createSchema() = transaction {
         println("created db schema")
         SchemaUtils.create(Locations)
         SchemaUtils.create(Diseases)
-        SchemaUtils.create(Tariffs)
-        SchemaUtils.create(ClaimClassifications)
         SchemaUtils.create(Addresses)
         SchemaUtils.create(Customers)
         SchemaUtils.create(Insurants)
