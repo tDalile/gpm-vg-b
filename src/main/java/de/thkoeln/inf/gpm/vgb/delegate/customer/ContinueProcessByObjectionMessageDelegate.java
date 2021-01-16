@@ -31,11 +31,15 @@ public class ContinueProcessByObjectionMessageDelegate implements JavaDelegate {
 		String correlationId = (String) processVariables.get("correlationId");
 
 		runtimeService
-		.createMessageCorrelation("objectionMessage")
-		.setVariables(processVariables)
-		// set the correlation id as processInstanceBusinessKey of the waiting process
-		.processInstanceBusinessKey(correlationId)
-		.correlate();
+				.createMessageCorrelation("objectionMessage")
+				.setVariables(processVariables)
+				// set the correlation id as processInstanceBusinessKey of the waiting process
+				.processInstanceBusinessKey(correlationId)
+				.correlate();
+
+		// set the correlation id to identify the waiting process
+
+
 		/*
 		processVariables.put("kundennr", execution.getVariable("mkundennr"));
 		processVariables.put("eintritt", execution.getVariable("meintritt"));
