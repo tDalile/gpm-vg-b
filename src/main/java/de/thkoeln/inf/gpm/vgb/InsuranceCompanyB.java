@@ -5,7 +5,7 @@ import org.camunda.bpm.application.PostDeploy;
 import org.camunda.bpm.application.ProcessApplication;
 import org.camunda.bpm.application.impl.ServletProcessApplication;
 import org.camunda.bpm.engine.ProcessEngine;
-import util.DbSetup;
+import util.DbUtil;
 
 /**
  * Process Application exposing this application's resources the process engine. 
@@ -21,7 +21,7 @@ public class InsuranceCompanyB extends ServletProcessApplication {
    */
   @PostDeploy
   public void onDeploymentFinished(ProcessEngine processEngine) {
-    DbSetup.INSTANCE.getDbWithDocker(); // TODO change to getDb(); while not using docker
+    DbUtil.INSTANCE.getDbWithDocker(); // TODO change to getDb(); while not using docker
     // start an initial process instance
 //    Map<String, Object> variables = new HashMap<String, Object>();
 //    variables.put("name", "John");

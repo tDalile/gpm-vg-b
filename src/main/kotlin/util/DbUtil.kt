@@ -6,20 +6,20 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object DbSetup {
+object DbUtil {
     val db by lazy {
         Database.connect(
-                "jdbc:postgresql://localhost:5432/GPM",
-                driver = "org.postgresql.Driver",
-                user = "POSTGRES", password = "POSTGRES"
+            "jdbc:postgresql://localhost:5432/GPM",
+            driver = "org.postgresql.Driver",
+            user = "POSTGRES", password = "POSTGRES"
         )
     }
 
     val dbWithDocker by lazy {
         Database.connect(
-                "jdbc:postgresql://host.docker.internal:5432/GPM",
-                driver = "org.postgresql.Driver",
-                user = "POSTGRES", password = "POSTGRES"
+            "jdbc:postgresql://host.docker.internal:5432/GPM",
+            driver = "org.postgresql.Driver",
+            user = "POSTGRES", password = "POSTGRES"
         )
     }
 
