@@ -1,4 +1,6 @@
-package de.thkoeln.inf.gpm.vgb.model.util;
+package de.thkoeln.inf.gpm.vgb.util;
+
+import util.DbSetup;
 
 public class DeploySchema {
 

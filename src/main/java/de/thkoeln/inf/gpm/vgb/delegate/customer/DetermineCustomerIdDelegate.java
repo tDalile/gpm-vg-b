@@ -1,8 +1,8 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
-import de.thkoeln.inf.gpm.vgb.model.util.DbSetup;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import util.DbSetup;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
     private boolean verifyCredentials(long id, String password) {
         // TODO check credentials in db
 
-        //DbSetup.INSTANCE.insertDummyData();
+        DbSetup.INSTANCE.insertDummyData();
         return id == 12345L && password.equals("demo");
     }
 }
