@@ -1,0 +1,145 @@
+<form role="form" name="form">
+  <script cam-script type="text/form-script">
+    camForm.on('form-loaded', function() {
+      camForm.variableManager.fetchVariable('mkundennr');
+      camForm.variableManager.fetchVariable('meintritt');
+      camForm.variableManager.fetchVariable('mversicherter_id');
+      camForm.variableManager.fetchVariable('mvorname');
+      camForm.variableManager.fetchVariable('mnachname');
+      camForm.variableManager.fetchVariable('mgeburtsdatum');
+      camForm.variableManager.fetchVariable('alter');
+      camForm.variableManager.fetchVariable('mgeschlecht');
+      camForm.variableManager.fetchVariable('mgroesse');
+      camForm.variableManager.fetchVariable('mgewicht');
+      camForm.variableManager.fetchVariable('bmi');
+      camForm.variableManager.fetchVariable('mtarif');
+      camForm.variableManager.fetchVariable('mvorerkrankung');
+      camForm.variableManager.fetchVariable('monthlydue');
+    });
+    camForm.on('variables-restored', function() {
+      $scope.mkundennr = camForm.variableManager.variableValue('mkundennr');
+      $scope.meintritt = camForm.variableManager.variableValue('meintritt');
+      $scope.mversicherter_id = camForm.variableManager.variableValue('mversicherter_id');
+      $scope.mvorname = camForm.variableManager.variableValue('mvorname');
+      $scope.mnachname = camForm.variableManager.variableValue('mnachname');
+      $scope.mgeburtsdatum = camForm.variableManager.variableValue('mgeburtsdatum');
+      $scope.alter = camForm.variableManager.variableValue('alter');
+      $scope.mgeschlecht = camForm.variableManager.variableValue('mgeschlecht');
+      $scope.mgroesse = camForm.variableManager.variableValue('mgroesse');
+      $scope.mgewicht = camForm.variableManager.variableValue('mgewicht');
+      $scope.bmi = camForm.variableManager.variableValue('bmi');
+      $scope.mtarif = camForm.variableManager.variableValue('mtarif');
+      $scope.mvorerkrankung = camForm.variableManager.variableValue('mvorerkrankung');
+      $scope.monthlydue = camForm.variableManager.variableValue('monthlydue');
+      console.log("setting variables to scope");
+    });
+  </script>
+
+  <h2>Antragszusammenfassung</h2>
+
+  <table>
+
+    <tr>
+      <td>Kundennummer:</td>
+      <td>{{ mkundennr }}</td>
+    </tr>
+
+    <tr>
+      <td>Eintrittsdatum:</td>
+      <td>{{meintritt}}</td>
+    </tr>
+
+    <tr>
+      <td>Versicherungsnummer:</td>
+      <td>{{mversicherter_id}}</td>
+    </tr>
+    
+  </table>
+
+  <h2>Kundendaten:</h2>
+
+  <data>
+    <strong>
+      <span ng-if="mgeschlecht == 'weiblich'">Frau</span>
+      <span ng-if="mgeschlecht == 'maennlich'">Herr</span>
+      {{mvorname}} {{mnachname}}
+    </strong><br>
+    <table>
+
+      <tr>
+        <td>Geburtsdatum:</td>
+        <td>{{ mgeburtsdatum }}</td>
+      </tr>
+
+      <tr>
+        <td>Größe:</td>
+        <td>{{mgroesse}}cm</td>
+      </tr>
+
+      <tr>
+        <td>Gewicht:</td>
+        <td>{{mgewicht}}kg</td>
+      </tr>
+
+    </table>
+
+  </data>
+
+  <h2>Risikofaktoren:</h2>
+
+  <data>
+    <table>
+      <tr>
+        <td>Risikofaktor BMI:</td>
+        <td>{{ bmi }}</td>
+      </tr>
+
+      <tr>
+        <td>Risikofaktor Alter:</td>
+        <td>{{mgroesse}}cm</td>
+      </tr>
+
+      <tr>
+        <td>Risikofaktor Vorerkrankungen:</td>
+        <td>{{ mvorerkrankung }}</td>
+      </tr>
+
+    </table>
+  </data>
+
+  <h2>Tarifauswahl:</h2>
+
+  <table>
+
+    <tr>
+      <td>Tarif:</td>
+      <td>{{ mtarif }}</td>
+    </tr>
+
+  </table>
+
+  <h2>Weiterverarbeitung</h2>
+
+  Antrag vollständig?
+
+  <div class="form-group">
+    <input type="checkbox" cam-variable-name="int_claimComplete" cam-variable-type="Boolean" />
+  </div>
+
+  Person versicherungsfähig?
+
+  <div class="form-group">
+    <input type="checkbox" cam-variable-name="int_insurableComplete" cam-variable-type="Boolean" checked/>
+  </div>
+
+  Beiträge:
+
+  <table>
+
+    <tr>
+      <td>Monatlicher Beitrag:</td>
+      <td>{{ monthlydue }}</td>
+    </tr>
+  </table>
+
+</form>

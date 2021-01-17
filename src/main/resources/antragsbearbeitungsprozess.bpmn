@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0" camunda:diagramRelationId="ca4cf336-a2d5-4b23-8e38-03d5932250de">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0" camunda:diagramRelationId="ca4cf336-a2d5-4b23-8e38-03d5932250de">
   <bpmn:collaboration id="Collaboration_1fgr3g2">
     <bpmn:participant id="VertriebUnderwritingParticipant" name="Vertrieb &#38; Underwriting" processRef="ProcessInsuranceCompany" />
     <bpmn:participant id="KundeParticipant" name="Kunde" processRef="ProcessCustomer" />
@@ -38,70 +38,24 @@
         <bpmn:flowNodeRef>Activity_0c1gz0l</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AntragAbgelehntEndEvent</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0uivxd4</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_00sv0s7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0bsdwi4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0a6lw8q</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1qp3j3s</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0ryofou</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0n2yobs</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1v0i53n</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1i7se1h</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1871br5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0tdxjy2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1v6iu30</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1xtq9vj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1t8q345</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_00sv0s7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1v0i53n</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataStoreReference id="DatenbankDataStoreReference" name="Datenbank" />
-    <bpmn:exclusiveGateway id="VersicherungsfahgigGateway" name="versicherungsfähgig?">
-      <bpmn:incoming>Flow_13amgq1</bpmn:incoming>
-      <bpmn:outgoing>NeinSequenceFlow</bpmn:outgoing>
-      <bpmn:outgoing>JaSequenceFlow1</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0cw5btk</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:businessRuleTask id="VersicherungsfahigkeitPrufenTask" name="Versicherungsfähigkeit prüfen" camunda:resultVariable="int_entitledToInsurance" camunda:decisionRef="dmn-versicherungsfaehigkeit-pruefen" camunda:mapDecisionResult="singleEntry">
-      <bpmn:incoming>Flow_102uf7s</bpmn:incoming>
-      <bpmn:outgoing>Flow_13amgq1</bpmn:outgoing>
-    </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="RisikofaktorKrankhistorieTask" name="Risikofaktor Krankhistorie" camunda:resultVariable="rf_krankenhistorie" camunda:decisionRef="dmn-risikofaktor-krankenhistorie" camunda:mapDecisionResult="singleEntry">
-      <bpmn:incoming>Flow_049lcr7</bpmn:incoming>
-      <bpmn:outgoing>Flow_102uf7s</bpmn:outgoing>
-    </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="VorerkrankungenTask" name="Vorerkrankungen" camunda:resultVariable="risikokategorie" camunda:decisionRef="dmn-vorerkrankungen" camunda:mapDecisionResult="singleEntry">
-      <bpmn:incoming>Flow_0q09bxe</bpmn:incoming>
-      <bpmn:outgoing>Flow_049lcr7</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0qbmad6">
-        <bpmn:targetRef>DatenbankDataStoreReference</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="RisikofaktorBMITask" name="Risikofaktor BMI" camunda:resultVariable="rf_bmi" camunda:decisionRef="dmn-risikofaktor-bmi" camunda:mapDecisionResult="singleEntry">
-      <bpmn:incoming>Flow_1isxvnh</bpmn:incoming>
-      <bpmn:outgoing>Flow_0q09bxe</bpmn:outgoing>
-    </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="RisikofaktorAlterTask" name="Risikofaktor Alter" camunda:resultVariable="rf_alter" camunda:decisionRef="dmn-risikofaktor-alter" camunda:mapDecisionResult="singleEntry">
-      <bpmn:incoming>Flow_1lk1a5c</bpmn:incoming>
-      <bpmn:outgoing>Flow_1isxvnh</bpmn:outgoing>
-    </bpmn:businessRuleTask>
-    <bpmn:sendTask id="UberarbeitungsanfrageSendenTask" name="Überarbeitungsanfrage senden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ContinueProcessByMessageDelegate">
-      <bpmn:incoming>NeinSequenceFlow1</bpmn:incoming>
-    </bpmn:sendTask>
-    <bpmn:userTask id="UberprufeAntragTask" name="Überprüfe Antrag" camunda:formKey="embedded:app:forms/check-claim.html">
-      <bpmn:incoming>Flow_1bslhts</bpmn:incoming>
-      <bpmn:outgoing>Flow_0gra15k</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:startEvent id="AntragImSystemEingegangenStartEvent" name="Antrag im System eingegangen">
-      <bpmn:outgoing>Flow_1bslhts</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_032kue7" messageRef="Message_1hdarxq" />
-    </bpmn:startEvent>
-    <bpmn:sendTask id="AblehnungsnachrichtVersendenTask" name="Ablehnungsnachricht versenden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ContinueProcessByRejectionMessageDelegate">
-      <bpmn:incoming>Flow_1vhhi80</bpmn:incoming>
-      <bpmn:outgoing>Flow_182rhkt</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:userTask id="AblehnungsbegrundungHinzufugenTask" name="Ablehnungsbegründung hinzufügen" camunda:formKey="embedded:app:forms/rejection-message.html">
-      <bpmn:incoming>NeinSequenceFlow</bpmn:incoming>
-      <bpmn:outgoing>Flow_0q1hsu3</bpmn:outgoing>
-    </bpmn:userTask>
+    <bpmn:dataStoreReference id="DataStoreReference_1vznyq9" name="Datenbank" />
+    <bpmn:dataStoreReference id="DataStoreReference_1yv620e" name="Datenbank" />
     <bpmn:sequenceFlow id="Flow_13amgq1" sourceRef="VersicherungsfahigkeitPrufenTask" targetRef="VersicherungsfahgigGateway" />
     <bpmn:sequenceFlow id="Flow_102uf7s" sourceRef="RisikofaktorKrankhistorieTask" targetRef="VersicherungsfahigkeitPrufenTask" />
     <bpmn:sequenceFlow id="Flow_182rhkt" sourceRef="AblehnungsnachrichtVersendenTask" targetRef="AntragAbgelehntEndEvent" />
@@ -123,92 +77,7 @@
     <bpmn:sequenceFlow id="JaSequenceFlow1" name="ja" sourceRef="VersicherungsfahgigGateway" targetRef="Gateway_1xtq9vj">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance=="versicherungsfaehig"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:exclusiveGateway id="VollstandigGateway" name="vollständig ?">
-      <bpmn:incoming>Flow_0gra15k</bpmn:incoming>
-      <bpmn:outgoing>JaSequenceFlow</bpmn:outgoing>
-      <bpmn:outgoing>NeinSequenceFlow1</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1lk1a5c" sourceRef="Activity_0c1gz0l" targetRef="RisikofaktorAlterTask" />
-    <bpmn:serviceTask id="Activity_0c1gz0l" name="DummyScript" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.DummyScriptTaskDelegate">
-      <bpmn:incoming>JaSequenceFlow</bpmn:incoming>
-      <bpmn:outgoing>Flow_1lk1a5c</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="AntragAbgelehntEndEvent" name="Antrag abgelehnt">
-      <bpmn:incoming>Flow_182rhkt</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:dataStoreReference id="DataStoreReference_1tveqz9" name="Datenbank" />
-    <bpmn:dataStoreReference id="DataStoreReference_1vznyq9" name="Datenbank" />
-    <bpmn:dataStoreReference id="DataStoreReference_1yv620e" name="Datenbank" />
-    <bpmn:exclusiveGateway id="Gateway_1kbamho" name="versicherungsfähig?">
-      <bpmn:incoming>Flow_0yheq9s</bpmn:incoming>
-      <bpmn:outgoing>Flow_119acip</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0085hw1</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0c3js60" name="Ablehnungs-begründung hinzufügen" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="ablehnungsbegruendung" label="Begründung für die Ablehnung" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_119acip</bpmn:incoming>
-      <bpmn:outgoing>Flow_1y4qqdk</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag einpflegen" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="risikozuschlag" label="Risikozuschlag in Euro" type="long" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0a8pp10</bpmn:incoming>
-      <bpmn:outgoing>Flow_1n8i4kr</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="risikozuschlagBegruendung" label="Begründung für den Risikozuschlag" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0fq0f68</bpmn:incoming>
-      <bpmn:outgoing>Flow_037j1k9</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="Gateway_1jfqs60" name="Risikozuschlag?">
-      <bpmn:incoming>Flow_1qovpep</bpmn:incoming>
-      <bpmn:outgoing>Flow_0a8pp10</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1d0hem6</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_1x0f001" name="Risikozuschlag auswählen" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="risikozuschlagHinzufuegen" label="Soll ein Risikozuschlag hinzugefügt werden?" type="boolean" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0085hw1</bpmn:incoming>
-      <bpmn:outgoing>Flow_1qovpep</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_1f7uqaf" name="Antrag anpassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmenthead.AttachRiskSurchargeDelegate">
-      <bpmn:incoming>Flow_1n8i4kr</bpmn:incoming>
-      <bpmn:outgoing>Flow_0fq0f68</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0gf8ci5">
-        <bpmn:targetRef>DataStoreReference_1vznyq9</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_08gl2lv" name="Risikozuschlagsbegründung anhängen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmenthead.RiskSurchargeJustificationDelegate">
-      <bpmn:incoming>Flow_037j1k9</bpmn:incoming>
-      <bpmn:outgoing>Flow_072fdqo</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1934v79">
-        <bpmn:targetRef>DataStoreReference_1yv620e</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="versicherungsfaehig" label="Nach manueller Überprüfung: Ist der Kunde versicherungsfähig?" type="boolean" />
-          <camunda:formField id="int_entitledToInsurance" label="entitledToInsurance" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0cw5btk</bpmn:incoming>
-      <bpmn:outgoing>Flow_0yheq9s</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0yheq9s" sourceRef="Activity_0t6o040" targetRef="Gateway_1kbamho" />
     <bpmn:sequenceFlow id="Flow_119acip" name="nein" sourceRef="Gateway_1kbamho" targetRef="Activity_0c3js60">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${versicherungsfaehig == false}</bpmn:conditionExpression>
@@ -227,81 +96,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance=="manuell"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1rbac0r" sourceRef="Gateway_1xtq9vj" targetRef="Activity_1871br5" />
-    <bpmn:exclusiveGateway id="Gateway_0uivxd4">
-      <bpmn:incoming>Flow_1d0hem6</bpmn:incoming>
-      <bpmn:incoming>Flow_072fdqo</bpmn:incoming>
-      <bpmn:outgoing>Flow_0q403kf</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0q403kf" sourceRef="Gateway_0uivxd4" targetRef="Gateway_1xtq9vj" />
-    <bpmn:sendTask id="Activity_00sv0s7" name="Antragsbestätigung versenden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ContinueProcessByApprovedPolicyMessageDelegate">
-      <bpmn:incoming>Flow_1htkrgs</bpmn:incoming>
-      <bpmn:outgoing>Flow_127ss07</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:eventBasedGateway id="Gateway_0bsdwi4">
-      <bpmn:incoming>Flow_127ss07</bpmn:incoming>
-      <bpmn:outgoing>Flow_0vomkln</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1egcjbr</bpmn:outgoing>
-    </bpmn:eventBasedGateway>
-    <bpmn:intermediateCatchEvent id="Event_0a6lw8q">
-      <bpmn:incoming>Flow_0vomkln</bpmn:incoming>
-      <bpmn:outgoing>Flow_15wnwmj</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0c1also" messageRef="Message_05lu0on" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="Activity_1qp3j3s" name="Police deaktivieren" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.DeactivatePolicyDelegate">
-      <bpmn:incoming>Flow_15wnwmj</bpmn:incoming>
-      <bpmn:outgoing>Flow_0eycv6j</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ydgv16">
-        <bpmn:targetRef>DataStoreReference_1tveqz9</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_0ryofou" name="Antragsbestätigung widersprochen">
-      <bpmn:incoming>Flow_0eycv6j</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="customerId" label="Kundenummer" type="string" />
-          <camunda:formField id="customerName" label="Nachname" type="string" />
-          <camunda:formField id="customerFirstname" label="Vorname" type="string" />
-          <camunda:formField id="isPremium" label="Tarif" type="string" />
-          <camunda:formField id="isInsurable" label="Versicherungsfähig" type="string" />
-          <camunda:formField id="precondition" label="Vorerkrankungen" type="string" />
-          <camunda:formField id="approved" label="Bestätigt" type="boolean" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0v1zzw4</bpmn:incoming>
-      <bpmn:outgoing>Flow_12k16mv</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_1v0i53n" name="Police aktivieren" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ActivatePolicyDelegate">
-      <bpmn:incoming>Flow_18eyvtl</bpmn:incoming>
-      <bpmn:outgoing>Flow_1htkrgs</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_08djnxj">
-        <bpmn:targetRef>DataStoreReference_1ucyz5k</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_1i7se1h" name="Police anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.CreatePolicyDelegate">
-      <bpmn:incoming>Flow_12k16mv</bpmn:incoming>
-      <bpmn:outgoing>Flow_18eyvtl</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1k2imp2">
-        <bpmn:targetRef>DataStoreReference_0epys9k</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:dataStoreReference id="DataStoreReference_0epys9k" name="Datenbank" />
-    <bpmn:dataStoreReference id="DataStoreReference_1ucyz5k" name="Datenbank" />
-    <bpmn:serviceTask id="Activity_1871br5" name="Beitrag berechnen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.CalculateDuesDelegate">
-      <bpmn:incoming>Flow_1rbac0r</bpmn:incoming>
-      <bpmn:outgoing>Flow_0v1zzw4</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:intermediateCatchEvent id="Event_0tdxjy2" name="14 Tage">
-      <bpmn:incoming>Flow_1egcjbr</bpmn:incoming>
-      <bpmn:outgoing>Flow_1c4zf23</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_1mxqaui">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:endEvent id="Event_1v6iu30" name="Antragsbestätigung angenommen">
-      <bpmn:incoming>Flow_1c4zf23</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1htkrgs" sourceRef="Activity_1v0i53n" targetRef="Activity_00sv0s7" />
     <bpmn:sequenceFlow id="Flow_127ss07" sourceRef="Activity_00sv0s7" targetRef="Gateway_0bsdwi4" />
     <bpmn:sequenceFlow id="Flow_0vomkln" sourceRef="Gateway_0bsdwi4" targetRef="Event_0a6lw8q" />
@@ -312,58 +107,252 @@
     <bpmn:sequenceFlow id="Flow_12k16mv" sourceRef="Activity_0n2yobs" targetRef="Activity_1i7se1h" />
     <bpmn:sequenceFlow id="Flow_18eyvtl" sourceRef="Activity_1i7se1h" targetRef="Activity_1v0i53n" />
     <bpmn:sequenceFlow id="Flow_1c4zf23" sourceRef="Event_0tdxjy2" targetRef="Event_1v6iu30" />
-    <bpmn:exclusiveGateway id="Gateway_1xtq9vj">
-      <bpmn:incoming>Flow_0q403kf</bpmn:incoming>
-      <bpmn:incoming>JaSequenceFlow1</bpmn:incoming>
-      <bpmn:outgoing>Flow_1rbac0r</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1d0hem6" name="nein" sourceRef="Gateway_1jfqs60" targetRef="Gateway_0uivxd4">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${risikozuschlagHinzufuegen == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_072fdqo" sourceRef="Activity_08gl2lv" targetRef="Gateway_0uivxd4" />
     <bpmn:sequenceFlow id="Flow_1y4qqdk" sourceRef="Activity_0c3js60" targetRef="Gateway_1t8q345" />
+    <bpmn:sequenceFlow id="Flow_1vhhi80" sourceRef="Gateway_1t8q345" targetRef="AblehnungsnachrichtVersendenTask" />
     <bpmn:exclusiveGateway id="Gateway_1t8q345">
       <bpmn:incoming>Flow_0q1hsu3</bpmn:incoming>
       <bpmn:incoming>Flow_1y4qqdk</bpmn:incoming>
       <bpmn:outgoing>Flow_1vhhi80</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_1vhhi80" sourceRef="Gateway_1t8q345" targetRef="AblehnungsnachrichtVersendenTask" />
-    <bpmn:textAnnotation id="TextAnnotation_0a2s4ds">
-      <bpmn:text>input: alter output: rf__alter</bpmn:text>
+    <bpmn:exclusiveGateway id="Gateway_1xtq9vj">
+      <bpmn:incoming>Flow_0q403kf</bpmn:incoming>
+      <bpmn:incoming>JaSequenceFlow1</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rbac0r</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_1v6iu30" name="Antragsbestätigung angenommen">
+      <bpmn:incoming>Flow_1c4zf23</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="Event_0tdxjy2" name="14 Tage">
+      <bpmn:incoming>Flow_1egcjbr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1c4zf23</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1mxqaui">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="Activity_1871br5" name="Beitrag berechnen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.CalculateDuesDelegate">
+      <bpmn:incoming>Flow_1rbac0r</bpmn:incoming>
+      <bpmn:outgoing>Flow_0v1zzw4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:dataStoreReference id="DataStoreReference_1ucyz5k" name="Datenbank" />
+    <bpmn:dataStoreReference id="DataStoreReference_0epys9k" name="Datenbank" />
+    <bpmn:serviceTask id="Activity_1i7se1h" name="Police anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.CreatePolicyDelegate">
+      <bpmn:incoming>Flow_12k16mv</bpmn:incoming>
+      <bpmn:outgoing>Flow_18eyvtl</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1k2imp2">
+        <bpmn:targetRef>DataStoreReference_0epys9k</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:formKey="embedded:app:forms/check-policy.html" camunda:assignee="demo">
+      <bpmn:incoming>Flow_0v1zzw4</bpmn:incoming>
+      <bpmn:outgoing>Flow_12k16mv</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0ryofou" name="Antragsbestätigung widersprochen">
+      <bpmn:incoming>Flow_0eycv6j</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1qp3j3s" name="Police deaktivieren" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.DeactivatePolicyDelegate">
+      <bpmn:incoming>Flow_15wnwmj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0eycv6j</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ydgv16">
+        <bpmn:targetRef>DataStoreReference_1tveqz9</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="Event_0a6lw8q">
+      <bpmn:incoming>Flow_0vomkln</bpmn:incoming>
+      <bpmn:outgoing>Flow_15wnwmj</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0c1also" messageRef="Message_05lu0on" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:eventBasedGateway id="Gateway_0bsdwi4">
+      <bpmn:incoming>Flow_127ss07</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vomkln</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1egcjbr</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:exclusiveGateway id="Gateway_0uivxd4">
+      <bpmn:incoming>Flow_1d0hem6</bpmn:incoming>
+      <bpmn:incoming>Flow_072fdqo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0q403kf</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="versicherungsfaehig" label="Nach manueller Überprüfung: Ist der Kunde versicherungsfähig?" type="boolean" />
+          <camunda:formField id="int_entitledToInsurance" label="entitledToInsurance" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0cw5btk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yheq9s</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_08gl2lv" name="Risikozuschlagsbegründung anhängen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmenthead.RiskSurchargeJustificationDelegate">
+      <bpmn:incoming>Flow_037j1k9</bpmn:incoming>
+      <bpmn:outgoing>Flow_072fdqo</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1934v79">
+        <bpmn:targetRef>DataStoreReference_1yv620e</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1f7uqaf" name="Antrag anpassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmenthead.AttachRiskSurchargeDelegate">
+      <bpmn:incoming>Flow_1n8i4kr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fq0f68</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0gf8ci5">
+        <bpmn:targetRef>DataStoreReference_1vznyq9</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_1x0f001" name="Risikozuschlag auswählen" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="risikozuschlagHinzufuegen" label="Soll ein Risikozuschlag hinzugefügt werden?" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0085hw1</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qovpep</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1jfqs60" name="Risikozuschlag?">
+      <bpmn:incoming>Flow_1qovpep</bpmn:incoming>
+      <bpmn:outgoing>Flow_0a8pp10</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1d0hem6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="risikozuschlagBegruendung" label="Begründung für den Risikozuschlag" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0fq0f68</bpmn:incoming>
+      <bpmn:outgoing>Flow_037j1k9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag einpflegen" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="risikozuschlag" label="Risikozuschlag in Euro" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0a8pp10</bpmn:incoming>
+      <bpmn:outgoing>Flow_1n8i4kr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0c3js60" name="Ablehnungs-begründung hinzufügen" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="ablehnungsbegruendung" label="Begründung für die Ablehnung" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_119acip</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y4qqdk</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1kbamho" name="versicherungsfähig?">
+      <bpmn:incoming>Flow_0yheq9s</bpmn:incoming>
+      <bpmn:outgoing>Flow_119acip</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0085hw1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:dataStoreReference id="DataStoreReference_1tveqz9" name="Datenbank" />
+    <bpmn:endEvent id="AntragAbgelehntEndEvent" name="Antrag abgelehnt">
+      <bpmn:incoming>Flow_182rhkt</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_0c1gz0l" name="DummyScript" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.DummyScriptTaskDelegate">
+      <bpmn:incoming>JaSequenceFlow</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lk1a5c</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="VollstandigGateway" name="vollständig ?">
+      <bpmn:incoming>Flow_0gra15k</bpmn:incoming>
+      <bpmn:outgoing>JaSequenceFlow</bpmn:outgoing>
+      <bpmn:outgoing>NeinSequenceFlow1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="AblehnungsbegrundungHinzufugenTask" name="Ablehnungsbegründung hinzufügen" camunda:formKey="embedded:app:forms/rejection-message.html">
+      <bpmn:incoming>NeinSequenceFlow</bpmn:incoming>
+      <bpmn:outgoing>Flow_0q1hsu3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="AblehnungsnachrichtVersendenTask" name="Ablehnungsnachricht versenden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ContinueProcessByRejectionMessageDelegate">
+      <bpmn:incoming>Flow_1vhhi80</bpmn:incoming>
+      <bpmn:outgoing>Flow_182rhkt</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:startEvent id="AntragImSystemEingegangenStartEvent" name="Antrag im System eingegangen">
+      <bpmn:outgoing>Flow_1bslhts</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_032kue7" messageRef="Message_1hdarxq" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="UberprufeAntragTask" name="Überprüfe Antrag" camunda:formKey="embedded:app:forms/check-claim.html">
+      <bpmn:incoming>Flow_1bslhts</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gra15k</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="UberarbeitungsanfrageSendenTask" name="Überarbeitungsanfrage senden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ContinueProcessByMessageDelegate">
+      <bpmn:incoming>NeinSequenceFlow1</bpmn:incoming>
+    </bpmn:sendTask>
+    <bpmn:businessRuleTask id="RisikofaktorAlterTask" name="Risikofaktor Alter" camunda:resultVariable="rf_alter" camunda:decisionRef="dmn-risikofaktor-alter" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_1lk1a5c</bpmn:incoming>
+      <bpmn:outgoing>Flow_1isxvnh</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:businessRuleTask id="RisikofaktorBMITask" name="Risikofaktor BMI" camunda:resultVariable="rf_bmi" camunda:decisionRef="dmn-risikofaktor-bmi" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_1isxvnh</bpmn:incoming>
+      <bpmn:outgoing>Flow_0q09bxe</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:businessRuleTask id="VorerkrankungenTask" name="Vorerkrankungen" camunda:resultVariable="risikokategorie" camunda:decisionRef="dmn-vorerkrankungen" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_0q09bxe</bpmn:incoming>
+      <bpmn:outgoing>Flow_049lcr7</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0qbmad6">
+        <bpmn:targetRef>DatenbankDataStoreReference</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:businessRuleTask>
+    <bpmn:businessRuleTask id="RisikofaktorKrankhistorieTask" name="Risikofaktor Krankhistorie" camunda:resultVariable="rf_krankenhistorie" camunda:decisionRef="dmn-risikofaktor-krankenhistorie" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_049lcr7</bpmn:incoming>
+      <bpmn:outgoing>Flow_102uf7s</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:businessRuleTask id="VersicherungsfahigkeitPrufenTask" name="Versicherungsfähigkeit prüfen" camunda:resultVariable="int_entitledToInsurance" camunda:decisionRef="dmn-versicherungsfaehigkeit-pruefen" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_102uf7s</bpmn:incoming>
+      <bpmn:outgoing>Flow_13amgq1</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:exclusiveGateway id="VersicherungsfahgigGateway" name="versicherungsfähgig?">
+      <bpmn:incoming>Flow_13amgq1</bpmn:incoming>
+      <bpmn:outgoing>NeinSequenceFlow</bpmn:outgoing>
+      <bpmn:outgoing>JaSequenceFlow1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0cw5btk</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sendTask id="Activity_00sv0s7" name="Antragsbestätigung versenden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ContinueProcessByApprovedPolicyMessageDelegate">
+      <bpmn:incoming>Flow_1htkrgs</bpmn:incoming>
+      <bpmn:outgoing>Flow_127ss07</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:serviceTask id="Activity_1v0i53n" name="Police aktivieren" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ActivatePolicyDelegate">
+      <bpmn:incoming>Flow_18eyvtl</bpmn:incoming>
+      <bpmn:outgoing>Flow_1htkrgs</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_08djnxj">
+        <bpmn:targetRef>DataStoreReference_1ucyz5k</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:textAnnotation id="TextAnnotation_0amti5f">
+      <bpmn:text>Handlungsbedarf?</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_0zkw18z">
-      <bpmn:text>input: alle 3 rf output: nicht vf, vf oder manuell</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_196fhsu">
-      <bpmn:text>input: risikokategorie output: rf_krankenhistorie</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_0grpcop">
-      <bpmn:text>input: Vorerkrankung output: risikokategorie</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_147fr8n">
-      <bpmn:text>input: bmi output:rf_bmi</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_04nxgcf" sourceRef="RisikofaktorAlterTask" targetRef="TextAnnotation_0a2s4ds" />
-    <bpmn:association id="Association_03uvbai" sourceRef="VersicherungsfahigkeitPrufenTask" targetRef="TextAnnotation_0zkw18z" />
-    <bpmn:association id="Association_0j9pp0z" sourceRef="RisikofaktorKrankhistorieTask" targetRef="TextAnnotation_196fhsu" />
-    <bpmn:association id="Association_06zc9s9" sourceRef="VorerkrankungenTask" targetRef="TextAnnotation_0grpcop" />
-    <bpmn:association id="Association_1g6cst0" sourceRef="RisikofaktorBMITask" targetRef="TextAnnotation_147fr8n" />
-    <bpmn:textAnnotation id="TextAnnotation_0hqvexj">
-      <bpmn:text>Zeigen: Antragsdaten + 3 Risikof.</bpmn:text>
+    <bpmn:textAnnotation id="TextAnnotation_1s73opd">
+      <bpmn:text>parallele visuelle Sichtung, wie aussteigen bei Fehler?</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_17ifdol">
       <bpmn:text>POJO erstellen mit entsprechenden Variablen</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_1asykaw" sourceRef="Activity_08gl2lv" targetRef="TextAnnotation_17ifdol" />
-    <bpmn:association id="Association_1311g1r" sourceRef="Activity_0t6o040" targetRef="TextAnnotation_0hqvexj" />
-    <bpmn:textAnnotation id="TextAnnotation_1s73opd">
-      <bpmn:text>parallele visuelle Sichtung, wie aussteigen bei Fehler?</bpmn:text>
+    <bpmn:textAnnotation id="TextAnnotation_0hqvexj">
+      <bpmn:text>Zeigen: Antragsdaten + 3 Risikof.</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_0amti5f">
-      <bpmn:text>Handlungsbedarf?</bpmn:text>
+    <bpmn:textAnnotation id="TextAnnotation_147fr8n">
+      <bpmn:text>input: bmi output:rf_bmi</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0l6tpua" sourceRef="Event_0ryofou" targetRef="TextAnnotation_0amti5f" />
+    <bpmn:textAnnotation id="TextAnnotation_0grpcop">
+      <bpmn:text>input: Vorerkrankung output: risikokategorie</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_0zkw18z">
+      <bpmn:text>input: alle 3 rf output: nicht vf, vf oder manuell</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_0a2s4ds">
+      <bpmn:text>input: alter output: rf__alter</bpmn:text>
+    </bpmn:textAnnotation>
     <bpmn:association id="Association_0o2ukjo" sourceRef="Activity_0n2yobs" targetRef="TextAnnotation_1s73opd" />
+    <bpmn:association id="Association_0l6tpua" sourceRef="Event_0ryofou" targetRef="TextAnnotation_0amti5f" />
+    <bpmn:association id="Association_1311g1r" sourceRef="Activity_0t6o040" targetRef="TextAnnotation_0hqvexj" />
+    <bpmn:association id="Association_1asykaw" sourceRef="Activity_08gl2lv" targetRef="TextAnnotation_17ifdol" />
+    <bpmn:association id="Association_04nxgcf" sourceRef="RisikofaktorAlterTask" targetRef="TextAnnotation_0a2s4ds" />
+    <bpmn:association id="Association_1g6cst0" sourceRef="RisikofaktorBMITask" targetRef="TextAnnotation_147fr8n" />
+    <bpmn:association id="Association_06zc9s9" sourceRef="VorerkrankungenTask" targetRef="TextAnnotation_0grpcop" />
+    <bpmn:association id="Association_03uvbai" sourceRef="VersicherungsfahigkeitPrufenTask" targetRef="TextAnnotation_0zkw18z" />
+    <bpmn:association id="Association_0j9pp0z" sourceRef="RisikofaktorKrankhistorieTask" targetRef="TextAnnotation_196fhsu" />
+    <bpmn:textAnnotation id="TextAnnotation_196fhsu">
+      <bpmn:text>input: risikokategorie output: rf_krankenhistorie</bpmn:text>
+    </bpmn:textAnnotation>
   </bpmn:process>
   <bpmn:process id="ProcessCustomer" name="ProcessCustomer" isExecutable="true">
     <bpmn:laneSet id="LaneSet_115onbr">
@@ -691,7 +680,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_18eyvtl_di" bpmnElement="Flow_18eyvtl">
         <di:waypoint x="3849" y="1013" />
-        <di:waypoint x="3889" y="1013" />
+        <di:waypoint x="3880" y="1013" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_12k16mv_di" bpmnElement="Flow_12k16mv">
         <di:waypoint x="3719" y="1013" />
@@ -720,12 +709,12 @@
         <di:waypoint x="4331" y="943" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_127ss07_di" bpmnElement="Flow_127ss07">
-        <di:waypoint x="4129" y="1013" />
+        <di:waypoint x="4110" y="1013" />
         <di:waypoint x="4184" y="1013" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1htkrgs_di" bpmnElement="Flow_1htkrgs">
-        <di:waypoint x="3989" y="1013" />
-        <di:waypoint x="4029" y="1013" />
+        <di:waypoint x="3980" y="1013" />
+        <di:waypoint x="4010" y="1013" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0q403kf_di" bpmnElement="Flow_0q403kf">
         <di:waypoint x="3370" y="1075" />
@@ -892,7 +881,7 @@
       <bpmndi:BPMNShape id="Gateway_0kgputz_di" bpmnElement="VollstandigGateway" isMarkerVisible="true">
         <dc:Bounds x="2325" y="1005" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2319" y="1065" width="62" height="14" />
+          <dc:Bounds x="2320" y="1065" width="61" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0hs3vm6_di" bpmnElement="Activity_0c1gz0l">
@@ -946,9 +935,6 @@
       <bpmndi:BPMNShape id="Gateway_0uivxd4_di" bpmnElement="Gateway_0uivxd4" isMarkerVisible="true">
         <dc:Bounds x="3345" y="1075" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_00sv0s7_di" bpmnElement="Activity_00sv0s7">
-        <dc:Bounds x="4029" y="973" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0bsdwi4_di" bpmnElement="Gateway_0bsdwi4">
         <dc:Bounds x="4184" y="988" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -969,9 +955,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0n2yobs_di" bpmnElement="Activity_0n2yobs">
         <dc:Bounds x="3619" y="973" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1v0i53n_di" bpmnElement="Activity_1v0i53n">
-        <dc:Bounds x="3889" y="973" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1i7se1h_di" bpmnElement="Activity_1i7se1h">
         <dc:Bounds x="3749" y="973" width="100" height="80" />
@@ -1035,6 +1018,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0amti5f_di" bpmnElement="TextAnnotation_0amti5f">
         <dc:Bounds x="4759" y="914" width="100" height="38" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00sv0s7_di" bpmnElement="Activity_00sv0s7">
+        <dc:Bounds x="4010" y="973" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1v0i53n_di" bpmnElement="Activity_1v0i53n">
+        <dc:Bounds x="3880" y="973" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_04nxgcf_di" bpmnElement="Association_04nxgcf">
         <di:waypoint x="2588" y="990" />
@@ -1370,8 +1359,8 @@
         <di:waypoint x="4479" y="865" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_08djnxj_di" bpmnElement="DataOutputAssociation_08djnxj">
-        <di:waypoint x="3939" y="973" />
-        <di:waypoint x="3939" y="928" />
+        <di:waypoint x="3933" y="973" />
+        <di:waypoint x="3937" y="928" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1k2imp2_di" bpmnElement="DataOutputAssociation_1k2imp2">
         <di:waypoint x="3799" y="973" />
@@ -1397,7 +1386,7 @@
         <di:waypoint x="2420" y="208" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_07cwlx8_di" bpmnElement="Flow_07cwlx8">
-        <di:waypoint x="4030" y="979" />
+        <di:waypoint x="4030" y="970" />
         <di:waypoint x="4030" y="398" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1agnj9r_di" bpmnElement="Flow_1agnj9r">
