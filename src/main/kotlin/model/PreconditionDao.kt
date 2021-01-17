@@ -1,24 +1,19 @@
 package model
 
-import model.Disease
-import model.DiseaseDao
-import model.Diseases
+import de.thkoeln.inf.gpm.vgb.model.Precondition
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class Precondition(val id: Int?, val medicalHistory: MedicalHistory, val disease: Disease)
 
 class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
     private var medicalHistory by MedicalHistoryDao referencedOn Preconditions.medicalHistory
     private var disease by DiseaseDao referencedOn Preconditions.disease
 
     companion object : IntEntityClass<PreconditionDao>(Preconditions) {
-        /**
-         * Update or create [Address] in database
-         */
         fun save(precondition: Precondition): Precondition? = transaction {
             val medicalHistory = MedicalHistoryDao.save(precondition.medicalHistory)
             val medicalHistoryDao = MedicalHistoryDao.findById(medicalHistory.id!!) ?: return@transaction null
@@ -35,9 +30,13 @@ class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
 
             newPrecondition?.toPrecondition()
         }
+
+        fun delete(id: Int) = Preconditions.deleteWhere { Preconditions.id eq id }
+
+        fun findAll(): List<Precondition> = PreconditionDao.all().map { it.toPrecondition() }
     }
 
-    private fun toPrecondition() = Precondition(id.value, medicalHistory.toMedicalHistory(), disease.toDisease())
+    fun toPrecondition() = Precondition(id.value, medicalHistory.toMedicalHistory(), disease.toDisease())
 
     private fun update(medicalHistoryDao: MedicalHistoryDao, diseaseDao: DiseaseDao) {
         this.medicalHistory = medicalHistoryDao

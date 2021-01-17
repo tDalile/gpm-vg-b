@@ -1,8 +1,14 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
+import de.thkoeln.inf.gpm.vgb.model.Address;
+import de.thkoeln.inf.gpm.vgb.model.Customer;
+import de.thkoeln.inf.gpm.vgb.model.Insurant;
+import de.thkoeln.inf.gpm.vgb.model.Location;
+import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 
@@ -13,7 +19,7 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
-        saveCustomer(
+        val insurant = saveCustomer(
                 (String) processVariables.get("insurantPassword"),
                 (String) processVariables.get("insurantName"),
                 (String) processVariables.get("insurantFirstName"),
@@ -27,12 +33,11 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
                 (String) processVariables.get("insurantHouseNumber")
         );
 
-        // TODO get ids from db
-        delegateExecution.setVariable("customerId", 1L);
-        delegateExecution.setVariable("insurantId", 2L);
+        delegateExecution.setVariable("customerId", insurant.getId());
+        delegateExecution.setVariable("insurantId", insurant.getCustomer().getId());
     }
 
-    private void saveCustomer(
+    private Insurant saveCustomer(
             String password,
             String name,
             String firstName,
@@ -45,8 +50,14 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
             String street,
             String houseNumber
     ) {
-        // TODO save customer in db
-        // TODO add custom db exceptions
-        // TODO set insurantId processVariable
+        val customer = Customer.createOrUpdate(new Customer(LocalDate.now().toString()));
+        val location = Location.createOrUpdate(new Location(zipCode, city));
+        val address = Address.createOrUpdate(new Address(street, houseNumber, location));
+
+        return Insurant.createOrUpdate(
+                new Insurant(
+                        name, firstName, birthday.toString(), sex.charAt(0), size, weight, address, customer
+                )
+        );
     }
 }

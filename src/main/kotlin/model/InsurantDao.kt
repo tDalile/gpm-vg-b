@@ -1,24 +1,13 @@
 package model
 
+import de.thkoeln.inf.gpm.vgb.model.Insurant
 import model.*
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
-
-class Insurant(
-    val id: Int?,
-    val name: String,
-    val firstName: String,
-    val birthdate: String,
-    val sex: Char,
-    val size: Long,
-    val weight: Long,
-    val address: Address,
-    val customer: Customer
-)
-
 
 class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     private var name by Insurants.name
@@ -31,9 +20,6 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     private var customer by CustomerDao referencedOn Insurants.customerId
 
     companion object : IntEntityClass<InsurantDao>(Insurants) {
-        /**
-         * Update or create [Address] in database
-         */
         fun save(insurant: Insurant): Insurant? = transaction {
             val address = AddressDao.save(insurant.address) ?: return@transaction null
             val addressDao = AddressDao.findById(address.id!!) ?: return@transaction null
@@ -53,6 +39,10 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
 
             newInsurant?.toInsurant()
         }
+
+        fun delete(id: Int) = Insurants.deleteWhere { Insurants.id eq id }
+
+        fun findAll(): List<Insurant> = InsurantDao.all().map { it.toInsurant() }
     }
 
     private fun update(insurant: Insurant, addressDao: AddressDao, customerDao: CustomerDao) {

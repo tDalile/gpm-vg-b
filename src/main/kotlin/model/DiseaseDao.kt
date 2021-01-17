@@ -1,18 +1,12 @@
 package model
 
+import de.thkoeln.inf.gpm.vgb.model.Disease
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
-
-
-class Disease(
-        val id: Int?,
-        val category: Int,
-        val description: String
-
-)
 
 
 class DiseaseDao(id: EntityID<Int>) : IntEntity(id) {
@@ -20,9 +14,6 @@ class DiseaseDao(id: EntityID<Int>) : IntEntity(id) {
     private var description by Diseases.description
 
     companion object : IntEntityClass<DiseaseDao>(Diseases) {
-        /**
-         * Update or create [Disease] in database
-         */
         fun save(disease: Disease): Disease? = transaction {
             val newDisease = if (disease.id == null) {
                 new { update(disease) }
@@ -34,6 +25,10 @@ class DiseaseDao(id: EntityID<Int>) : IntEntity(id) {
 
             newDisease?.toDisease()
         }
+
+        fun delete(id: Int) = Diseases.deleteWhere { Diseases.id eq id }
+
+        fun findAll(): List<Disease> = all().map { it.toDisease() }
     }
 
     private fun update(disease: Disease) {

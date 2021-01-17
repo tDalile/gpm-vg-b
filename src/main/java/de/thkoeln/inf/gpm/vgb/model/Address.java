@@ -1,0 +1,64 @@
+package de.thkoeln.inf.gpm.vgb.model;
+
+import model.AddressDao;
+import util.DbUtil;
+
+public class Address {
+    private Integer id;
+    private String street;
+    private String houseNumber;
+    private Location location;
+
+    public static Address createOrUpdate(Address address) {
+        return DbUtil.INSTANCE.runInTransaction(() -> AddressDao.Companion.save(address));
+    }
+
+    public static Address findById(Integer addressId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> AddressDao.Companion.get(addressId)).toAddress();
+    }
+
+    public static void delete(Integer addressId) {
+        DbUtil.INSTANCE.runInTransaction(() -> AddressDao.Companion.delete(addressId));
+    }
+
+    public Address(Integer id, String street, String houseNumber, Location location) {
+        this.id = id;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.location = location;
+    }
+
+    public Address(String street, String houseNumber, Location location) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.location = location;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+}
