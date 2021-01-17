@@ -1,6 +1,6 @@
 package model
 
-import de.thkoeln.inf.gpm.vgb.model.Precondition
+import de.thkoeln.inf.gpm.vgb.model.external.Precondition
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -36,7 +36,11 @@ class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
         fun findAll(): List<Precondition> = PreconditionDao.all().map { it.toPrecondition() }
     }
 
-    fun toPrecondition() = Precondition(id.value, medicalHistory.toMedicalHistory(), disease.toDisease())
+    fun toPrecondition() = Precondition(
+        id.value,
+        medicalHistory.toMedicalHistory(),
+        disease.toDisease()
+    )
 
     private fun update(medicalHistoryDao: MedicalHistoryDao, diseaseDao: DiseaseDao) {
         this.medicalHistory = medicalHistoryDao

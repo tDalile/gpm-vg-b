@@ -1,6 +1,6 @@
 package model
 
-import de.thkoeln.inf.gpm.vgb.model.Location
+import de.thkoeln.inf.gpm.vgb.model.external.Location
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

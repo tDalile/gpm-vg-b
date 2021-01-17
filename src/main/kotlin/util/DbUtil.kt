@@ -1,8 +1,7 @@
 package util
 
-import de.thkoeln.inf.gpm.vgb.model.*
-import de.thkoeln.inf.gpm.vgb.model.Insurant
-import de.thkoeln.inf.gpm.vgb.model.internal.Policy
+import de.thkoeln.inf.gpm.vgb.model.external.*
+import de.thkoeln.inf.gpm.vgb.model.internal.Claim
 import model.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -63,10 +62,28 @@ object DbUtil {
     fun insertDummyData() {
         println("insert dummy data")
 
-        val gm = Location.createOrUpdate(Location("51643", "Gummersbach"))
-        val stein = Address.createOrUpdate(Address("Steinmülleralle", "7b", gm))
-        val heart = Disease.createOrUpdate(Disease(3, "Herzfehler"))
-        val customer = Customer.createOrUpdate(Customer("01/01/2020"))
+        val gm = Location.createOrUpdate(
+            Location(
+                "51643",
+                "Gummersbach"
+            )
+        )
+        val stein = Address.createOrUpdate(
+            Address(
+                "Steinmülleralle",
+                "7b",
+                gm
+            )
+        )
+        val heart = Disease.createOrUpdate(
+            Disease(
+                3,
+                "Herzfehler"
+            )
+        )
+        val customer = Customer.createOrUpdate(
+            Customer("01/01/2020")
+        )
         val insurant = Insurant.createOrUpdate(
             Insurant(
                 "Fischer2",
@@ -79,18 +96,24 @@ object DbUtil {
                 customer
             )
         )
-        val medicalHistory = MedicalHistory.createOrUpdate(MedicalHistory())
-        val precondition = Precondition.createOrUpdate(Precondition(medicalHistory, heart))
-        val claim = Claim.createOrUpdate(Claim(
-            "01/01/2022",
-            35.0,
-            null,
-            null,
-            null,
-            null,
-            null,
-            medicalHistory
-        ))
+        val medicalHistory = MedicalHistory.createOrUpdate(
+            MedicalHistory()
+        )
+        val precondition = Precondition.createOrUpdate(
+            Precondition(medicalHistory, heart)
+        )
+        val claim = Claim.createOrUpdate(
+            Claim(
+                "01/01/2022",
+                35.0,
+                null,
+                null,
+                null,
+                null,
+                null,
+                medicalHistory
+            )
+        )
         val policy = InsurancePolicy.createOrUpdate(
             InsurancePolicy(
                 false,

@@ -1,6 +1,6 @@
 package model
 
-import de.thkoeln.inf.gpm.vgb.model.Address
+import de.thkoeln.inf.gpm.vgb.model.external.Address
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -39,7 +39,12 @@ class AddressDao(id: EntityID<Int>) : IntEntity(id) {
         this.location = locationDao
     }
 
-    fun toAddress() = Address(id.value, street, houseNumber, location.toLocation())
+    fun toAddress() = Address(
+        id.value,
+        street,
+        houseNumber,
+        location.toLocation()
+    )
 }
 
 object Addresses : IntIdTable() {

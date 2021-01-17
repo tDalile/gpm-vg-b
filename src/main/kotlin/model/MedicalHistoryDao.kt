@@ -1,6 +1,6 @@
 package model
 
-import de.thkoeln.inf.gpm.vgb.model.MedicalHistory
+import de.thkoeln.inf.gpm.vgb.model.external.MedicalHistory
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

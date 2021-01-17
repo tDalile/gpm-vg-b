@@ -1,6 +1,6 @@
 package model
 
-import de.thkoeln.inf.gpm.vgb.model.Insurant
+import de.thkoeln.inf.gpm.vgb.model.external.Insurant
 import model.*
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -58,15 +58,15 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     }
 
     fun toInsurant() = Insurant(
-            id.value,
-            name,
-            firstName,
-            birthdate,
-            sex,
-            size.toLong(),
-            weight.toLong(),
-            address.toAddress(),
-            customer.toCustomer()
+        id.value,
+        name,
+        firstName,
+        birthdate,
+        sex,
+        size.toLong(),
+        weight.toLong(),
+        address.toAddress(),
+        customer.toCustomer()
     )
 }
 

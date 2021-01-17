@@ -1,13 +1,10 @@
 package model
 
-import de.thkoeln.inf.gpm.vgb.model.Claim
-import de.thkoeln.inf.gpm.vgb.model.MedicalHistory
-import de.thkoeln.inf.gpm.vgb.model.Precondition
+import de.thkoeln.inf.gpm.vgb.model.internal.Claim
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
