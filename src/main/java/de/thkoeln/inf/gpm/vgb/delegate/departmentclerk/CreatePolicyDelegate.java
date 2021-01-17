@@ -1,68 +1,52 @@
 package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 
+import de.thkoeln.inf.gpm.vgb.model.Customer;
+import de.thkoeln.inf.gpm.vgb.model.InsurancePolicy;
+import de.thkoeln.inf.gpm.vgb.model.Insurant;
+import de.thkoeln.inf.gpm.vgb.model.MedicalHistory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
 
 public class CreatePolicyDelegate implements JavaDelegate {
-    private long policeId = 10000;
-    private long customerId;
-    private String name;
-    private String firstname;
-    private String isPremium;
-    private long initialDue;
-    private long monthlyDue;
-    private long riskDue;
-    private String riskDueDescription;
-    private Date approvedStartDate; // TODO: überrpfüter Vertagsbeginn
-    private Date creatiionDate; // TODO: Datum der Unterschrift (nach 14 Tagen wdiderruf)
-    private Date wishedDate; // TODO: gewünschtes Datum vom Kunden (aus Antrag entnehmen)
-
-    // TODO: Precondtions müsste eigentlich ein Array sein oder?
-    // private String precondition[];
-    private String precondtios;
-
-    private boolean approved = false;
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
-        customerId = (long) processVariables.get("mkundennr");
-        name = (String) processVariables.get("mnachname");
-        firstname = (String) processVariables.get("mvorname");
-        isPremium = (String) processVariables.get("mtarif");
-
         // TODO: change the names of the variables
-        initialDue = 110; // (double) processVariables.get("initialDue");
-        monthlyDue = (long) processVariables.get("monthlyDue");
-        riskDue = 0; // (long) processVariables.get("riskDue");
-        riskDueDescription = ""; // (String) processVariables.get("riskDueDescription");
+        long customerId = 1; // (long) processVariables.get("mkundennr");
+        long insurantId = 1; // (long) processVariables.get("mversichertennr");
+        long medicalId = 1; // (long) processVariables.get("mvorerkrankungen");
 
-        // TODO: Datenbank Erkrankungskategorie mappen
-        precondtios = (String) processVariables.get("mvorerkrankung");
+        boolean isPremium = (boolean) processVariables.get("mtarif");
+        boolean isNewCustomer = (Boolean) processVariables.get("isNewCustomer");
+        boolean isActive = false;
 
-        // processVariables.put("creationDate", setDate());
-        processVariables.put("policeID", policeId);
+        double initialContribution = 110.0; // (double) processVariables.get("initialDue");
+        double monthlyContribution = (double) processVariables.get("monthlyDue");
+
+        long riskSurcharge = 0; // (long) processVariables.get("riskDue");
+        String riskSurchargeDescription = ""; // (String) processVariables.get("riskDueDescription");
+        Date wishedDate = (Date) processVariables.get("");
+
+
+        Customer customer = Customer.findById((int) customerId);
+        Insurant insurant = Insurant.findById((int) insurantId);
+        MedicalHistory medicalHistory = MedicalHistory.findById((int) medicalId);
+
+        InsurancePolicy insurancePolicy =
+                new InsurancePolicy(isNewCustomer, 0.0, riskSurchargeDescription, monthlyContribution,
+                        initialContribution, wishedDate.toString(), isPremium, customer, medicalHistory);
+
+        processVariables.put("active", false);
+        processVariables.put("policeID", insurancePolicy.getId());
 
         delegateExecution.setVariables(processVariables);
 
     }
 
-    private Date setDate(){
-
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        LocalDate local = LocalDate.now();
-        approvedStartDate = Date.from(local.atStartOfDay(defaultZoneId).toInstant());
-
-        return approvedStartDate;
-    }
-
-    // TODO: add new Database Object with type Police
-    // TODO: generate ID & fill the intermediate table
 }
