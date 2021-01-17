@@ -6,7 +6,7 @@ import org.camunda.bpm.engine.delegate.ExecutionListener;
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
-import de.thkoeln.inf.gpm.vgb.model.external.Customer;
+import model.Customer;
 import de.thkoeln.inf.gpm.vgb.util.TestDataUtil;
 import org.camunda.bpm.engine.delegate.VariableScope;
 import org.camunda.bpm.engine.impl.context.Context;

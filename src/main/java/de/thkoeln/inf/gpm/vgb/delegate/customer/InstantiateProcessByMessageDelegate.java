@@ -2,9 +2,10 @@ package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
-import de.thkoeln.inf.gpm.vgb.model.external.Customer;
+import model.Customer;
 import de.thkoeln.inf.gpm.vgb.util.LogUtil;
 import de.thkoeln.inf.gpm.vgb.util.TestDataUtil;
+import model.Customer;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -30,12 +31,12 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
 		 // fill the message;
 		 // Additional Layer: external constants to provide single point of truth
 		 // Reference: https://blog.viadee.de/umgang-mit-variablen-in-camunda-prozessen
-		 Customer customer = new Customer(
+		 /**Customer customer = new Customer(
 				 (Long)execution.getVariable("kundennr"),
 				 (Date)execution.getVariable("eintritt"),
 				 (Long)execution.getVariable("versicherter_id")
 		 );
-
+**/
 		 //processContext.getExternal().setCustomer(customer);
 
 		 //setup serialization for objects
