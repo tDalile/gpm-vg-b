@@ -1,4 +1,4 @@
-package de.thkoeln.inf.gpm.vgb.model;
+package de.thkoeln.inf.gpm.vgb.model.external;
 
 import model.AddressDao;
 import util.DbUtil;

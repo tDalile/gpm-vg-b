@@ -1,3 +1,8 @@
+/**
+ *  Accessor-Pattern: Class uses current VariableScope of Process-Instance
+ *  Enables type-safe access to variables
+ *  Reference: https://blog.viadee.de/umgang-mit-variablen-in-camunda-prozessen
+ */
 package de.thkoeln.inf.gpm.vgb.model;
 
 import de.thkoeln.inf.gpm.vgb.model.external.ExternalProcessContext;

@@ -1,5 +1,6 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
+import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
@@ -11,12 +12,13 @@ public class CreateClaimDelegate implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
+        ProcessContext processContext = new ProcessContext(delegateExecution);
 
         saveClaim(
-                (long) processVariables.get("customerId"),
-                (long) processVariables.get("insurantId"),
-                (boolean) processVariables.get("isPremiumClaim"),
-                (double) processVariables.get("insurantBmi")
+                processContext.getInternal().getCustomerId(),
+                processContext.getInternal().getInsurantId(),
+                processContext.getInternal().getIsPremiumClaim(),
+                processContext.getInternal().getInsurantBMI()
         );
     }
 

@@ -1,9 +1,10 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
-import de.thkoeln.inf.gpm.vgb.model.Address;
-import de.thkoeln.inf.gpm.vgb.model.Customer;
-import de.thkoeln.inf.gpm.vgb.model.Insurant;
-import de.thkoeln.inf.gpm.vgb.model.Location;
+import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
+import de.thkoeln.inf.gpm.vgb.model.external.Address;
+import de.thkoeln.inf.gpm.vgb.model.external.Customer;
+import de.thkoeln.inf.gpm.vgb.model.external.Insurant;
+import de.thkoeln.inf.gpm.vgb.model.external.Location;
 import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -19,22 +20,25 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
+        ProcessContext processContext = new ProcessContext(delegateExecution);
+
         val insurant = saveCustomer(
-                (String) processVariables.get("insurantPassword"),
-                (String) processVariables.get("insurantName"),
-                (String) processVariables.get("insurantFirstName"),
-                (Date) processVariables.get("insurantBirthday"),
-                (String) processVariables.get("insurantSex"),
-                (Long) processVariables.get("insurantSize"),
-                (Long) processVariables.get("insurantWeight"),
-                (String) processVariables.get("insurantZip"),
-                (String) processVariables.get("insurantCity"),
-                (String) processVariables.get("insurantStreet"),
-                (String) processVariables.get("insurantHouseNumber")
+                processContext.getInternal().getInsurantPassword(),
+                processContext.getInternal().getInsurantName(),
+                processContext.getInternal().getInsurantFirstName(),
+                processContext.getInternal().getInsurantBirthday(),
+                processContext.getInternal().getInsurantSex(),
+                processContext.getInternal().getInsurantSize(),
+                processContext.getInternal().getInsurantWeight(),
+                processContext.getInternal().getInsurantZip(),
+                processContext.getInternal().getInsurantCity(),
+                processContext.getInternal().getInsurantStreet(),
+                processContext.getInternal().getInsurantHousenumber()
         );
 
-        delegateExecution.setVariable("customerId", insurant.getId());
-        delegateExecution.setVariable("insurantId", insurant.getCustomer().getId());
+        processContext.getInternal().setCustomerId(insurant.getId());
+        processContext.getInternal().setInsurantId(insurant.getCustomer().getId());
+
     }
 
     private Insurant saveCustomer(

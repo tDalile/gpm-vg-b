@@ -260,9 +260,9 @@
     <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="customerId" label="Kundenummer" type="string" />
-          <camunda:formField id="customerName" label="Nachname" type="string" />
-          <camunda:formField id="customerFirstname" label="Vorname" type="string" />
+          <camunda:formField id="int_customerId" label="Kundenummer" type="string" />
+          <camunda:formField id="int_customerName" label="Nachname" type="string" />
+          <camunda:formField id="int_customerFirstName" label="Vorname" type="string" />
           <camunda:formField id="isPremium" label="Tarif" type="string" />
           <camunda:formField id="isInsurable" label="Versicherungsfähig" type="string" />
           <camunda:formField id="precondition" label="Vorerkrankungen" type="string" />
@@ -427,7 +427,7 @@
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:dataStoreReference id="DatenbankDataStoreReference1" name="Datenbank" />
-    <bpmn:startEvent id="AntragsprozessGestartetStartEvent" name="Antragsprozess gestartet" camunda:formKey="embedded:app:forms/start-form.html">
+    <bpmn:startEvent id="AntragsprozessGestartetStartEvent" name="Antragsprozess gestartet">
       <bpmn:extensionElements>
         <camunda:executionListener class="de.thkoeln.inf.gpm.vgb.listener.ProcessStartEventListener" event="start" />
       </bpmn:extensionElements>
@@ -466,9 +466,9 @@
     <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="precondition1" label="Vorerkrankungen der Kategorie 1" type="string" defaultValue="keine" />
-          <camunda:formField id="precondition2" label="Vorerkrankungen der Kategorie 2" type="string" defaultValue="keine" />
-          <camunda:formField id="precondition3" label="Vorerkrankungen der Kategorie 3" type="string" defaultValue="keine" />
+          <camunda:formField id="int_precondition1" label="Vorerkrankungen der Kategorie 1" type="string" defaultValue="keine" />
+          <camunda:formField id="int_precondition2" label="Vorerkrankungen der Kategorie 2" type="string" defaultValue="keine" />
+          <camunda:formField id="int_precondition3" label="Vorerkrankungen der Kategorie 3" type="string" defaultValue="keine" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1bgxsc1</bpmn:incoming>
@@ -477,7 +477,7 @@
     <bpmn:userTask id="Activity_1ncv6kk" name="Auswahl Vertragsart" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="isPremiumClaim" label="Premiumvertrag" type="boolean" defaultValue="true" />
+          <camunda:formField id="int_isPremiumClaim" label="Premiumvertrag" type="boolean" defaultValue="true" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1dspndu</bpmn:incoming>
@@ -490,7 +490,7 @@
     <bpmn:userTask id="Activity_1swn75u" name="Kundenart auswählen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="isNewCustomer" label="Neukunde" type="boolean" defaultValue="false" />
+          <camunda:formField id="int_newCustomer" label="Neukunde" type="boolean" defaultValue="false" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0i55j18</bpmn:incoming>
@@ -499,8 +499,8 @@
     <bpmn:userTask id="Activity_0hlbx0t" name="Eingabe KundenID" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="customerId" label="Kundennummer" type="long" defaultValue="12345" />
-          <camunda:formField id="customerPassword" label="Passwort" type="string" defaultValue="demo" />
+          <camunda:formField id="int_customerId" label="Kundennummer" type="long" defaultValue="12345" />
+          <camunda:formField id="int_customerPassword" label="Passwort" type="string" defaultValue="demo" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1vrldjq</bpmn:incoming>
@@ -519,20 +519,20 @@
     <bpmn:userTask id="Activity_1shvr6b" name="Eingabe Vertragsdaten" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="customerId" label="Kundennr" type="long" defaultValue="12345" />
-          <camunda:formField id="customerName" label="Name" type="string" defaultValue="Fischer" />
-          <camunda:formField id="customerFirstName" label="Vorname" type="string" defaultValue="Jens" />
-          <camunda:formField id="claimForFamilyMember" label="Antrag für abweichende Person?" type="boolean" defaultValue="false" />
-          <camunda:formField id="insurantName" label="Name des zu Versicherten" type="string" defaultValue="Fischer" />
-          <camunda:formField id="insurantFirstName" label="Vorname" type="string" defaultValue="Hannah" />
-          <camunda:formField id="insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/10/2001" />
-          <camunda:formField id="insurantSex" label="Geschlecht" type="string" defaultValue="w" />
-          <camunda:formField id="insurantSize" label="Größe in cm" type="long" defaultValue="175" />
-          <camunda:formField id="insurantWeight" label="Gewicht in Kg" type="long" defaultValue="70" />
-          <camunda:formField id="insurantZip" label="PLZ" type="string" defaultValue="51515" />
-          <camunda:formField id="insurantCity" label="Ort" type="string" defaultValue="Kürten" />
-          <camunda:formField id="insurantStreet" label="Straße" type="string" defaultValue="Hofwiese" />
-          <camunda:formField id="insurantHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
+          <camunda:formField id="int_customerId" label="Kundennr" type="long" defaultValue="12345" />
+          <camunda:formField id="int_customerName" label="Name" type="string" defaultValue="Fischer" />
+          <camunda:formField id="int_customerFirstName" label="Vorname" type="string" defaultValue="Jens" />
+          <camunda:formField id="int_claimForFamilyMember" label="Antrag für abweichende Person?" type="boolean" defaultValue="false" />
+          <camunda:formField id="int_insurantName" label="Name des zu Versicherten" type="string" defaultValue="Fischer" />
+          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" defaultValue="Hannah" />
+          <camunda:formField id="int_insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/10/2001" />
+          <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="w" />
+          <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="175" />
+          <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="70" />
+          <camunda:formField id="int_insurantZip" label="PLZ" type="string" defaultValue="51515" />
+          <camunda:formField id="int_insurantCity" label="Ort" type="string" defaultValue="Kürten" />
+          <camunda:formField id="int_insurantStreet" label="Straße" type="string" defaultValue="Hofwiese" />
+          <camunda:formField id="int_insurantHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_194fqs1</bpmn:incoming>
@@ -541,17 +541,17 @@
     <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="insurantName" label="Name" type="string" defaultValue="Fischer" />
-          <camunda:formField id="insurantFirstName" label="Vorname" type="string" defaultValue="Jens" />
-          <camunda:formField id="insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/09/1991" />
-          <camunda:formField id="insurantSex" label="Geschlecht" type="string" defaultValue="m" />
-          <camunda:formField id="insurantSize" label="Größe in cm" type="long" defaultValue="189" />
-          <camunda:formField id="insurantWeight" label="Gewicht in Kg" type="long" defaultValue="87" />
-          <camunda:formField id="insurantZip" label="PLZ" type="string" defaultValue="51515" />
-          <camunda:formField id="insurantCity" label="Ort" type="string" defaultValue="Kürten" />
-          <camunda:formField id="insurantStreet" label="Straße" type="string" defaultValue="Hofwiese" />
-          <camunda:formField id="insurantHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
-          <camunda:formField id="insurantPassword" label="Passwort" type="string" defaultValue="demo" />
+          <camunda:formField id="int_insurantName" label="Name" type="string" defaultValue="Fischer" />
+          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" defaultValue="Jens" />
+          <camunda:formField id="int_insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/09/1991" />
+          <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="m" />
+          <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="189" />
+          <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="87" />
+          <camunda:formField id="int_insurantZip" label="PLZ" type="string" defaultValue="51515" />
+          <camunda:formField id="int_insurantCity" label="Ort" type="string" defaultValue="Kürten" />
+          <camunda:formField id="int_insurantStreet" label="Straße" type="string" defaultValue="Hofwiese" />
+          <camunda:formField id="int_insurantHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
+          <camunda:formField id="int_insurantPassword" label="Passwort" type="string" defaultValue="demo" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1fo22fo</bpmn:incoming>
@@ -559,10 +559,10 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_1e3ldh2" sourceRef="Activity_1swn75u" targetRef="Gateway_1kvxlq2" />
     <bpmn:sequenceFlow id="Flow_1fo22fo" name="ja" sourceRef="Gateway_1kvxlq2" targetRef="Activity_0qb5vvg">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isNewCustomer}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_newCustomer}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1vrldjq" name="nein" sourceRef="Gateway_1kvxlq2" targetRef="Activity_0hlbx0t">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isNewCustomer}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!int_newCustomer}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1vw8w4a" sourceRef="Activity_0qb5vvg" targetRef="Activity_0hse3q1" />
     <bpmn:sequenceFlow id="Flow_1u0ha0g" sourceRef="Activity_0hse3q1" targetRef="Gateway_0fg6uqt" />
@@ -594,9 +594,9 @@
     <bpmn:userTask id="Activity_0aitxl9" name="Prüfe Antragsbestätigung" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="customerId" label="Kundenummer" type="string" />
-          <camunda:formField id="customerName" label="Name" type="string" />
-          <camunda:formField id="customerFirstname" label="Vorname" type="string" />
+          <camunda:formField id="int_customerId" label="Kundenummer" type="string" />
+          <camunda:formField id="int_customerName" label="Name" type="string" />
+          <camunda:formField id="int_customerFirstName" label="Vorname" type="string" />
           <camunda:formField id="approved" label="Status" type="boolean" />
           <camunda:formField id="monthlyDue" label="monatlicher Beitrag" type="long" />
           <camunda:formField id="initialDue" label="initialer Beitrag" type="long" />
@@ -641,8 +641,8 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0zemvnf" sourceRef="Activity_1shvr6b" targetRef="TextAnnotation_0q15ukm" />
   </bpmn:process>
-  <bpmn:message id="Message_1hdarxq" name="instantiationMessage" />
-  <bpmn:message id="Message_1f441az" name="receivedRevisionMessage" />
+  <bpmn:message id="Message_1hdarxq" name="int_instantiationMessage" />
+  <bpmn:message id="Message_1f441az" name="int_receivedRevisionMessage" />
   <bpmn:message id="Message_1uw6e3j" name="receivedRejectionMessage" />
   <bpmn:message id="Message_1t6j2hs" name="Message_03rfn30" />
   <bpmn:message id="Message_09pbgk1" name="Message_3ds5ivv" />

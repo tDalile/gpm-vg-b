@@ -21,19 +21,12 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
 		 ProcessContext processContext = new ProcessContext(execution);
 
 		 Map<String, Object> processVariables = new HashMap();
-		 // fill the message;
-		 // Additional Layer: external constants to provide single point of truth
-		 // Reference: https://blog.viadee.de/umgang-mit-variablen-in-camunda-prozessen
-		 /**Customer customer = new Customer(
-				 (Long)execution.getVariable("kundennr"),
-				 (Date)execution.getVariable("eintritt"),
-				 (Long)execution.getVariable("versicherter_id")
-		 );
-**/
-		 //processContext.getExternal().setCustomer(customer);
 
-		 //setup serialization for objects
-		 //processVariables.put("mCustomer", processContext.getExternal().getCustomer());
+
+
+
+		 //TODO: setup serialization for objects?
+
 		 processVariables.put("mkundennr", execution.getVariable("kundennr"));
 		 processVariables.put("meintritt", execution.getVariable("eintritt"));
 		 processVariables.put("mversicherter_id", execution.getVariable("versicherter_id"));

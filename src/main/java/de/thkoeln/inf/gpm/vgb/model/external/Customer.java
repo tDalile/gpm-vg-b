@@ -1,4 +1,4 @@
-package de.thkoeln.inf.gpm.vgb.model;
+package de.thkoeln.inf.gpm.vgb.model.external;
 
 import com.sun.istack.Nullable;
 import lombok.Data;
