@@ -13,12 +13,14 @@ public class ActivatePolicyDelegate implements JavaDelegate {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
-        int policeID = (int) processVariables.get("policeID");
+        long policeID = (long) processVariables.get("policeID");
         InsurancePolicy insurancePolicy = InsurancePolicy.findById(policeID);
+
+        insurancePolicy.setActive(true);
+        InsurancePolicy.createOrUpdate(insurancePolicy);
 
         processVariables.put("active", true);
 
         delegateExecution.setVariables(processVariables);
-
     }
 }

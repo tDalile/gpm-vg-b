@@ -3,31 +3,18 @@ package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CalculateDuesDelegate implements JavaDelegate {
 
-//    private boolean isPremium;
-    private double riskDue = 0.0;
-    private int age;
+    long calculateDue(long age, long riskDue){
 
-//    CalculateDuesDelegate(int age){
-//        this.age = age;
-//    }
-//
-//    public CalculateDuesDelegate(int age, double riskDue){
-//        this.age = age;
-//        this.riskDue = riskDue;
-//    }
+        long initialDue = 110;
+        long multiplier = 10;
+        long monthlyDue;
 
-    double calculateDue(){
-
-        double initialDue = 110.0;
-        double multiplier = 10.0;
-
-        // TODO fix div/0
-        double monthlyDue = multiplier * age + riskDue;
+        if(age == 0) monthlyDue = multiplier + riskDue;
+        else monthlyDue = multiplier * age + riskDue;
 
         if (monthlyDue > initialDue) monthlyDue = initialDue + riskDue;
 
@@ -39,11 +26,13 @@ public class CalculateDuesDelegate implements JavaDelegate {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
-        // TODO: change names of the variables
-        age = (int) processVariables.get("alter");
-        riskDue = 0.0; // (double) processVariables.get("riskDue");
+        long age = (long) processVariables.get("alter");
+        long riskDue = 0; // (double) processVariables.get("riskDue");
 
-        processVariables.put("monthlyDue", (long) calculateDue());
+        long monthlyContribution = calculateDue(age, riskDue);
+
+        processVariables.put("initialContribution", monthlyContribution);
+        processVariables.put("monthlyContribution", monthlyContribution);
 
         delegateExecution.setVariables(processVariables);
     }

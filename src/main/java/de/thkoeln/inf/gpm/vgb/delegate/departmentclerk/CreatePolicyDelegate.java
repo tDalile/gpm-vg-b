@@ -18,35 +18,32 @@ public class CreatePolicyDelegate implements JavaDelegate {
         processVariables = delegateExecution.getVariables();
 
         // TODO: change the names of the variables
-        long customerId = 1; // (long) processVariables.get("mkundennr");
         long insurantId = 1; // (long) processVariables.get("mversichertennr");
         long medicalId = 1; // (long) processVariables.get("mvorerkrankungen");
 
-        boolean isPremium = (boolean) processVariables.get("mtarif");
-        boolean isNewCustomer = (Boolean) processVariables.get("isNewCustomer");
+        boolean isPremium = false; //(boolean) processVariables.get("mtarif");
+        boolean isNewCustomer = (boolean) processVariables.get("isNewCustomer");
         boolean isActive = false;
 
-        double initialContribution = 110.0; // (double) processVariables.get("initialDue");
-        double monthlyContribution = (double) processVariables.get("monthlyDue");
+        double initialContribution = (double) processVariables.get("initialContribution");
+        double monthlyContribution = (double) processVariables.get("monthlyContribution");
 
-        long riskSurcharge = 0; // (long) processVariables.get("riskDue");
+        double riskSurcharge = 0.0;// (double) processVariables.get("riskDue");
         String riskSurchargeDescription = ""; // (String) processVariables.get("riskDueDescription");
         Date wishedDate = (Date) processVariables.get("");
 
-
-        Customer customer = Customer.findById((int) customerId);
-        Insurant insurant = Insurant.findById((int) insurantId);
-        MedicalHistory medicalHistory = MedicalHistory.findById((int) medicalId);
+        Insurant insurant = Insurant.findById(insurantId);
+        MedicalHistory medicalHistory = MedicalHistory.findById(medicalId);
 
         InsurancePolicy insurancePolicy =
                 new InsurancePolicy(isNewCustomer, 0.0, riskSurchargeDescription, monthlyContribution,
-                        initialContribution, wishedDate.toString(), isPremium, customer, medicalHistory);
+                        initialContribution, wishedDate.toString(), isPremium, isActive, insurant, medicalHistory);
+        insurancePolicy = InsurancePolicy.createOrUpdate(insurancePolicy);
 
-        processVariables.put("active", false);
+        processVariables.put("active", isActive);
         processVariables.put("policeID", insurancePolicy.getId());
 
         delegateExecution.setVariables(processVariables);
 
     }
-
 }

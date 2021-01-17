@@ -34,7 +34,7 @@ public class DummyScriptTaskDelegate implements JavaDelegate {
         * Integer bmi
         **/
 
-        processVariables.put("alter", calcAge(geburtstag));
+        processVariables.put("alter", (long) calcAge(geburtstag));
         processVariables.put("bmi", bmi);
 
 
