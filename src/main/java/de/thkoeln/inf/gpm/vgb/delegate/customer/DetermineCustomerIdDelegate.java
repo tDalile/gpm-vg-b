@@ -13,15 +13,14 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Map<String, Object> processVariables = delegateExecution.getVariables();
 
-        int customerId = (int) processVariables.get("customerId");
+        long customerId = (long) processVariables.get("customerId");
         String customerPassword = (String) processVariables.get("customerPassword");
 
-        val customer = Customer.findById(customerId);
-
+        val customer = Customer.findById((int) customerId);
         if (verifyCredentials(customer, customerId, customerPassword)) {
             delegateExecution.setVariable("loginIsSuccessful", true);
-            delegateExecution.setVariable("customerId", customer.getId());
-            delegateExecution.setVariable("insurantId", customer.getInsurantId());
+            delegateExecution.setVariable("customerId", (long) customer.getId());
+            delegateExecution.setVariable("insurantId", (long) customer.getInsurantId());
         }
         else {
             delegateExecution.setVariable("loginIsSuccessful", false);

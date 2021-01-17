@@ -19,19 +19,23 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
     private var riskFactorBmi by Claims.riskFactorBmi
     private var riskFactorMedicalHistory by Claims.riskFactorMedicalHistory
     private var isInsurable by Claims.isInsurable
+    private var insurant by InsurantDao referencedOn Claims.insurant
     private var insurancePolicy by InsurancePolicyDao optionalReferencedOn Claims.insurancePolicy
     private var medicalHistory by MedicalHistoryDao optionalReferencedOn Claims.medicalHistory
 
     companion object : IntEntityClass<ClaimDao>(Claims) {
         fun save(claim: Claim): Claim? = transaction {
+            val insurant = InsurantDao.save(claim.insurant) ?: return@transaction null
+            val insurantDao = InsurantDao.findById(insurant.id!!) ?: return@transaction null
+
             val insurancePolicyDao = claim.insurancePolicy?.id?.let { InsurancePolicyDao.findById(it) }
             val medicalHistoryDao = claim.medicalHistory?.id?.let { MedicalHistoryDao.findById(it) }
 
             val newClaim = if (claim.id == null) {
-                new { update(claim, insurancePolicyDao, medicalHistoryDao) }
+                new { update(claim, insurantDao, insurancePolicyDao, medicalHistoryDao) }
             } else {
                 val old = findById(claim.id)
-                old?.update(claim, insurancePolicyDao, medicalHistoryDao)
+                old?.update(claim, insurantDao, insurancePolicyDao, medicalHistoryDao)
                 findById(claim.id)
             }
 
@@ -45,6 +49,7 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
 
     private fun update(
         claim: Claim,
+        insurantDao: InsurantDao,
         insurancePolicyDao: InsurancePolicyDao?,
         medicalHistoryDao: MedicalHistoryDao?
     ) {
@@ -54,6 +59,7 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
         this.riskFactorBmi = claim.riskFactorBmi
         this.riskFactorMedicalHistory = claim.riskFactorMedicalHistory
         this.isInsurable = claim.insurable
+        this.insurant = insurantDao
         this.insurancePolicy = insurancePolicyDao
         this.medicalHistory = medicalHistoryDao
     }
@@ -66,6 +72,7 @@ class ClaimDao(id: EntityID<Int>) : IntEntity(id) {
         riskFactorBmi,
         riskFactorMedicalHistory,
         isInsurable,
+        insurant.toInsurant(),
         insurancePolicy?.toInsurancePolicy(),
         medicalHistory?.toMedicalHistory()
     )
@@ -78,6 +85,7 @@ object Claims : IntIdTable() {
     val riskFactorBmi = long("risikofaktor_bmi").nullable()
     val riskFactorMedicalHistory = long("risikofaktor_krankenhistorie").nullable()
     val isInsurable = bool("versicherungsfaehig").nullable()
+    val insurant = reference("versicherter_id", Insurants)
     val insurancePolicy = reference("versicherungspolice_id", InsurancePolicies).nullable()
     val medicalHistory = reference("krankenhistorie_id", MedicalHistories).nullable()
 }

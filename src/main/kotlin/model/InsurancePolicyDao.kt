@@ -16,23 +16,24 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
     var monthlyContribution by InsurancePolicies.monthlyContribution
     var initialContributionAmount by InsurancePolicies.initialContributionAmount
     var startOfContract by InsurancePolicies.startOfContract
-    var customer by CustomerDao referencedOn InsurancePolicies.customer
+    var isActive by InsurancePolicies.isActive
+    var insurant by InsurantDao referencedOn InsurancePolicies.insurant
     var isPremiumTariff by InsurancePolicies.isPremiumTariff
     var medicalHistory by MedicalHistoryDao referencedOn InsurancePolicies.medicalHistory
 
     companion object : IntEntityClass<InsurancePolicyDao>(InsurancePolicies) {
         fun save(insurancePolicy: InsurancePolicy): InsurancePolicy? = transaction {
-            val customer = CustomerDao.save(insurancePolicy.customer) ?: return@transaction null
-            val customerDao = CustomerDao.findById(customer.id!!) ?: return@transaction null
+            val insurant = InsurantDao.save(insurancePolicy.insurant) ?: return@transaction null
+            val insurantDao = InsurantDao.findById(insurant.id!!) ?: return@transaction null
 
             val medicalHistory = MedicalHistoryDao.save(insurancePolicy.medicalHistory)
             val medicalHistoryDao = MedicalHistoryDao.findById(medicalHistory.id!!) ?: return@transaction null
 
             val newInsurancePolicy = if (insurancePolicy.id == null) {
-                new { update(insurancePolicy, customerDao, medicalHistoryDao) }
+                new { update(insurancePolicy, insurantDao, medicalHistoryDao) }
             } else {
                 val old = findById(insurancePolicy.id)
-                old?.update(insurancePolicy, customerDao, medicalHistoryDao)
+                old?.update(insurancePolicy, insurantDao, medicalHistoryDao)
                 findById(insurancePolicy.id)
             }
 
@@ -46,7 +47,7 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
 
     private fun update(
         insurancePolicy: InsurancePolicy,
-        customerDao: CustomerDao,
+        insurantDao: InsurantDao,
         medicalHistoryDao: MedicalHistoryDao
     ) {
         this.isNewCustomer = insurancePolicy.newCustomer
@@ -55,8 +56,9 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
         this.monthlyContribution = insurancePolicy.monthlyContribution
         this.initialContributionAmount = insurancePolicy.initialContributionAmount
         this.startOfContract = insurancePolicy.startOfContract
+        this.isActive = insurancePolicy.active
         this.isPremiumTariff = insurancePolicy.premiumTariff
-        this.customer = customerDao
+        this.insurant = insurantDao
         this.medicalHistory = medicalHistoryDao
     }
 
@@ -69,7 +71,8 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
         initialContributionAmount,
         startOfContract,
         isPremiumTariff,
-        customer.toCustomer(),
+        isActive,
+        insurant.toInsurant(),
         medicalHistory.toMedicalHistory()
     )
 }
@@ -82,6 +85,7 @@ object InsurancePolicies : IntIdTable() {
     val initialContributionAmount = double("initiale_beitragshoehe")
     val startOfContract = text("vertragsbeginn")
     val isPremiumTariff = bool("premium_tarif")
-    val customer = reference("kundennr", Customers)
+    val isActive = bool("police_ist_aktiv")
+    val insurant = reference("versicherter_id", Insurants)
     val medicalHistory = reference("krankenhistorie_id", MedicalHistories)
 }

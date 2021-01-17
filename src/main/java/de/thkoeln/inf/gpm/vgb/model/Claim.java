@@ -13,6 +13,7 @@ public class Claim {
     private Long riskFactorBmi;
     private Long riskFactorMedicalHistory;
     private Boolean isInsurable;
+    private Insurant insurant;
     private InsurancePolicy insurancePolicy;
     private MedicalHistory medicalHistory;
 
@@ -32,7 +33,7 @@ public class Claim {
         DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.delete(claimId));
     }
 
-    public Claim(Integer id, String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(Integer id, String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.id = id;
         this.claimDate = claimDate;
         this.bmi = bmi;
@@ -40,17 +41,19 @@ public class Claim {
         this.riskFactorBmi = riskFactorBmi;
         this.riskFactorMedicalHistory = riskFactorMedicalHistory;
         this.isInsurable = isInsurable;
+        this.insurant = insurant;
         this.insurancePolicy = insurancePolicy;
         this.medicalHistory = medicalHistory;
     }
 
-    public Claim(String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.claimDate = claimDate;
         this.bmi = bmi;
         this.riskFactorAge = riskFactorAge;
         this.riskFactorBmi = riskFactorBmi;
         this.riskFactorMedicalHistory = riskFactorMedicalHistory;
         this.isInsurable = isInsurable;
+        this.insurant = insurant;
         this.insurancePolicy = insurancePolicy;
         this.medicalHistory = medicalHistory;
     }
@@ -105,6 +108,14 @@ public class Claim {
 
     public void setInsurable(Boolean insurable) {
         isInsurable = insurable;
+    }
+
+    public Insurant getInsurant() {
+        return insurant;
+    }
+
+    public void setInsurant(Insurant insurant) {
+        this.insurant = insurant;
     }
 
     public InsurancePolicy getInsurancePolicy() {

@@ -20,7 +20,7 @@ public class Insurant {
     }
 
     public static Insurant findById(Integer insurantId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.get(insurantId)).toInsurant();
+        return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.get(insurantId).toInsurant());
     }
 
     public static void delete(Integer insurantId) {
