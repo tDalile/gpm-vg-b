@@ -1,7 +1,5 @@
 package de.thkoeln.inf.gpm.vgb.util;
 
-import model.Customer;
-
 import java.util.Date;
 import java.util.Random;
 

@@ -1,18 +1,11 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
-import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
-import model.Customer;
-import de.thkoeln.inf.gpm.vgb.util.LogUtil;
-import de.thkoeln.inf.gpm.vgb.util.TestDataUtil;
-import model.Customer;
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import lombok.extern.slf4j.Slf4j;
 
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

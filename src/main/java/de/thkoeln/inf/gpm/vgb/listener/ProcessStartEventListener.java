@@ -1,27 +1,9 @@
 package de.thkoeln.inf.gpm.vgb.listener;
 
+import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
-
-import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
-import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
-import model.Customer;
-import de.thkoeln.inf.gpm.vgb.util.TestDataUtil;
-import org.camunda.bpm.engine.delegate.VariableScope;
-import org.camunda.bpm.engine.impl.context.Context;
-import org.camunda.bpm.engine.impl.db.entitymanager.DbEntityManager;
-import org.camunda.bpm.engine.impl.el.StartProcessVariableScope;
-import org.camunda.bpm.engine.impl.history.event.HistoricProcessInstanceEventEntity;
-import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import java.util.Map;
 
 
 public class ProcessStartEventListener implements ExecutionListener{
