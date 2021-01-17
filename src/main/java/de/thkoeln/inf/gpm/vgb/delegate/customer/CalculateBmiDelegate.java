@@ -14,7 +14,7 @@ public class CalculateBmiDelegate implements JavaDelegate {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
-        val insurantId = (int) processVariables.get("insurantId");
+        val insurantId = (long) processVariables.get("insurantId");
         val insurant = Insurant.findById(insurantId);
 
         double bmi = calcBmi(insurant.getWeight(), insurant.getSize());

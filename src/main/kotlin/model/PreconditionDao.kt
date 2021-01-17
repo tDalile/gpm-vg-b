@@ -1,19 +1,19 @@
 package model
 
 import de.thkoeln.inf.gpm.vgb.model.Precondition
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.LongEntity
+import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
-class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
+class PreconditionDao(id: EntityID<Long>) : LongEntity(id) {
     private var medicalHistory by MedicalHistoryDao referencedOn Preconditions.medicalHistory
     private var disease by DiseaseDao referencedOn Preconditions.disease
 
-    companion object : IntEntityClass<PreconditionDao>(Preconditions) {
+    companion object : LongEntityClass<PreconditionDao>(Preconditions) {
         fun save(precondition: Precondition): Precondition? = transaction {
             val medicalHistory = MedicalHistoryDao.save(precondition.medicalHistory)
             val medicalHistoryDao = MedicalHistoryDao.findById(medicalHistory.id!!) ?: return@transaction null
@@ -31,7 +31,7 @@ class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
             newPrecondition?.toPrecondition()
         }
 
-        fun delete(id: Int) = Preconditions.deleteWhere { Preconditions.id eq id }
+        fun delete(id: Long) = Preconditions.deleteWhere { Preconditions.id eq id }
 
         fun findAll(): List<Precondition> = PreconditionDao.all().map { it.toPrecondition() }
     }
@@ -44,7 +44,7 @@ class PreconditionDao(id: EntityID<Int>) : IntEntity(id) {
     }
 }
 
-object Preconditions : IntIdTable() {
+object Preconditions : LongIdTable() {
     val medicalHistory = reference("krankenhistorie", MedicalHistories)
     val disease = reference("Erkrankung", Diseases)
 }

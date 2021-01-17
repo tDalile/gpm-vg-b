@@ -5,7 +5,7 @@ import model.InsurantDao;
 import util.DbUtil;
 
 public class Insurant {
-    private Integer id = null;
+    private Long id = null;
     private String name;
     private String firstName;
     private String birthdate;
@@ -19,15 +19,15 @@ public class Insurant {
         return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.save(insurant));
     }
 
-    public static Insurant findById(Integer insurantId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.get(insurantId)).toInsurant();
+    public static Insurant findById(Long insurantId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.get(insurantId).toInsurant());
     }
 
-    public static void delete(Integer insurantId) {
+    public static void delete(Long insurantId) {
         DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.delete(insurantId));
     }
 
-    public Insurant(Integer id,
+    public Insurant(Long id,
                     String name,
                     String firstName,
                     String birthdate,
@@ -65,7 +65,7 @@ public class Insurant {
         this.customer = customer;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

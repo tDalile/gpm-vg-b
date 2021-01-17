@@ -88,6 +88,7 @@ object DbUtil {
             null,
             null,
             null,
+            insurant,
             null,
             medicalHistory
         ))
@@ -100,7 +101,8 @@ object DbUtil {
                 33.2,
                 "01/06/2021",
                 true,
-                customer,
+                false,
+                insurant,
                 medicalHistory
             )
         )
