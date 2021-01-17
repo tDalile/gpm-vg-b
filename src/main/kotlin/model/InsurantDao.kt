@@ -2,14 +2,14 @@ package model
 
 import de.thkoeln.inf.gpm.vgb.model.Insurant
 import model.*
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.LongEntity
+import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
+class InsurantDao(id: EntityID<Long>) : LongEntity(id) {
     private var name by Insurants.name
     private var firstName by Insurants.firstName
     private var birthdate by Insurants.birthdate
@@ -19,7 +19,7 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     private var address by AddressDao referencedOn Insurants.address
     private var customer by CustomerDao referencedOn Insurants.customerId
 
-    companion object : IntEntityClass<InsurantDao>(Insurants) {
+    companion object : LongEntityClass<InsurantDao>(Insurants) {
         fun save(insurant: Insurant): Insurant? = transaction {
             val address = AddressDao.save(insurant.address) ?: return@transaction null
             val addressDao = AddressDao.findById(address.id!!) ?: return@transaction null
@@ -40,7 +40,7 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
             newInsurant?.toInsurant()
         }
 
-        fun delete(id: Int) = Insurants.deleteWhere { Insurants.id eq id }
+        fun delete(id: Long) = Insurants.deleteWhere { Insurants.id eq id }
 
         fun findAll(): List<Insurant> = InsurantDao.all().map { it.toInsurant() }
     }
@@ -70,7 +70,7 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     )
 }
 
-object Insurants : IntIdTable() {
+object Insurants : LongIdTable() {
     val name = text("Name")
     val firstName = text("Vorname")
     val birthdate = text("Geburtstag")

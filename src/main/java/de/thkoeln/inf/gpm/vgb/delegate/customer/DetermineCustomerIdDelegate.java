@@ -16,7 +16,7 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
         long customerId = (long) processVariables.get("customerId");
         String customerPassword = (String) processVariables.get("customerPassword");
 
-        val customer = Customer.findById((int) customerId);
+        val customer = Customer.findById(customerId);
         if (verifyCredentials(customer, customerId, customerPassword)) {
             delegateExecution.setVariable("loginIsSuccessful", true);
             delegateExecution.setVariable("customerId", (long) customer.getId());
@@ -28,6 +28,6 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
     }
 
     private boolean verifyCredentials(Customer customer, long id, String password) {
-        return customer.getId().equals((int) id);
+        return customer.getId().equals(id);
     }
 }

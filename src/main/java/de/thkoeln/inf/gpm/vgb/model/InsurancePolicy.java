@@ -6,7 +6,7 @@ import util.DbUtil;
 import java.util.List;
 
 public class InsurancePolicy {
-    private Integer id;
+    private Long id;
     private Boolean isNewCustomer;
     private Double riskSurcharge;
     private String riskSurchargeReason;
@@ -26,15 +26,15 @@ public class InsurancePolicy {
         return DbUtil.INSTANCE.runInTransaction(InsurancePolicyDao.Companion::findAll);
     }
 
-    public static InsurancePolicy findById(Integer claimId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> InsurancePolicyDao.Companion.get(claimId)).toInsurancePolicy();
+    public static InsurancePolicy findById(Long claimId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> InsurancePolicyDao.Companion.get(claimId).toInsurancePolicy());
     }
 
-    public static void delete(Integer claimId) {
+    public static void delete(Long claimId) {
         DbUtil.INSTANCE.runInTransaction(() -> InsurancePolicyDao.Companion.delete(claimId));
     }
 
-    public InsurancePolicy(Integer id, Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
+    public InsurancePolicy(Long id, Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
         this.id = id;
         this.isNewCustomer = isNewCustomer;
         this.riskSurcharge = riskSurcharge;
@@ -61,7 +61,7 @@ public class InsurancePolicy {
         this.medicalHistory = medicalHistory;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

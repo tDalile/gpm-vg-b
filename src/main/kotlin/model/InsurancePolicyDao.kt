@@ -1,15 +1,15 @@
 package model
 
 import de.thkoeln.inf.gpm.vgb.model.*
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.LongEntity
+import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
-class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
+class InsurancePolicyDao(id: EntityID<Long>) : LongEntity(id) {
     var isNewCustomer by InsurancePolicies.isNewCustomer
     var riskSurcharge by InsurancePolicies.riskSurcharge
     var riskSurchargeReason by InsurancePolicies.riskSurchargeReason
@@ -21,7 +21,7 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
     var isPremiumTariff by InsurancePolicies.isPremiumTariff
     var medicalHistory by MedicalHistoryDao referencedOn InsurancePolicies.medicalHistory
 
-    companion object : IntEntityClass<InsurancePolicyDao>(InsurancePolicies) {
+    companion object : LongEntityClass<InsurancePolicyDao>(InsurancePolicies) {
         fun save(insurancePolicy: InsurancePolicy): InsurancePolicy? = transaction {
             val insurant = InsurantDao.save(insurancePolicy.insurant) ?: return@transaction null
             val insurantDao = InsurantDao.findById(insurant.id!!) ?: return@transaction null
@@ -40,7 +40,7 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
             newInsurancePolicy?.toInsurancePolicy()
         }
 
-        fun delete(id: Int) = InsurancePolicies.deleteWhere { InsurancePolicies.id eq id }
+        fun delete(id: Long) = InsurancePolicies.deleteWhere { InsurancePolicies.id eq id }
 
         fun findAll(): List<InsurancePolicy> = InsurancePolicyDao.all().map { it.toInsurancePolicy() }
     }
@@ -77,7 +77,7 @@ class InsurancePolicyDao(id: EntityID<Int>) : IntEntity(id) {
     )
 }
 
-object InsurancePolicies : IntIdTable() {
+object InsurancePolicies : LongIdTable() {
     val isNewCustomer = bool("neukunde")
     val riskSurcharge = double("risikozuschlag").nullable()
     val riskSurchargeReason = text("risikozuschlagsbegruendung").nullable()

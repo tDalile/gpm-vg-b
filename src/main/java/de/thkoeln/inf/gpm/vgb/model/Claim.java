@@ -6,7 +6,7 @@ import util.DbUtil;
 import java.util.List;
 
 public class Claim {
-    private Integer id;
+    private Long id;
     private String claimDate;
     private Double bmi;
     private Long riskFactorAge;
@@ -25,15 +25,15 @@ public class Claim {
         return DbUtil.INSTANCE.runInTransaction(ClaimDao.Companion::findAll);
     }
 
-    public static Claim findById(Integer claimId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.get(claimId)).toClaim();
+    public static Claim findById(Long claimId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.get(claimId).toClaim());
     }
 
-    public static void delete(Integer claimId) {
+    public static void delete(Long claimId) {
         DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.delete(claimId));
     }
 
-    public Claim(Integer id, String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(Long id, String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.id = id;
         this.claimDate = claimDate;
         this.bmi = bmi;
@@ -58,7 +58,7 @@ public class Claim {
         this.medicalHistory = medicalHistory;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

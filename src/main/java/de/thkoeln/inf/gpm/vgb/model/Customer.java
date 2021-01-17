@@ -1,31 +1,22 @@
 package de.thkoeln.inf.gpm.vgb.model;
 
-import com.sun.istack.Nullable;
-import lombok.Data;
-import lombok.NonNull;
 import model.CustomerDao;
 import util.DbUtil;
 
-@Data
 public class Customer {
-    @Nullable
-    private Integer id = null;
-
-    @NonNull
+    private Long id = null;
     private String entry;
-
-    @Nullable
-    private Integer insurantId = null;
+    private Long insurantId = null;
 
     public static Customer createOrUpdate(Customer customer) {
         return DbUtil.INSTANCE.runInTransaction(() -> CustomerDao.Companion.save(customer));
     }
 
-    public static Customer findById(Integer customerId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> CustomerDao.Companion.get(customerId)).toCustomer();
+    public static Customer findById(Long customerId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> CustomerDao.Companion.get(customerId).toCustomer());
     }
 
-    public static void delete(Integer customerId) {
+    public static void delete(Long customerId) {
         DbUtil.INSTANCE.runInTransaction(() -> CustomerDao.Companion.delete(customerId));
     }
 
@@ -33,13 +24,13 @@ public class Customer {
         this.entry = entryDate;
     }
 
-    public Customer(Integer id, String entryDate, Integer insurantId) {
+    public Customer(Long id, String entryDate, Long insurantId) {
         this.id = id;
         this.entry = entryDate;
         this.insurantId = insurantId;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -47,7 +38,7 @@ public class Customer {
         return entry;
     }
 
-    public Integer getInsurantId() {
+    public Long getInsurantId() {
         return insurantId;
     }
 
@@ -55,7 +46,7 @@ public class Customer {
         this.entry = entry;
     }
 
-    public void setInsurantId(Integer insurantId) {
+    public void setInsurantId(Long insurantId) {
         this.insurantId = insurantId;
     }
 }
