@@ -8,8 +8,8 @@ services:
     container_name: "camunda"
     ports:
       - "8080:8080"
- #   volumes:
- #     - ./target/vgb.war:/camunda/webapps/vgb.war
+    volumes:
+      - ./target/vgb.war:/camunda/webapps/vgb.war
 
   psql:
     container_name: gpm-db
