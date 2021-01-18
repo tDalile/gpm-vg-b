@@ -1,6 +1,7 @@
 package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
+import de.thkoeln.inf.gpm.vgb.model.external.InsurancePolicy;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 

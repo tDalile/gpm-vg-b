@@ -8,18 +8,7 @@ import java.util.Map;
 
 public class CalculateDuesDelegate implements JavaDelegate {
 
-//    private boolean isPremium;
-    private double riskDue = 0.0;
-    private int age;
-
-//    CalculateDuesDelegate(int age){
-//        this.age = age;
-//    }
-//
-//    public CalculateDuesDelegate(int age, double riskDue){
-//        this.age = age;
-//        this.riskDue = riskDue;
-//    }
+    long calculateDue(long age, long riskDue){
 
 
 
@@ -34,20 +23,27 @@ public class CalculateDuesDelegate implements JavaDelegate {
         age = processContext.getInternal().getInsurantAge();
         riskDue = 0.0; // (double) processVariables.get("riskDue");
 
-        processContext.getInternal().setInsurancePolicyMonthlyContribution(calculateDue());
+        // TODO: rename
+        Double calc = calculateDue();
 
+        processContext.getInternal().setInsurancePolicyMonthlyContribution(calc);
+        processContext.getInternal().setInsurancePolicyInitialContribution(calc);
     }
 
     double calculateDue(){
+        long initialDue = 110;
+        long multiplier = 10;
+        long monthlyDue;
 
-        double initialDue = 110.0;
-        double multiplier = 10.0;
-
-        // TODO fix div/0
-        double monthlyDue = multiplier * age + riskDue;
+        if(age == 0) monthlyDue = multiplier + riskDue;
+        else monthlyDue = multiplier * age + riskDue;
 
         if (monthlyDue > initialDue) monthlyDue = initialDue + riskDue;
 
         return monthlyDue;
     }
+
+
+
+
 }

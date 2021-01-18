@@ -16,9 +16,6 @@ import java.util.Map;
  */
 public class ContinueProcessByApprovedPolicyMessageDelegate implements JavaDelegate {
 
-	 /**
-	 *
-	 */
 	public void execute(DelegateExecution execution) {
 		RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
 

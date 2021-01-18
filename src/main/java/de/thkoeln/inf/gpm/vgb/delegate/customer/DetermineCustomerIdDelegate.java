@@ -31,7 +31,6 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
     }
 
     private boolean verifyCredentials(Customer customer, long id, String password) {
-        // TODO: CHANGE!!
-        return true; //customer.getId().equals((Long) id);
+        return customer.getId().equals(id) && customer.getPassword().equals(password);
     }
 }

@@ -21,9 +21,4 @@ public class ActivatePolicyDelegate implements JavaDelegate {
 
 
     }
-
-    // TODO: Status der Police mit der gegebenen ID ändern
-
-
-
 }

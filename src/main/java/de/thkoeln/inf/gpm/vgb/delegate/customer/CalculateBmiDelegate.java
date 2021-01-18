@@ -29,24 +29,4 @@ public class CalculateBmiDelegate implements JavaDelegate {
     private double calcBmi(double weight, double size) {
         return weight / (1.0 * size * size); // *1.0 for simple double cast
     }
-
-    /*
-    //basic formula: weight/height(m)²
-    Double bmi = gewicht / Math.pow(groesseMeter,2.0);
-    //round to 2 digits
-    bmi = Math.round(bmi * 100.0)/100.0;
-    */
-
-    /*
-    private Integer calcAge(Date geburtstag) {
-        //java.util.Date --> java.time.LocalDateTime
-        LocalDateTime gLocDT = geburtstag.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-        //java.time.LocalDateTime --> LocalDate
-        LocalDate gLocD = gLocDT.toLocalDate();
-
-        int alter;
-        return alter = Period.between(gLocD, LocalDate.now()).getYears();
-    }
-    */
 }

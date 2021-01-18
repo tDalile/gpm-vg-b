@@ -9,16 +9,8 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * This is an easy adapter implementation 
- * illustrating how a Java Delegate can be used 
- * from within a BPMN 2.0 Send Task to reply to another process
- */
 public class ContinueProcessByObjectionMessageDelegate implements JavaDelegate {
 
-	 /**
-	 *
-	 */
 	public void execute(DelegateExecution execution) {
 		RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
 		ProcessContext processContext = new ProcessContext(execution);
