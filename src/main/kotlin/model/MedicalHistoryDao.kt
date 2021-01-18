@@ -1,16 +1,16 @@
 package model
 
 import de.thkoeln.inf.gpm.vgb.model.external.MedicalHistory
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.LongEntity
+import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
-class MedicalHistoryDao(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<MedicalHistoryDao>(MedicalHistories) {
+class MedicalHistoryDao(id: EntityID<Long>) : LongEntity(id) {
+    companion object : LongEntityClass<MedicalHistoryDao>(MedicalHistories) {
         /**
          * Update or create [MedicalHistory] in database
          */
@@ -19,7 +19,7 @@ class MedicalHistoryDao(id: EntityID<Int>) : IntEntity(id) {
             new { }.toMedicalHistory()
         }
 
-        fun delete(id: Int) = MedicalHistories.deleteWhere { MedicalHistories.id eq id }
+        fun delete(id: Long) = MedicalHistories.deleteWhere { MedicalHistories.id eq id }
 
         fun findAll(): List<MedicalHistory> = MedicalHistoryDao.all().map { it.toMedicalHistory() }
     }
@@ -27,4 +27,4 @@ class MedicalHistoryDao(id: EntityID<Int>) : IntEntity(id) {
     fun toMedicalHistory() = MedicalHistory(id.value)
 }
 
-object MedicalHistories : IntIdTable()
+object MedicalHistories : LongIdTable()

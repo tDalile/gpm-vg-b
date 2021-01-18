@@ -1,7 +1,5 @@
 package de.thkoeln.inf.gpm.vgb.util;
 
-import de.thkoeln.inf.gpm.vgb.model.external.Customer;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -18,7 +16,7 @@ public class TestDataUtil {
             "Schlossallee"};
 
 
-
+    /*
     public static Customer createCustomer() {
         Long id = new Random().nextLong()*1000000;
 
@@ -30,6 +28,7 @@ public class TestDataUtil {
 
         return new Customer(id,entry, insurantId);
     }
+    */
 
 
     private static <T> T randomEntry(T[] array) {

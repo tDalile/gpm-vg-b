@@ -6,7 +6,7 @@ import util.DbUtil;
 import java.util.List;
 
 public class Location {
-    private Integer id = null;
+    private Long id = null;
     private String zipCode;
     private String name;
 
@@ -18,15 +18,15 @@ public class Location {
         return DbUtil.INSTANCE.runInTransaction(LocationDao.Companion::findAll);
     }
 
-    public static Location findById(Integer locationId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> LocationDao.Companion.get(locationId)).toLocation();
+    public static Location findById(Long locationId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> LocationDao.Companion.get(locationId).toLocation());
     }
 
-    public static void delete(Integer locationId) {
+    public static void delete(Long locationId) {
         DbUtil.INSTANCE.runInTransaction(() -> LocationDao.Companion.delete(locationId));
     }
 
-    public Location(Integer id, String zipCode, String name) {
+    public Location(Long id, String zipCode, String name) {
         this.id = id;
         this.zipCode = zipCode;
         this.name = name;
@@ -37,7 +37,7 @@ public class Location {
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

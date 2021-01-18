@@ -6,7 +6,6 @@
 package de.thkoeln.inf.gpm.vgb.model.external;
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
-import de.thkoeln.inf.gpm.vgb.model.internal.Claim;
 import org.camunda.bpm.engine.delegate.VariableScope;
 
 public class ExternalProcessContext {

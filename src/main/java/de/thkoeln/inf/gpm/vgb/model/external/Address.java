@@ -4,7 +4,7 @@ import model.AddressDao;
 import util.DbUtil;
 
 public class Address {
-    private Integer id;
+    private Long id;
     private String street;
     private String houseNumber;
     private Location location;
@@ -13,15 +13,15 @@ public class Address {
         return DbUtil.INSTANCE.runInTransaction(() -> AddressDao.Companion.save(address));
     }
 
-    public static Address findById(Integer addressId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> AddressDao.Companion.get(addressId)).toAddress();
+    public static Address findById(Long addressId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> AddressDao.Companion.get(addressId).toAddress());
     }
 
-    public static void delete(Integer addressId) {
+    public static void delete(Long addressId) {
         DbUtil.INSTANCE.runInTransaction(() -> AddressDao.Companion.delete(addressId));
     }
 
-    public Address(Integer id, String street, String houseNumber, Location location) {
+    public Address(Long id, String street, String houseNumber, Location location) {
         this.id = id;
         this.street = street;
         this.houseNumber = houseNumber;
@@ -34,7 +34,7 @@ public class Address {
         this.location = location;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

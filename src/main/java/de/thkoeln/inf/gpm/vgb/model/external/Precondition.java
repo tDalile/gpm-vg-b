@@ -7,7 +7,7 @@ import util.DbUtil;
 import java.util.List;
 
 public class Precondition {
-    private Integer id;
+    private Long id;
     private MedicalHistory medicalHistory;
     private Disease disease;
 
@@ -19,15 +19,15 @@ public class Precondition {
         return DbUtil.INSTANCE.runInTransaction(PreconditionDao.Companion::findAll);
     }
 
-    public static Precondition findById(Integer preconditionId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> PreconditionDao.Companion.get(preconditionId)).toPrecondition();
+    public static Precondition findById(Long preconditionId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> PreconditionDao.Companion.get(preconditionId).toPrecondition());
     }
 
-    public static void delete(Integer preconditionId) {
+    public static void delete(Long preconditionId) {
         DbUtil.INSTANCE.runInTransaction(() -> PreconditionDao.Companion.delete(preconditionId));
     }
 
-    public Precondition(Integer id, MedicalHistory medicalHistory, Disease disease) {
+    public Precondition(Long id, MedicalHistory medicalHistory, Disease disease) {
         this.id = id;
         this.medicalHistory = medicalHistory;
         this.disease = disease;
@@ -38,7 +38,7 @@ public class Precondition {
         this.disease = disease;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

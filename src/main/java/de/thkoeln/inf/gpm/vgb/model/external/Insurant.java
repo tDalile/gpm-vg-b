@@ -9,7 +9,7 @@ public class Insurant {
     private String name;
     private String firstName;
     private String birthdate;
-    private Character sex;
+    private String sex;
     private Double size;
     private Double weight;
     private Address address;
@@ -19,11 +19,11 @@ public class Insurant {
         return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.save(insurant));
     }
 
-    public static Insurant findById(Integer insurantId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.get(insurantId)).toInsurant();
+    public static Insurant findById(Long insurantId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.get(insurantId).toInsurant());
     }
 
-    public static void delete(Integer insurantId) {
+    public static void delete(Long insurantId) {
         DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.delete(insurantId));
     }
 
@@ -31,7 +31,7 @@ public class Insurant {
                     String name,
                     String firstName,
                     String birthdate,
-                    Character sex,
+                    String sex,
                     Double size,
                     Double weight,
                     Address address,
@@ -50,7 +50,7 @@ public class Insurant {
     public Insurant(String name,
                     String firstName,
                     String birthdate,
-                    Character sex,
+                    String sex,
                     Double size,
                     Double weight,
                     Address address,
@@ -93,11 +93,11 @@ public class Insurant {
         this.birthdate = birthdate;
     }
 
-    public Character getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Character sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

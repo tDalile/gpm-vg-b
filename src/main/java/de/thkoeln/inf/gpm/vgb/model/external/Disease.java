@@ -6,8 +6,8 @@ import util.DbUtil;
 import java.util.List;
 
 public class Disease {
-    private Integer id;
-    private Integer category;
+    private Long id;
+    private Long category;
     private String description;
 
     public static Disease createOrUpdate(Disease disease) {
@@ -18,34 +18,34 @@ public class Disease {
         return DbUtil.INSTANCE.runInTransaction(DiseaseDao.Companion::findAll);
     }
 
-    public static Disease findById(Integer diseaseId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> DiseaseDao.Companion.get(diseaseId)).toDisease();
+    public static Disease findById(Long diseaseId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> DiseaseDao.Companion.get(diseaseId).toDisease());
     }
 
-    public static void delete(Integer diseaseId) {
+    public static void delete(Long diseaseId) {
         DbUtil.INSTANCE.runInTransaction(() -> DiseaseDao.Companion.delete(diseaseId));
     }
 
-    public Disease(Integer id, Integer category, String description) {
+    public Disease(Long id, Long category, String description) {
         this.id = id;
         this.category = category;
         this.description = description;
     }
 
-    public Disease(Integer category, String description) {
+    public Disease(Long category, String description) {
         this.category = category;
         this.description = description;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public Integer getCategory() {
+    public Long getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(Long category) {
         this.category = category;
     }
 

@@ -2,12 +2,9 @@ package model
 
 import de.thkoeln.inf.gpm.vgb.model.external.Insurant
 import model.*
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -77,7 +74,7 @@ object Insurants : LongIdTable() {
     val name = text("Name")
     val firstName = text("Vorname")
     val birthdate = text("Geburtstag")
-    val sex = char("Geschlecht")
+    val sex = text("Geschlecht")
     val size = double("Groesse")
     val weight = double("Gewicht")
     val address = reference("Adresse", Addresses)

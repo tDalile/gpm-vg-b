@@ -15,7 +15,7 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
         Map<String, Object> processVariables = delegateExecution.getVariables();
         ProcessContext processContext = new ProcessContext(delegateExecution);
 
-        int customerId = (int) processVariables.get("customerId");
+        Long customerId = (Long) processVariables.get("customerId");
         String customerPassword = (String) processVariables.get("customerPassword");
 
         val customer = Customer.findById(customerId);

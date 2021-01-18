@@ -1,20 +1,21 @@
-package de.thkoeln.inf.gpm.vgb.model.internal;
+package de.thkoeln.inf.gpm.vgb.model.external;
 
-import de.thkoeln.inf.gpm.vgb.model.external.InsurancePolicy;
-import de.thkoeln.inf.gpm.vgb.model.external.MedicalHistory;
 import model.ClaimDao;
 import util.DbUtil;
 
 import java.util.List;
 
 public class Claim {
-    private Integer id;
+    private Long id;
     private String claimDate;
+    private String desiredStartDate;
     private Double bmi;
     private Long riskFactorAge;
     private Long riskFactorBmi;
     private Long riskFactorMedicalHistory;
     private Boolean isInsurable;
+    private String rejectionReason;
+    private Insurant insurant;
     private InsurancePolicy insurancePolicy;
     private MedicalHistory medicalHistory;
 
@@ -26,38 +27,44 @@ public class Claim {
         return DbUtil.INSTANCE.runInTransaction(ClaimDao.Companion::findAll);
     }
 
-    public static Claim findById(Integer claimId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.get(claimId)).toClaim();
+    public static Claim findById(Long claimId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.get(claimId).toClaim());
     }
 
-    public static void delete(Integer claimId) {
+    public static void delete(Long claimId) {
         DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.delete(claimId));
     }
 
-    public Claim(Integer id, String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(Long id, String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, String rejectionReason, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.id = id;
         this.claimDate = claimDate;
+        this.desiredStartDate = desiredStartDate;
         this.bmi = bmi;
         this.riskFactorAge = riskFactorAge;
         this.riskFactorBmi = riskFactorBmi;
         this.riskFactorMedicalHistory = riskFactorMedicalHistory;
         this.isInsurable = isInsurable;
+        this.rejectionReason = rejectionReason;
+        this.insurant = insurant;
         this.insurancePolicy = insurancePolicy;
         this.medicalHistory = medicalHistory;
     }
 
-    public Claim(String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, String rejectionReason, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.claimDate = claimDate;
+        this.desiredStartDate = desiredStartDate;
         this.bmi = bmi;
         this.riskFactorAge = riskFactorAge;
         this.riskFactorBmi = riskFactorBmi;
         this.riskFactorMedicalHistory = riskFactorMedicalHistory;
         this.isInsurable = isInsurable;
+        this.rejectionReason = rejectionReason;
+        this.insurant = insurant;
         this.insurancePolicy = insurancePolicy;
         this.medicalHistory = medicalHistory;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -67,6 +74,14 @@ public class Claim {
 
     public void setClaimDate(String claimDate) {
         this.claimDate = claimDate;
+    }
+
+    public String getDesiredStartDate() {
+        return desiredStartDate;
+    }
+
+    public void setDesiredStartDate(String desiredStartDate) {
+        this.desiredStartDate = desiredStartDate;
     }
 
     public Double getBmi() {
@@ -107,6 +122,22 @@ public class Claim {
 
     public void setInsurable(Boolean insurable) {
         isInsurable = insurable;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
+
+    public Insurant getInsurant() {
+        return insurant;
+    }
+
+    public void setInsurant(Insurant insurant) {
+        this.insurant = insurant;
     }
 
     public InsurancePolicy getInsurancePolicy() {

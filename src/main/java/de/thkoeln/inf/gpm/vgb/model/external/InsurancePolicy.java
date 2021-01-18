@@ -6,7 +6,7 @@ import util.DbUtil;
 import java.util.List;
 
 public class InsurancePolicy {
-    private Integer id;
+    private Long id;
     private Boolean isNewCustomer;
     private Double riskSurcharge;
     private String riskSurchargeReason;
@@ -14,7 +14,9 @@ public class InsurancePolicy {
     private Double initialContributionAmount;
     private String startOfContract;
     private Boolean isPremiumTariff;
-    private Customer customer;
+    private String signDate;
+    private Boolean isActive;
+    private Insurant insurant;
     private MedicalHistory medicalHistory;
 
     public static InsurancePolicy createOrUpdate(InsurancePolicy insurancePolicy) {
@@ -25,15 +27,15 @@ public class InsurancePolicy {
         return DbUtil.INSTANCE.runInTransaction(InsurancePolicyDao.Companion::findAll);
     }
 
-    public static InsurancePolicy findById(Integer claimId) {
-        return DbUtil.INSTANCE.runInTransaction(() -> InsurancePolicyDao.Companion.get(claimId)).toInsurancePolicy();
+    public static InsurancePolicy findById(Long claimId) {
+        return DbUtil.INSTANCE.runInTransaction(() -> InsurancePolicyDao.Companion.get(claimId).toInsurancePolicy());
     }
 
-    public static void delete(Integer claimId) {
+    public static void delete(Long claimId) {
         DbUtil.INSTANCE.runInTransaction(() -> InsurancePolicyDao.Companion.delete(claimId));
     }
 
-    public InsurancePolicy(Integer id, Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, Customer customer, MedicalHistory medicalHistory) {
+    public InsurancePolicy(Long id, Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, String signDate, Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
         this.id = id;
         this.isNewCustomer = isNewCustomer;
         this.riskSurcharge = riskSurcharge;
@@ -42,11 +44,13 @@ public class InsurancePolicy {
         this.initialContributionAmount = initialContributionAmount;
         this.startOfContract = startOfContract;
         this.isPremiumTariff = isPremiumTariff;
-        this.customer = customer;
+        this.signDate = signDate;
+        this.isActive = isActive;
+        this.insurant = insurant;
         this.medicalHistory = medicalHistory;
     }
 
-    public InsurancePolicy(Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, Customer customer, MedicalHistory medicalHistory) {
+    public InsurancePolicy(Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, String signDate, Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
         this.isNewCustomer = isNewCustomer;
         this.riskSurcharge = riskSurcharge;
         this.riskSurchargeReason = riskSurchargeReason;
@@ -54,11 +58,13 @@ public class InsurancePolicy {
         this.initialContributionAmount = initialContributionAmount;
         this.startOfContract = startOfContract;
         this.isPremiumTariff = isPremiumTariff;
-        this.customer = customer;
+        this.signDate = signDate;
+        this.isActive = isActive;
+        this.insurant = insurant;
         this.medicalHistory = medicalHistory;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -118,12 +124,28 @@ public class InsurancePolicy {
         isPremiumTariff = premiumTariff;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getSignDate() {
+        return signDate;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setSignDate(String signDate) {
+        this.signDate = signDate;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Insurant getInsurant() {
+        return insurant;
+    }
+
+    public void setInsurant(Insurant insurant) {
+        this.insurant = insurant;
     }
 
     public MedicalHistory getMedicalHistory() {
