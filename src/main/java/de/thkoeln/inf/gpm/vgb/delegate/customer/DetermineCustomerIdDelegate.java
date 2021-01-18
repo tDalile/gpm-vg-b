@@ -15,22 +15,23 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
         Map<String, Object> processVariables = delegateExecution.getVariables();
         ProcessContext processContext = new ProcessContext(delegateExecution);
 
-        Long customerId = (Long) processVariables.get("customerId");
-        String customerPassword = (String) processVariables.get("customerPassword");
+        Long customerId = processContext.getInternal().getCustomerId();
+        String customerPassword = processContext.getInternal().getCustomerPassword();
 
         val customer = Customer.findById(customerId);
 
         if (verifyCredentials(customer, customerId, customerPassword)) {
-            delegateExecution.setVariable("loginIsSuccessful", true);
-            delegateExecution.setVariable("customerId", customer.getId());
-            delegateExecution.setVariable("insurantId", customer.getInsurantId());
+            processContext.getInternal().setIsLoginSuccessful(true);
+            processContext.getInternal().setCustomerId(customer.getId());
+            processContext.getInternal().setInsurantId(customer.getInsurantId());
         }
         else {
-            delegateExecution.setVariable("loginIsSuccessful", false);
+            processContext.getInternal().setIsLoginSuccessful(false);
         }
     }
 
     private boolean verifyCredentials(Customer customer, long id, String password) {
-        return customer.getId().equals((int) id);
+        // TODO: CHANGE!!
+        return true; //customer.getId().equals((Long) id);
     }
 }

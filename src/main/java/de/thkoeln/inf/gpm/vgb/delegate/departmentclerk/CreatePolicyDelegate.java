@@ -1,5 +1,6 @@
 package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 
+import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
@@ -13,9 +14,9 @@ public class CreatePolicyDelegate implements JavaDelegate {
     private long customerId;
     private String name;
     private String firstname;
-    private String isPremium;
+    private Boolean isPremium;
     private long initialDue;
-    private long monthlyDue;
+    private Double monthlyDue;
     private long riskDue;
     private String riskDueDescription;
     private Date approvedStartDate; // TODO: überrpfüter Vertagsbeginn
@@ -32,25 +33,24 @@ public class CreatePolicyDelegate implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
+        ProcessContext processContext = new ProcessContext(delegateExecution);
+        customerId = processContext.getInternal().getCustomerId();
+        name = processContext.getInternal().getInsurantName();
+        firstname = processContext.getInternal().getInsurantFirstName();
+        isPremium = processContext.getInternal().getIsPremiumClaim();
 
-        customerId = (long) processVariables.get("mkundennr");
-        name = (String) processVariables.get("mnachname");
-        firstname = (String) processVariables.get("mvorname");
-        isPremium = (String) processVariables.get("mtarif");
-
-        // TODO: change the names of the variables
         initialDue = 110; // (double) processVariables.get("initialDue");
-        monthlyDue = (long) processVariables.get("monthlyDue");
+        monthlyDue = processContext.getInternal().getInsurancePolicyMonthlyContribution();
         riskDue = 0; // (long) processVariables.get("riskDue");
+        // TODO: ???
         riskDueDescription = ""; // (String) processVariables.get("riskDueDescription");
 
         // TODO: Datenbank Erkrankungskategorie mappen
-        precondtios = (String) processVariables.get("mvorerkrankung");
+        precondtios = processContext.getInternal().getDiseaseDescription();
 
         // processVariables.put("creationDate", setDate());
-        processVariables.put("policeID", policeId);
+        processContext.getInternal().setInsurancePolicyId(policeId);
 
-        delegateExecution.setVariables(processVariables);
 
     }
 

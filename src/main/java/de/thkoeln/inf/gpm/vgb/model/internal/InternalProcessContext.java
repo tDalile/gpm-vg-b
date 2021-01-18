@@ -8,6 +8,8 @@ package de.thkoeln.inf.gpm.vgb.model.internal;
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
 import org.camunda.bpm.engine.delegate.VariableScope;
 
+import java.util.Date;
+
 public class InternalProcessContext {
     private final VariableScope execution;
 
@@ -68,11 +70,11 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_FIRST_NAME, insurantFirstName);
     }
 
-    public String getInsurantBirthdate() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_BIRTHDATE);
+    public Date getInsurantBirthdate() {
+        return (Date) execution.getVariable(ProcessVariableConstants.INT_INSURANT_BIRTHDATE);
     }
 
-    public void setInsurantBirthday(String insurantBirthdate) {
+    public void setInsurantBirthday(Date insurantBirthdate) {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_BIRTHDATE, insurantBirthdate);
     }
 
@@ -344,11 +346,11 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_DISEASE_CATEGORY, diseaseCategory);
     }
 
-    public Long getDiseaseDescription() {
-        return (Long) execution.getVariable(ProcessVariableConstants.INT_DISEASE_DESCRIPTION);
+    public String getDiseaseDescription() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_DISEASE_DESCRIPTION);
     }
 
-    public void setDiseaseDescription(Long diseaseDescription) {
+    public void setDiseaseDescription(String diseaseDescription) {
         execution.setVariable(ProcessVariableConstants.INT_DISEASE_DESCRIPTION, diseaseDescription);
     }
 
@@ -400,6 +402,16 @@ public class InternalProcessContext {
 
     public void setIsAddSurcharge(Boolean isAddSurcharge) {
         execution.setVariable(ProcessVariableConstants.INT_IS_ADD_SURCHARGE, isAddSurcharge);
+    }
+
+
+    // (here volatile variables)
+    public Integer getInsurantAge() {
+        return (Integer) execution.getVariable(ProcessVariableConstants.INT_INSURANT_AGE);
+    }
+
+    public void setInsurantAge(Integer insurantAge) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANT_AGE, insurantAge);
     }
 
 

@@ -1,6 +1,7 @@
 package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 
 
+import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -20,6 +21,7 @@ public class ContinueProcessByMessageDelegate implements JavaDelegate {
 	 */
 	public void execute(DelegateExecution execution) {
 		RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
+		ProcessContext processContext = new ProcessContext(execution);
 		
 		// fill the reply message with this instance process variables
 		Map<String, Object> processVariables = new HashMap();
@@ -31,22 +33,11 @@ public class ContinueProcessByMessageDelegate implements JavaDelegate {
 		String correlationId = (String) processVariables.get("correlationId");
 
 		runtimeService
-		.createMessageCorrelation("receivedRevisionMessage")
+		.createMessageCorrelation(processContext.getInternal().getReceivedRevisionMessage())
 		.setVariables(processVariables)
 		// set the correlation id as processInstanceBusinessKey of the waiting process
 		.processInstanceBusinessKey(correlationId)
 		.correlate();
-		/*
-		processVariables.put("kundennr", execution.getVariable("mkundennr"));
-		processVariables.put("eintritt", execution.getVariable("meintritt"));
-		processVariables.put("versicherter_id", execution.getVariable("mversicherter_id"));
-		processVariables.put("nachname", execution.getVariable("mnachname"));
-		processVariables.put("vorname", execution.getVariable("mvorname"));
-		processVariables.put("geburtsdatum", execution.getVariable("mgeburtsdatum"));
-		processVariables.put("geschlecht", execution.getVariable("mgeschlecht"));
-		processVariables.put("groesse", execution.getVariable("mgroesse"));
-		processVariables.put("gewicht", execution.getVariable("mgewicht"));
 
-		 */
 	  }
 }

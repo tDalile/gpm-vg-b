@@ -21,12 +21,13 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
 		 ProcessContext processContext = new ProcessContext(execution);
 
 		 Map<String, Object> processVariables = new HashMap();
+		 processVariables = execution.getVariables();
 
 
 
 
 		 //TODO: setup serialization for objects?
-
+		 /*
 		 processVariables.put("mkundennr", execution.getVariable("kundennr"));
 		 processVariables.put("meintritt", execution.getVariable("eintritt"));
 		 processVariables.put("mversicherter_id", execution.getVariable("versicherter_id"));
@@ -38,14 +39,10 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
 		 processVariables.put("mgewicht", execution.getVariable("gewicht"));
 		 processVariables.put("mtarif", execution.getVariable("tarif"));
 		 processVariables.put("mvorerkrankung", execution.getVariable("vorerkrankung"));
-
-		 //TODO: Implement constant approach
-		 //processVariables.put("mversicherter_id", execution.getVariable(ProcessVariableConstants.VERSICHERTER_ID));
+		 */
 
 
-		 //TODO: better identifier
-		  execution.setProcessBusinessKey("1");
-
+		 // TODO: Set up Variable Store
 		 // set the correlation id to identify this in receiving process
 		 String correlationId = execution.getBusinessKey();
 		if (correlationId == null) {			// if not set at process start
@@ -56,15 +53,7 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
 
 		 RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
 		 // correlate process with message name
-		 runtimeService.startProcessInstanceByMessage("instantiationMessage", processVariables);
-
-
-		 //DelegateExecution processInstance = execution.getProcessInstance();
-
-
-		//TODO: proper logging
-
-
+		 runtimeService.startProcessInstanceByMessage(processContext.getInternal().getInstantiationMessage(), processVariables);
 
 	  }
 }

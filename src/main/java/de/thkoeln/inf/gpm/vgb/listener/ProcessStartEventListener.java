@@ -5,16 +5,10 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
 
+import java.util.Random;
+
 
 public class ProcessStartEventListener implements ExecutionListener{
-
-    /*
-    final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-
-    SessionFactory factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-    Session session = factory.openSession();
-    Transaction transaction = session.beginTransaction();
-    */
 
     // needs Definition of Listener in xml of process!
     @Override
@@ -25,19 +19,18 @@ public class ProcessStartEventListener implements ExecutionListener{
 
         ProcessContext context = new ProcessContext(execution);
 
-        //Customer customer = TestDataUtil.createCustomer();
-        //context.getExternal().setCustomer(customer);
-
-        //runtimeService.setVariable(execution.getId(), "ext_customer", customer);
-
-
         /*
-        session.save(customer);
-        transaction.commit();
-        session.clear();
-        factory.close();
+        // TODO: resolve Connection refused
+        // Deploy Schema at first
+        String[] arguments = new String[] {""};
+        DeploySchema.main(arguments);
         */
-    }
 
+        // TODO: set BusinessKey
+        //TODO: better identifier
+        Random random = new Random();
+        execution.setProcessBusinessKey(String.valueOf(random.nextInt(100000)));
+
+    }
 
 }

@@ -91,6 +91,9 @@ public final class ProcessVariableConstants {
     public static final String INT_IS_INSURABLE = "int_isInsurable";
     public static final String INT_IS_ADD_SURCHARGE = "int_isAddSurcharge";
 
+    // (here volatile variables)
+    public static final String INT_INSURANT_AGE = "int_insurantAge";
+
 
     // (here messages)
     public static final String INT_INSTANTIATION_MESSAGE = "int_instantiationMessage";

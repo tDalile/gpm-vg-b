@@ -539,12 +539,12 @@
       <bpmn:incoming>Flow_194fqs1</bpmn:incoming>
       <bpmn:outgoing>Flow_050i7if</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:formKey="embedded:app:forms/input-customer-data.html" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_insurantName" label="Name" type="string" defaultValue="Fischer" />
           <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" defaultValue="Jens" />
-          <camunda:formField id="int_insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/09/1991" />
+          <camunda:formField id="int_insurantBirthdate" label="Geburtsdatum" type="date" defaultValue="10/09/1991" />
           <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="m" />
           <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="189" />
           <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="87" />
@@ -1097,9 +1097,6 @@
       <bpmndi:BPMNShape id="Lane_1tk543f_di" bpmnElement="Lane_1tk543f" isHorizontal="true">
         <dc:Bounds x="180" y="80" width="4760" height="550" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
-        <dc:Bounds x="980" y="429" width="100" height="81" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1xeni61_di" bpmnElement="Flow_1xeni61">
         <di:waypoint x="3560" y="290" />
         <di:waypoint x="3622" y="290" />
@@ -1344,16 +1341,19 @@
       <bpmndi:BPMNShape id="Event_0vrnzx6_di" bpmnElement="Event_0vrnzx6">
         <dc:Bounds x="3252" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0zemvnf_di" bpmnElement="Association_0zemvnf">
-        <di:waypoint x="1010" y="390" />
-        <di:waypoint x="1020" y="429" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
+        <dc:Bounds x="980" y="429" width="100" height="81" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00mtnog_di" bpmnElement="Event_00mtnog">
         <dc:Bounds x="4212" y="362" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4211" y="325" width="40" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0zemvnf_di" bpmnElement="Association_0zemvnf">
+        <di:waypoint x="1010" y="390" />
+        <di:waypoint x="1020" y="429" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0qbmad6_di" bpmnElement="DataOutputAssociation_0qbmad6">
         <di:waypoint x="2870" y="1070" />
         <di:waypoint x="2870" y="1585" />

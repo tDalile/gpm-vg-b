@@ -1,5 +1,6 @@
 package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 
+import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
@@ -14,11 +15,11 @@ public class DeactivatePolicyDelegate implements JavaDelegate {
         Map<String, Object> processVariables;
         processVariables = delegateExecution.getVariables();
 
-        policeID = (long) processVariables.get("policeID");
+        ProcessContext processContext = new ProcessContext(delegateExecution);
 
-        processVariables.put("active", false);
+        policeID = processContext.getInternal().getInsurancePolicyId();
 
-        delegateExecution.setVariables(processVariables);
+        processContext.getInternal().setInsurancePolicyIsActive(false);
 
     }
 

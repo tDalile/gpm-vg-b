@@ -7,8 +7,7 @@ public class CreatePreDiseasesDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
 
-        //TODO: Idea -> use enum and checkboxes for the form
-        // write into map, use keys as weight
+        //TODO: Map highest category from db
 
     }
 }
