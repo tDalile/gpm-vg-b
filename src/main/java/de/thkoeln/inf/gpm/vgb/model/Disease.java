@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Disease {
     private Long id;
-    private Integer category;
+    private Long category;
     private String description;
 
     public static Disease createOrUpdate(Disease disease) {
@@ -26,13 +26,13 @@ public class Disease {
         DbUtil.INSTANCE.runInTransaction(() -> DiseaseDao.Companion.delete(diseaseId));
     }
 
-    public Disease(Long id, Integer category, String description) {
+    public Disease(Long id, Long category, String description) {
         this.id = id;
         this.category = category;
         this.description = description;
     }
 
-    public Disease(Integer category, String description) {
+    public Disease(Long category, String description) {
         this.category = category;
         this.description = description;
     }
@@ -41,11 +41,11 @@ public class Disease {
         return id;
     }
 
-    public Integer getCategory() {
+    public Long getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(Long category) {
         this.category = category;
     }
 

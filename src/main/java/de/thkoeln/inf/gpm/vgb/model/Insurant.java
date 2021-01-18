@@ -9,9 +9,9 @@ public class Insurant {
     private String name;
     private String firstName;
     private String birthdate;
-    private Character sex;
-    private Long size;
-    private Long weight;
+    private String sex;
+    private Double size;
+    private Double weight;
     private Address address;
     private Customer customer;
 
@@ -31,9 +31,9 @@ public class Insurant {
                     String name,
                     String firstName,
                     String birthdate,
-                    Character sex,
-                    Long size,
-                    Long weight,
+                    String sex,
+                    Double size,
+                    Double weight,
                     Address address,
                     Customer customer) {
         this.id = id;
@@ -50,9 +50,9 @@ public class Insurant {
     public Insurant(String name,
                     String firstName,
                     String birthdate,
-                    Character sex,
-                    Long size,
-                    Long weight,
+                    String sex,
+                    Double size,
+                    Double weight,
                     Address address,
                     Customer customer) {
         this.name = name;
@@ -93,27 +93,27 @@ public class Insurant {
         this.birthdate = birthdate;
     }
 
-    public Character getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Character sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public Long getSize() {
+    public Double getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(Double size) {
         this.size = size;
     }
 
-    public Long getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

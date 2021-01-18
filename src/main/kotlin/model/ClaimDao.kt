@@ -11,6 +11,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class ClaimDao(id: EntityID<Long>) : LongEntity(id) {
     private var claimDate by Claims.claimDate
+    private var desiredStartDate by Claims.desiredStartDate
     private var bmi by Claims.bmi
     private var riskFactorAge by Claims.riskFactorAge
     private var riskFactorBmi by Claims.riskFactorBmi
@@ -51,6 +52,7 @@ class ClaimDao(id: EntityID<Long>) : LongEntity(id) {
         medicalHistoryDao: MedicalHistoryDao?
     ) {
         this.claimDate = claim.claimDate
+        this.desiredStartDate = claim.desiredStartDate
         this.bmi = claim.bmi
         this.riskFactorAge = claim.riskFactorAge
         this.riskFactorBmi = claim.riskFactorBmi
@@ -64,6 +66,7 @@ class ClaimDao(id: EntityID<Long>) : LongEntity(id) {
     fun toClaim() = Claim(
         id.value,
         claimDate,
+        desiredStartDate,
         bmi,
         riskFactorAge,
         riskFactorBmi,
@@ -77,6 +80,7 @@ class ClaimDao(id: EntityID<Long>) : LongEntity(id) {
 
 object Claims : LongIdTable() {
     val claimDate = text("antragsdatum")
+    val desiredStartDate = text("gewuenschtes_anfangs_datum")
     val bmi = double("bmi")
     val riskFactorAge = long("risikofaktor_alter").nullable()
     val riskFactorBmi = long("risikofaktor_bmi").nullable()

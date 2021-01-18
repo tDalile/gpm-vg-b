@@ -2,7 +2,6 @@ package util
 
 import de.thkoeln.inf.gpm.vgb.model.*
 import de.thkoeln.inf.gpm.vgb.model.Insurant
-import de.thkoeln.inf.gpm.vgb.model.internal.Policy
 import model.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -66,15 +65,15 @@ object DbUtil {
         val gm = Location.createOrUpdate(Location("51643", "Gummersbach"))
         val stein = Address.createOrUpdate(Address("Steinmülleralle", "7b", gm))
         val heart = Disease.createOrUpdate(Disease(3, "Herzfehler"))
-        val customer = Customer.createOrUpdate(Customer("01/01/2020"))
+        val customer = Customer.createOrUpdate(Customer("01/01/2020", "demo"))
         val insurant = Insurant.createOrUpdate(
             Insurant(
                 "Fischer2",
                 "Jens",
                 "02/05/2020",
-                'm',
-                187,
-                78,
+                "m",
+                1.87,
+                78.0,
                 stein,
                 customer
             )
@@ -83,6 +82,7 @@ object DbUtil {
         val precondition = Precondition.createOrUpdate(Precondition(medicalHistory, heart))
         val claim = Claim.createOrUpdate(Claim(
             "01/01/2022",
+            "01/03/2022",
             35.0,
             null,
             null,
@@ -101,6 +101,7 @@ object DbUtil {
                 33.2,
                 "01/06/2021",
                 true,
+                "10/10/1010",
                 false,
                 insurant,
                 medicalHistory

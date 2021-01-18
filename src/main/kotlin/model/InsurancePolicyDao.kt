@@ -16,6 +16,7 @@ class InsurancePolicyDao(id: EntityID<Long>) : LongEntity(id) {
     var monthlyContribution by InsurancePolicies.monthlyContribution
     var initialContributionAmount by InsurancePolicies.initialContributionAmount
     var startOfContract by InsurancePolicies.startOfContract
+    var signDate by InsurancePolicies.signDate
     var isActive by InsurancePolicies.isActive
     var insurant by InsurantDao referencedOn InsurancePolicies.insurant
     var isPremiumTariff by InsurancePolicies.isPremiumTariff
@@ -57,6 +58,7 @@ class InsurancePolicyDao(id: EntityID<Long>) : LongEntity(id) {
         this.initialContributionAmount = insurancePolicy.initialContributionAmount
         this.startOfContract = insurancePolicy.startOfContract
         this.isActive = insurancePolicy.active
+        this.signDate = insurancePolicy.signDate
         this.isPremiumTariff = insurancePolicy.premiumTariff
         this.insurant = insurantDao
         this.medicalHistory = medicalHistoryDao
@@ -71,6 +73,7 @@ class InsurancePolicyDao(id: EntityID<Long>) : LongEntity(id) {
         initialContributionAmount,
         startOfContract,
         isPremiumTariff,
+        signDate,
         isActive,
         insurant.toInsurant(),
         medicalHistory.toMedicalHistory()
@@ -85,6 +88,7 @@ object InsurancePolicies : LongIdTable() {
     val initialContributionAmount = double("initiale_beitragshoehe")
     val startOfContract = text("vertragsbeginn")
     val isPremiumTariff = bool("premium_tarif")
+    val signDate = text("unterschriftsdatum")
     val isActive = bool("police_ist_aktiv")
     val insurant = reference("versicherter_id", Insurants)
     val medicalHistory = reference("krankenhistorie_id", MedicalHistories)

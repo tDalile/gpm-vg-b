@@ -25,8 +25,8 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
                 (String) processVariables.get("insurantFirstName"),
                 (Date) processVariables.get("insurantBirthday"),
                 (String) processVariables.get("insurantSex"),
-                (Long) processVariables.get("insurantSize"),
-                (Long) processVariables.get("insurantWeight"),
+                (Double) processVariables.get("insurantSize"),
+                (Double) processVariables.get("insurantWeight"),
                 (String) processVariables.get("insurantZip"),
                 (String) processVariables.get("insurantCity"),
                 (String) processVariables.get("insurantStreet"),
@@ -43,20 +43,20 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
             String firstName,
             Date birthday,
             String sex,
-            Long size,
-            Long weight,
+            Double size,
+            Double weight,
             String zipCode,
             String city,
             String street,
             String houseNumber
     ) {
-        val customer = Customer.createOrUpdate(new Customer(LocalDate.now().toString()));
+        val customer = Customer.createOrUpdate(new Customer(LocalDate.now().toString(), password));
         val location = Location.createOrUpdate(new Location(zipCode, city));
         val address = Address.createOrUpdate(new Address(street, houseNumber, location));
 
         return Insurant.createOrUpdate(
                 new Insurant(
-                        name, firstName, birthday.toString(), sex.charAt(0), size, weight, address, customer
+                        name, firstName, birthday.toString(), sex, size, weight, address, customer
                 )
         );
     }

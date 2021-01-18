@@ -23,7 +23,7 @@ public class CalculateBmiDelegate implements JavaDelegate {
     }
 
     // BMI = weight (in kg) divided by size² (in m)
-    private double calcBmi(long weight, long size) {
+    private double calcBmi(double weight, double size) {
         return weight / (1.0 * size * size); // *1.0 for simple double cast
     }
 }

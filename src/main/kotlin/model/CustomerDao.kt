@@ -10,6 +10,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class CustomerDao(id: EntityID<Long>) : LongEntity(id) {
     private var entry by Customers.entry
+    private var password by Customers.password
     private var insurantId by Customers.insurantId // InsurantDao referencedOn Customers.insurant
 
     companion object : LongEntityClass<CustomerDao>(Customers) {
@@ -32,10 +33,11 @@ class CustomerDao(id: EntityID<Long>) : LongEntity(id) {
 
     private fun update(customer: Customer) {
         this.entry = customer.entry
+        this.password = customer.password
         this.insurantId = customer.insurantId
     }
 
-    fun toCustomer() = Customer(id.value, entry, insurantId)
+    fun toCustomer() = Customer(id.value, entry, password, insurantId)
 
     fun setInsurantId(insurant: Long) = transaction {
         insurantId = insurant
@@ -43,6 +45,7 @@ class CustomerDao(id: EntityID<Long>) : LongEntity(id) {
 }
 
 object Customers : LongIdTable() {
-    val entry = varchar("eintrittdatum", 50)
+    val entry = text("eintrittdatum")
+    val password = text("passwort")
     val insurantId = long("versicherterId").nullable()
 }

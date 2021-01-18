@@ -1,6 +1,5 @@
 package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 
-import de.thkoeln.inf.gpm.vgb.model.Customer;
 import de.thkoeln.inf.gpm.vgb.model.InsurancePolicy;
 import de.thkoeln.inf.gpm.vgb.model.Insurant;
 import de.thkoeln.inf.gpm.vgb.model.MedicalHistory;
@@ -37,7 +36,7 @@ public class CreatePolicyDelegate implements JavaDelegate {
 
         InsurancePolicy insurancePolicy =
                 new InsurancePolicy(isNewCustomer, 0.0, riskSurchargeDescription, monthlyContribution,
-                        initialContribution, wishedDate.toString(), isPremium, isActive, insurant, medicalHistory);
+                        initialContribution, wishedDate.toString(), isPremium, "10.10.1010", isActive, insurant, medicalHistory);
         insurancePolicy = InsurancePolicy.createOrUpdate(insurancePolicy);
 
         processVariables.put("active", isActive);

@@ -50,8 +50,8 @@ class InsurantDao(id: EntityID<Long>) : LongEntity(id) {
         this.firstName = insurant.firstName
         this.birthdate = insurant.birthdate
         this.sex = insurant.sex
-        this.size = insurant.size.toInt()
-        this.weight = insurant.weight.toInt()
+        this.size = insurant.size
+        this.weight = insurant.weight
         this.address = addressDao
         this.customer = customerDao
 
@@ -63,8 +63,8 @@ class InsurantDao(id: EntityID<Long>) : LongEntity(id) {
             firstName,
             birthdate,
             sex,
-            size.toLong(),
-            weight.toLong(),
+            size,
+            weight,
             address.toAddress(),
             customer.toCustomer()
     )
@@ -74,9 +74,9 @@ object Insurants : LongIdTable() {
     val name = text("Name")
     val firstName = text("Vorname")
     val birthdate = text("Geburtstag")
-    val sex = char("Geschlecht")
-    val size = integer("Groesse")
-    val weight = integer("Gewicht")
+    val sex = text("Geschlecht")
+    val size = double("Groesse")
+    val weight = double("Gewicht")
     val address = reference("Adresse", Addresses)
     val customerId = reference("Kundennr", Customers)
 }

@@ -14,6 +14,7 @@ public class InsurancePolicy {
     private Double initialContributionAmount;
     private String startOfContract;
     private Boolean isPremiumTariff;
+    private String signDate;
     private Boolean isActive;
     private Insurant insurant;
     private MedicalHistory medicalHistory;
@@ -34,7 +35,7 @@ public class InsurancePolicy {
         DbUtil.INSTANCE.runInTransaction(() -> InsurancePolicyDao.Companion.delete(claimId));
     }
 
-    public InsurancePolicy(Long id, Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
+    public InsurancePolicy(Long id, Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, String signDate, Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
         this.id = id;
         this.isNewCustomer = isNewCustomer;
         this.riskSurcharge = riskSurcharge;
@@ -43,12 +44,13 @@ public class InsurancePolicy {
         this.initialContributionAmount = initialContributionAmount;
         this.startOfContract = startOfContract;
         this.isPremiumTariff = isPremiumTariff;
+        this.signDate = signDate;
         this.isActive = isActive;
         this.insurant = insurant;
         this.medicalHistory = medicalHistory;
     }
 
-    public InsurancePolicy(Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff,  Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
+    public InsurancePolicy(Boolean isNewCustomer, Double riskSurcharge, String riskSurchargeReason, Double monthlyContribution, Double initialContributionAmount, String startOfContract, Boolean isPremiumTariff, String signDate, Boolean isActive, Insurant insurant, MedicalHistory medicalHistory) {
         this.isNewCustomer = isNewCustomer;
         this.riskSurcharge = riskSurcharge;
         this.riskSurchargeReason = riskSurchargeReason;
@@ -56,6 +58,7 @@ public class InsurancePolicy {
         this.initialContributionAmount = initialContributionAmount;
         this.startOfContract = startOfContract;
         this.isPremiumTariff = isPremiumTariff;
+        this.signDate = signDate;
         this.isActive = isActive;
         this.insurant = insurant;
         this.medicalHistory = medicalHistory;
@@ -119,6 +122,14 @@ public class InsurancePolicy {
 
     public void setPremiumTariff(Boolean premiumTariff) {
         isPremiumTariff = premiumTariff;
+    }
+
+    public String getSignDate() {
+        return signDate;
+    }
+
+    public void setSignDate(String signDate) {
+        this.signDate = signDate;
     }
 
     public Boolean getActive() {

@@ -8,6 +8,7 @@ import java.util.List;
 public class Claim {
     private Long id;
     private String claimDate;
+    private String desiredStartDate;
     private Double bmi;
     private Long riskFactorAge;
     private Long riskFactorBmi;
@@ -33,9 +34,10 @@ public class Claim {
         DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.delete(claimId));
     }
 
-    public Claim(Long id, String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(Long id, String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.id = id;
         this.claimDate = claimDate;
+        this.desiredStartDate = desiredStartDate;
         this.bmi = bmi;
         this.riskFactorAge = riskFactorAge;
         this.riskFactorBmi = riskFactorBmi;
@@ -46,8 +48,9 @@ public class Claim {
         this.medicalHistory = medicalHistory;
     }
 
-    public Claim(String claimDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.claimDate = claimDate;
+        this.desiredStartDate = desiredStartDate;
         this.bmi = bmi;
         this.riskFactorAge = riskFactorAge;
         this.riskFactorBmi = riskFactorBmi;
@@ -68,6 +71,14 @@ public class Claim {
 
     public void setClaimDate(String claimDate) {
         this.claimDate = claimDate;
+    }
+
+    public String getDesiredStartDate() {
+        return desiredStartDate;
+    }
+
+    public void setDesiredStartDate(String desiredStartDate) {
+        this.desiredStartDate = desiredStartDate;
     }
 
     public Double getBmi() {

@@ -41,6 +41,6 @@ class DiseaseDao(id: EntityID<Long>) : LongEntity(id) {
 
 
 object Diseases : LongIdTable() {
-    val category = integer("kategorie")
+    val category = long("kategorie")
     val description = text("beschreibung")
 }
