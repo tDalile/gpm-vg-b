@@ -8,20 +8,21 @@ package de.thkoeln.inf.gpm.vgb.model.internal;
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
 import org.camunda.bpm.engine.delegate.VariableScope;
 
-import java.util.Date;
-
 public class InternalProcessContext {
     private final VariableScope execution;
+
 
     public InternalProcessContext(final VariableScope execution) {
         this.execution = execution;
     }
 
-    public Integer getCustomerId() {
-        return (Integer) execution.getVariable(ProcessVariableConstants.INT_CUSTOMER_ID);
+
+    // Customer
+    public Long getCustomerId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_CUSTOMER_ID);
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         execution.setVariable(ProcessVariableConstants.INT_CUSTOMER_ID, customerId);
     }
 
@@ -33,27 +34,21 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_CUSTOMER_PASSWORD, customerPassword);
     }
 
-    public Double getInsurantBMI() {
-        return (Double) execution.getVariable(ProcessVariableConstants.INT_INSURANT_BMI);
+    public String getCustomerEntry() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_CUSTOMER_ENTRY);
     }
 
-    public void setInsurantBMI(Double insurantBMI) {
-        execution.setVariable(ProcessVariableConstants.INT_INSURANT_BMI, insurantBMI);
+    public void setCustomerEntry(String customerEntry) {
+        execution.setVariable(ProcessVariableConstants.INT_CUSTOMER_ENTRY, customerEntry);
     }
 
-    public Boolean getIsPremiumClaim() {
-        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_IS_PREMIUM_CLAIM);
+
+    // Insurant
+    public Long getInsurantId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_INSURANT_ID);
     }
 
-    public void setIsPremiumClaim(Integer isPremiumClaim) {
-        execution.setVariable(ProcessVariableConstants.INT_IS_PREMIUM_CLAIM, isPremiumClaim);
-    }
-
-    public Integer getInsurantId() {
-        return (Integer) execution.getVariable(ProcessVariableConstants.INT_INSURANT_ID);
-    }
-
-    public void setInsurantId(Integer insurantId) {
+    public void setInsurantId(Long insurantId) {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_ID, insurantId);
     }
 
@@ -73,12 +68,12 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_FIRST_NAME, insurantFirstName);
     }
 
-    public Date getInsurantBirthday() {
-        return (Date) execution.getVariable(ProcessVariableConstants.INT_INSURANT_BIRTHDAY);
+    public String getInsurantBirthdate() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_BIRTHDATE);
     }
 
-    public void setInsurantBirthday(Date insurantBirthday) {
-        execution.setVariable(ProcessVariableConstants.INT_INSURANT_BIRTHDAY, insurantBirthday);
+    public void setInsurantBirthday(String insurantBirthdate) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANT_BIRTHDATE, insurantBirthdate);
     }
 
     public String getInsurantSex() {
@@ -89,87 +84,327 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_SEX, insurantSex);
     }
 
-    public Long getInsurantSize() {
-        return (Long) execution.getVariable(ProcessVariableConstants.INT_INSURANT_SIZE);
+    public Double getInsurantSize() {
+        return (Double) execution.getVariable(ProcessVariableConstants.INT_INSURANT_SIZE);
     }
 
-    public void setInsurantSize(Long insurantSize) {
+    public void setInsurantSize(Double insurantSize) {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_SIZE, insurantSize);
     }
 
-    public Long getInsurantWeight() {
-        return (Long) execution.getVariable(ProcessVariableConstants.INT_INSURANT_WEIGHT);
+    public Double getInsurantWeight() {
+        return (Double) execution.getVariable(ProcessVariableConstants.INT_INSURANT_WEIGHT);
     }
 
-    public void setInsurantWeight(Long insurantWeight) {
+    public void setInsurantWeight(Double insurantWeight) {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_WEIGHT, insurantWeight);
     }
 
-    public String getInsurantZip() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_ZIP);
+
+    // Location
+    public Long getLocationId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_LOCATION_ID);
     }
 
-    public void setInsurantZip(String insurantZip) {
-        execution.setVariable(ProcessVariableConstants.INT_INSURANT_ZIP, insurantZip);
+    public void setLocationId(Long locationId) {
+        execution.setVariable(ProcessVariableConstants.INT_LOCATION_ID, locationId);
     }
 
-    public String getInsurantCity() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_CITY);
+    public String getLocationZip() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_LOCATION_ZIP);
     }
 
-    public void setInsurantCity(String insurantCity) {
-        execution.setVariable(ProcessVariableConstants.INT_INSURANT_CITY, insurantCity);
+    public void setLocationZip(String locationZip) {
+        execution.setVariable(ProcessVariableConstants.INT_LOCATION_ZIP, locationZip);
     }
 
-    public String getInsurantStreet() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_STREET);
+    public String getLocationName() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_LOCATION_NAME);
     }
 
-    public void setInsurantStreet(String insurantStreet) {
-        execution.setVariable(ProcessVariableConstants.INT_INSURANT_STREET, insurantStreet);
+    public void setLocationName(String locationName) {
+        execution.setVariable(ProcessVariableConstants.INT_LOCATION_NAME, locationName);
     }
 
-    public String getInsurantHousenumber() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_HOUSENUMBER);
+
+    // Address
+    public Long getAddressId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_ADDRESS_ID);
     }
 
-    public void setInsurantHousenumber(String insurantHousenumber) {
-        execution.setVariable(ProcessVariableConstants.INT_INSURANT_HOUSENUMBER, insurantHousenumber);
+    public void setAddressId(Long addressId) {
+        execution.setVariable(ProcessVariableConstants.INT_ADDRESS_ID, addressId);
+    }
+    public String getAddressStreet() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_ADDRESS_STREET);
     }
 
-    public String getInsurantPassword() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_PASSWORD);
+    public void setAddressStreet(String addressStreet) {
+        execution.setVariable(ProcessVariableConstants.INT_ADDRESS_STREET, addressStreet);
     }
 
-    public void setInsurantPassword(String insurantPassword) {
-        execution.setVariable(ProcessVariableConstants.INT_INSURANT_PASSWORD, insurantPassword);
+    public String getAddressHousenumber() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_ADDRESS_HOUSE_NUMBER);
     }
 
-    public String getPrecondition1() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_PRECONDITION1);
+    public void setAddressHousenumber(String addressHousenumber) {
+        execution.setVariable(ProcessVariableConstants.INT_ADDRESS_HOUSE_NUMBER, addressHousenumber);
     }
 
-    public void setPrecondition1(String precondition1) {
-        execution.setVariable(ProcessVariableConstants.INT_PRECONDITION1, precondition1);
+
+    //Claim
+    public Long getClaimId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_CLAIM_ID);
     }
 
-    public String getPrecondition2() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_PRECONDITION2);
+    public void setClaimId(Long claimId) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_ID, claimId);
     }
 
-    public void setPrecondition2(String precondition2) {
-        execution.setVariable(ProcessVariableConstants.INT_PRECONDITION2, precondition2);
+    public String getClaimDate() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_CLAIM_DATE);
     }
 
-    public String getPrecondition3() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_PRECONDITION3);
+    public void setClaimDate(String claimDate) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_DATE, claimDate);
     }
 
-    public void setPrecondition3(String precondition3) {
-        execution.setVariable(ProcessVariableConstants.INT_PRECONDITION3, precondition3);
+    public String getClaimDesiredStartDate() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_CLAIM_DESIRED_START_DATE);
     }
 
-    public String getInstantiationMessage() {
+    public void setClaimDesiredStartDate(String desiredStartDate) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_DESIRED_START_DATE, desiredStartDate);
+    }
+
+    public Double getClaimBMI() {
+        return (Double) execution.getVariable(ProcessVariableConstants.INT_CLAIM_BMI);
+    }
+
+    public void setClaimBMI(Double claimBMI) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_BMI, claimBMI);
+    }
+
+    public Long getClaimRiskFactorAge() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_AGE);
+    }
+
+    public void setClaimRiskFactorAge(Long riskFactorAge) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_AGE, riskFactorAge);
+    }
+
+    public Long getClaimRiskFactorBMI() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_BMI);
+    }
+
+    public void setClaimRiskFactorBMI(Long riskFactorBMI) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_BMI, riskFactorBMI);
+    }
+
+    public Long getClaimRiskFactorMedicalFactor() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_MEDICAL_FACTOR);
+    }
+
+    public void setClaimRiskFactorMedicalFactor(Long riskFactorMedicalFactor) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_MEDICAL_FACTOR, riskFactorMedicalFactor);
+    }
+
+    public Boolean getClaimIsInsurable() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_CLAIM_IS_INSURABLE);
+    }
+
+    public void setClaimIsInsurable(Boolean claimIsInsurable) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_IS_INSURABLE, claimIsInsurable);
+    }
+
+    public String getClaimRejectionReason() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_CLAIM_REJECTION_REASON);
+    }
+
+    public void setClaimRejectionReason(String rejectionReason) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_REJECTION_REASON, rejectionReason);
+    }
+
+
+    // InsurancePolicy
+    public Long getInsurancePolicyId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_ID);
+    }
+
+    public void setInsurancePolicyId(Long insurancePolicyId) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_ID, insurancePolicyId);
+    }
+
+    public Boolean getInsurancePolicyIsNewCustomer() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_IS_NEW_CUSTOMER);
+    }
+
+    public void setInsurancePolicyIsNewCustomer(Boolean insurancePolicyIsNewCustomer) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_IS_NEW_CUSTOMER, insurancePolicyIsNewCustomer);
+    }
+
+    public Double getInsurancePolicyRiskSurcharge() {
+        return (Double) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_RISK_SURCHARGE);
+    }
+
+    public void setInsurancePolicyRiskSurcharge(Double insurancePolicyRiskSurcharge) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_RISK_SURCHARGE, insurancePolicyRiskSurcharge);
+    }
+
+    public String getInsurancePolicyRiskSurchargeReason() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_RISK_SURCHARGE_REASON);
+    }
+
+    public void setInsurancePolicyRiskSurchargeReason(String insurancePolicyRiskSurchargeReason) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_RISK_SURCHARGE_REASON, insurancePolicyRiskSurchargeReason);
+    }
+
+    public Double getInsurancePolicyMonthlyContribution() {
+        return (Double) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_MONTHLY_CONTRIBUTION);
+    }
+
+    public void setInsurancePolicyMonthlyContribution(Double insurancePolicyMonthlyContribution) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_MONTHLY_CONTRIBUTION, insurancePolicyMonthlyContribution);
+    }
+
+    public Double getInsurancePolicyInitialContribution() {
+        return (Double) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_INITIAL_CONTRIBUTION);
+    }
+
+    public void setInsurancePolicyInitialContribution(Double insurancePolicyInitialContribution) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_INITIAL_CONTRIBUTION, insurancePolicyInitialContribution);
+    }
+
+    public String getInsurancePolicyStartDateOfContract() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_START_DATE_OF_CONTRACT);
+    }
+
+    public void setInsurancePolicyStartDateOfContract(Double insurancePolicyStartDateOfContract) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_START_DATE_OF_CONTRACT, insurancePolicyStartDateOfContract);
+    }
+
+    public Boolean getInsurancePolicyIsPremiumTariff() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_IS_PREMIUM_TARIFF);
+    }
+
+    public void setInsurancePolicyIsPremiumTariff(Boolean insurancePolicyIsPremiumTariff) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_IS_PREMIUM_TARIFF, insurancePolicyIsPremiumTariff);
+    }
+
+    public String getInsurancePolicySignDateOfContract() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_SIGN_DATE_OF_CONTRACT);
+    }
+
+    public void setInsurancePolicySignDateOfContract(String insurancePolicySignDateOfContract) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_SIGN_DATE_OF_CONTRACT, insurancePolicySignDateOfContract);
+    }
+
+    public Boolean getInsurancePolicyIsActive() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_IS_ACTIVE);
+    }
+
+    public void setInsurancePolicyIsActive(Boolean isActive) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANCE_POLICY_IS_ACTIVE, isActive);
+    }
+
+
+    // Medical History
+    public Long getMedicalHistoryId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_MEDICAL_HISTORY_ID);
+    }
+
+    public void setMedicalHistoryId(Long medicalHistoryId) {
+        execution.setVariable(ProcessVariableConstants.INT_MEDICAL_HISTORY_ID, medicalHistoryId);
+    }
+
+
+    // Precondition
+    public Long getPreconditionId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_PRECONDITION_ID);
+    }
+
+    public void setPreconditionId(Long preconditionId) {
+        execution.setVariable(ProcessVariableConstants.INT_PRECONDITION_ID, preconditionId);
+    }
+
+    // Disease
+    public Long getDiseaseId() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_DISEASE_ID);
+    }
+
+    public void setDiseaseId(Long diseaseId) {
+        execution.setVariable(ProcessVariableConstants.INT_DISEASE_ID, diseaseId);
+    }
+
+    public Long getDiseaseCategory() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_DISEASE_CATEGORY);
+    }
+
+    public void setDiseaseCategory(Long diseaseCategory) {
+        execution.setVariable(ProcessVariableConstants.INT_DISEASE_CATEGORY, diseaseCategory);
+    }
+
+    public Long getDiseaseDescription() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_DISEASE_DESCRIPTION);
+    }
+
+    public void setDiseaseDescription(Long diseaseDescription) {
+        execution.setVariable(ProcessVariableConstants.INT_DISEASE_DESCRIPTION, diseaseDescription);
+    }
+
+
+    // (here variables for sequence flows)
+    public Boolean getIsNewCustomer() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_IS_NEW_CUSTOMER);
+    }
+
+    public void setIsNewCustomer(Boolean isNewCustomer) {
+        execution.setVariable(ProcessVariableConstants.INT_IS_NEW_CUSTOMER, isNewCustomer);
+    }
+
+    public Boolean getIsClaimForFamilyMember() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_IS_CLAIM_FOR_FAMILY_MEMBER);
+    }
+
+    public void setIsClaimForFamilyMember(Boolean isClaimForFamilyMember) {
+        execution.setVariable(ProcessVariableConstants.INT_IS_CLAIM_FOR_FAMILY_MEMBER, isClaimForFamilyMember);
+    }
+
+    public Boolean getIsPremiumClaim() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_IS_PREMIUM_CLAIM);
+    }
+
+    public void setIsPremiumClaim(Boolean isPremiumClaim) {
+        execution.setVariable(ProcessVariableConstants.INT_IS_PREMIUM_CLAIM, isPremiumClaim);
+    }
+
+    public Boolean getIsLoginSuccessful() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_IS_LOGIN_SUCCESSFUL);
+    }
+
+    public void setIsLoginSuccessful(Boolean isLoginSuccessful) {
+        execution.setVariable(ProcessVariableConstants.INT_IS_LOGIN_SUCCESSFUL, isLoginSuccessful);
+    }
+
+    public Boolean getIsInsurable() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_IS_INSURABLE);
+    }
+
+    public void setIsInsurable(Boolean isInsurable) {
+        execution.setVariable(ProcessVariableConstants.INT_IS_INSURABLE, isInsurable);
+    }
+
+    public Boolean getIsAddSurcharge() {
+        return (Boolean) execution.getVariable(ProcessVariableConstants.INT_IS_ADD_SURCHARGE);
+    }
+
+    public void setIsAddSurcharge(Boolean isAddSurcharge) {
+        execution.setVariable(ProcessVariableConstants.INT_IS_ADD_SURCHARGE, isAddSurcharge);
+    }
+
+
+    // (here messages)
+       public String getInstantiationMessage() {
         return (String) execution.getVariable(ProcessVariableConstants.INT_INSTANTIATION_MESSAGE);
     }
 
@@ -183,6 +418,30 @@ public class InternalProcessContext {
 
     public void setReceivedRevisionMessage(String receivedRevisionMessage) {
         execution.setVariable(ProcessVariableConstants.INT_RECEIVED_REVISION_MESSAGE, receivedRevisionMessage);
+    }
+
+    public String getReceivedRejectionMessage() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_RECEIVED_REJECTION_MESSAGE);
+    }
+
+    public void setReceivedRejectionMessage(String receivedRejectionMessage) {
+        execution.setVariable(ProcessVariableConstants.INT_RECEIVED_REJECTION_MESSAGE, receivedRejectionMessage);
+    }
+
+    public String getApprovedPolicyMessage() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_APPROVED_POLICY_MESSAGE);
+    }
+
+    public void setApprovedPolicyMessage(String approvedPolicyMessage) {
+        execution.setVariable(ProcessVariableConstants.INT_APPROVED_POLICY_MESSAGE, approvedPolicyMessage);
+    }
+
+    public String getObjectionMessage() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_OBJECTION_MESSAGE);
+    }
+
+    public void setObjectionMessage(String objectionMessage) {
+        execution.setVariable(ProcessVariableConstants.INT_OBJECTION_MESSAGE, objectionMessage);
     }
 
 }

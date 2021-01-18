@@ -10,7 +10,6 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Map;
 
 public class CreateCustomerAccountDelegate implements JavaDelegate {
@@ -23,17 +22,17 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
         ProcessContext processContext = new ProcessContext(delegateExecution);
 
         val insurant = saveCustomer(
-                processContext.getInternal().getInsurantPassword(),
+                processContext.getInternal().getCustomerPassword(),
                 processContext.getInternal().getInsurantName(),
                 processContext.getInternal().getInsurantFirstName(),
-                processContext.getInternal().getInsurantBirthday(),
+                processContext.getInternal().getInsurantBirthdate(),
                 processContext.getInternal().getInsurantSex(),
                 processContext.getInternal().getInsurantSize(),
                 processContext.getInternal().getInsurantWeight(),
-                processContext.getInternal().getInsurantZip(),
-                processContext.getInternal().getInsurantCity(),
-                processContext.getInternal().getInsurantStreet(),
-                processContext.getInternal().getInsurantHousenumber()
+                processContext.getInternal().getLocationZip(),
+                processContext.getInternal().getLocationName(),
+                processContext.getInternal().getAddressStreet(),
+                processContext.getInternal().getAddressHousenumber()
         );
 
         processContext.getInternal().setCustomerId(insurant.getId());
@@ -45,10 +44,10 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
             String password,
             String name,
             String firstName,
-            Date birthday,
+            String birthday,
             String sex,
-            Long size,
-            Long weight,
+            Double size,
+            Double weight,
             String zipCode,
             String city,
             String street,

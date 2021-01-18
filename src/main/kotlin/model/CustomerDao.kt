@@ -3,16 +3,19 @@ package model
 import de.thkoeln.inf.gpm.vgb.model.external.Customer
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.LongEntity
+import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class CustomerDao(id: EntityID<Int>) : IntEntity(id) {
+class CustomerDao(id: EntityID<Long>) : LongEntity(id) {
     private var entry by Customers.entry
     private var insurantId by Customers.insurantId // InsurantDao referencedOn Customers.insurant
 
-    companion object : IntEntityClass<CustomerDao>(Customers) {
+    companion object : LongEntityClass<CustomerDao>(Customers) {
         fun save(customer: Customer): Customer? = transaction {
             val newCustomer = if (customer.id == null) {
                 new { update(customer) }
@@ -25,7 +28,7 @@ class CustomerDao(id: EntityID<Int>) : IntEntity(id) {
             newCustomer?.toCustomer()
         }
 
-        fun delete(id: Int) = Customers.deleteWhere { Customers.id eq id }
+        fun delete(id: Long) = Customers.deleteWhere { Customers.id eq id }
 
         fun findAll(): List<Customer> = CustomerDao.all().map { it.toCustomer() }
     }
@@ -37,12 +40,12 @@ class CustomerDao(id: EntityID<Int>) : IntEntity(id) {
 
     fun toCustomer() = Customer(id.value, entry, insurantId)
 
-    fun setInsurantId(insurant: Int) = transaction {
+    fun setInsurantId(insurant: Long) = transaction {
         insurantId = insurant
     }
 }
 
-object Customers : IntIdTable() {
+object Customers : LongIdTable() {
     val entry = varchar("eintrittdatum", 50)
-    val insurantId = integer("versicherterId").nullable()
+    val insurantId = long("versicherterId").nullable()
 }

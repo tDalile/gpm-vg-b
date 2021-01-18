@@ -2,11 +2,9 @@ package de.thkoeln.inf.gpm.vgb.util;
 
 import de.thkoeln.inf.gpm.vgb.model.external.Customer;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-import java.util.TimeZone;
 
 public class TestDataUtil {
 
@@ -22,13 +20,13 @@ public class TestDataUtil {
 
 
     public static Customer createCustomer() {
-        Integer id = new Random().nextInt()*1000000;
+        Long id = new Random().nextLong()*1000000;
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         Date date = new Date();
         String entry = formatter.format(date);
 
-        Integer insurantId = new Random().nextInt()*1000000;
+        Long insurantId = new Random().nextLong()*1000000;
 
         return new Customer(id,entry, insurantId);
     }

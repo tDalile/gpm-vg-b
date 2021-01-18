@@ -18,7 +18,7 @@ public class CreateClaimDelegate implements JavaDelegate {
                 processContext.getInternal().getCustomerId(),
                 processContext.getInternal().getInsurantId(),
                 processContext.getInternal().getIsPremiumClaim(),
-                processContext.getInternal().getInsurantBMI()
+                processContext.getInternal().getClaimBMI()
         );
     }
 

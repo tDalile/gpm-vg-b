@@ -60,7 +60,7 @@
       <bpmn:outgoing>JaSequenceFlow1</bpmn:outgoing>
       <bpmn:outgoing>Flow_0cw5btk</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:businessRuleTask id="VersicherungsfahigkeitPrufenTask" name="Versicherungsfähigkeit prüfen" camunda:resultVariable="int_entitledToInsurance" camunda:decisionRef="dmn-versicherungsfaehigkeit-pruefen" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="VersicherungsfahigkeitPrufenTask" name="Versicherungsfähigkeit prüfen" camunda:resultVariable="int_isInsurable" camunda:decisionRef="dmn-versicherungsfaehigkeit-pruefen" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_102uf7s</bpmn:incoming>
       <bpmn:outgoing>Flow_13amgq1</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -106,22 +106,22 @@
     <bpmn:sequenceFlow id="Flow_102uf7s" sourceRef="RisikofaktorKrankhistorieTask" targetRef="VersicherungsfahigkeitPrufenTask" />
     <bpmn:sequenceFlow id="Flow_182rhkt" sourceRef="AblehnungsnachrichtVersendenTask" targetRef="AntragAbgelehntEndEvent" />
     <bpmn:sequenceFlow id="NeinSequenceFlow" name="nein" sourceRef="VersicherungsfahgigGateway" targetRef="AblehnungsbegrundungHinzufugenTask">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance=="nicht versicherungsfaehig"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isInsurable=="nicht versicherungsfaehig"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_049lcr7" sourceRef="VorerkrankungenTask" targetRef="RisikofaktorKrankhistorieTask" />
     <bpmn:sequenceFlow id="Flow_0q09bxe" sourceRef="RisikofaktorBMITask" targetRef="VorerkrankungenTask" />
     <bpmn:sequenceFlow id="Flow_1isxvnh" sourceRef="RisikofaktorAlterTask" targetRef="RisikofaktorBMITask" />
     <bpmn:sequenceFlow id="JaSequenceFlow" name="ja" sourceRef="VollstandigGateway" targetRef="Activity_0c1gz0l">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_claimComplete}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isClaimComplete}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="NeinSequenceFlow1" name="nein" sourceRef="VollstandigGateway" targetRef="UberarbeitungsanfrageSendenTask">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!int_claimComplete}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!int_isClaimComplete}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0gra15k" sourceRef="UberprufeAntragTask" targetRef="VollstandigGateway" />
     <bpmn:sequenceFlow id="Flow_1bslhts" sourceRef="AntragImSystemEingegangenStartEvent" targetRef="UberprufeAntragTask" />
     <bpmn:sequenceFlow id="Flow_0q1hsu3" sourceRef="AblehnungsbegrundungHinzufugenTask" targetRef="Gateway_1t8q345" />
     <bpmn:sequenceFlow id="JaSequenceFlow1" name="ja" sourceRef="VersicherungsfahgigGateway" targetRef="Gateway_1xtq9vj">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance=="versicherungsfaehig"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isInsurable=="versicherungsfaehig"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="VollstandigGateway" name="vollständig ?">
       <bpmn:incoming>Flow_0gra15k</bpmn:incoming>
@@ -147,7 +147,7 @@
     <bpmn:userTask id="Activity_0c3js60" name="Ablehnungs-begründung hinzufügen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="ablehnungsbegruendung" label="Begründung für die Ablehnung" type="string" />
+          <camunda:formField id="int_claimRejectionReason" label="Begründung für die Ablehnung" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_119acip</bpmn:incoming>
@@ -156,7 +156,7 @@
     <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag einpflegen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="risikozuschlag" label="Risikozuschlag in Euro" type="long" />
+          <camunda:formField id="int_insurancePolicyRiskSurcharge" label="Risikozuschlag in Euro" type="long" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0a8pp10</bpmn:incoming>
@@ -165,7 +165,7 @@
     <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="risikozuschlagBegruendung" label="Begründung für den Risikozuschlag" type="string" />
+          <camunda:formField id="int_insurancePolicyRiskSurchargeReason" label="Begründung für den Risikozuschlag" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0fq0f68</bpmn:incoming>
@@ -179,7 +179,7 @@
     <bpmn:userTask id="Activity_1x0f001" name="Risikozuschlag auswählen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="risikozuschlagHinzufuegen" label="Soll ein Risikozuschlag hinzugefügt werden?" type="boolean" />
+          <camunda:formField id="int_isAddSurcharge" label="Soll ein Risikozuschlag hinzugefügt werden?" type="boolean" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0085hw1</bpmn:incoming>
@@ -202,8 +202,7 @@
     <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="versicherungsfaehig" label="Nach manueller Überprüfung: Ist der Kunde versicherungsfähig?" type="boolean" />
-          <camunda:formField id="int_entitledToInsurance" label="entitledToInsurance" type="string" />
+          <camunda:formField id="int_isInsurable" label="Nach manueller Überprüfung: Ist der Kunde versicherungsfähig?" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0cw5btk</bpmn:incoming>
@@ -211,20 +210,20 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0yheq9s" sourceRef="Activity_0t6o040" targetRef="Gateway_1kbamho" />
     <bpmn:sequenceFlow id="Flow_119acip" name="nein" sourceRef="Gateway_1kbamho" targetRef="Activity_0c3js60">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${versicherungsfaehig == false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isInsurable == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0085hw1" name="ja" sourceRef="Gateway_1kbamho" targetRef="Activity_1x0f001">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${versicherungsfaehig == true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isInsurable == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0a8pp10" name="ja" sourceRef="Gateway_1jfqs60" targetRef="Activity_195m3xx">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${risikozuschlagHinzufuegen == true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isAddSurcharge == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1n8i4kr" sourceRef="Activity_195m3xx" targetRef="Activity_1f7uqaf" />
     <bpmn:sequenceFlow id="Flow_0fq0f68" sourceRef="Activity_1f7uqaf" targetRef="Activity_0hlefub" />
     <bpmn:sequenceFlow id="Flow_037j1k9" sourceRef="Activity_0hlefub" targetRef="Activity_08gl2lv" />
     <bpmn:sequenceFlow id="Flow_1qovpep" sourceRef="Activity_1x0f001" targetRef="Gateway_1jfqs60" />
-    <bpmn:sequenceFlow id="Flow_0cw5btk" sourceRef="VersicherungsfahgigGateway" targetRef="Activity_0t6o040">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_entitledToInsurance=="manuell"}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="Flow_0cw5btk" name="" sourceRef="VersicherungsfahgigGateway" targetRef="Activity_0t6o040">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isInsurable=="manuell"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1rbac0r" sourceRef="Gateway_1xtq9vj" targetRef="Activity_1871br5" />
     <bpmn:exclusiveGateway id="Gateway_0uivxd4">
@@ -261,12 +260,11 @@
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_customerId" label="Kundenummer" type="string" />
-          <camunda:formField id="int_customerName" label="Nachname" type="string" />
-          <camunda:formField id="int_customerFirstName" label="Vorname" type="string" />
-          <camunda:formField id="isPremium" label="Tarif" type="string" />
-          <camunda:formField id="isInsurable" label="Versicherungsfähig" type="string" />
-          <camunda:formField id="precondition" label="Vorerkrankungen" type="string" />
-          <camunda:formField id="approved" label="Bestätigt" type="boolean" />
+          <camunda:formField id="int_insurantName" label="Nachname" type="string" />
+          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" />
+          <camunda:formField id="int_isPremiumClaim" label="Tarif" type="string" />
+          <camunda:formField id="int_isInsurable" label="Versicherungsfähig" type="string" />
+          <camunda:formField id="int_diseaseDescription" label="Vorerkrankungen" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0v1zzw4</bpmn:incoming>
@@ -318,7 +316,7 @@
       <bpmn:outgoing>Flow_1rbac0r</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1d0hem6" name="nein" sourceRef="Gateway_1jfqs60" targetRef="Gateway_0uivxd4">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${risikozuschlagHinzufuegen == false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isAddSurcharge == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_072fdqo" sourceRef="Activity_08gl2lv" targetRef="Gateway_0uivxd4" />
     <bpmn:sequenceFlow id="Flow_1y4qqdk" sourceRef="Activity_0c3js60" targetRef="Gateway_1t8q345" />
@@ -466,9 +464,14 @@
     <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="int_precondition1" label="Vorerkrankungen der Kategorie 1" type="string" defaultValue="keine" />
-          <camunda:formField id="int_precondition2" label="Vorerkrankungen der Kategorie 2" type="string" defaultValue="keine" />
-          <camunda:formField id="int_precondition3" label="Vorerkrankungen der Kategorie 3" type="string" defaultValue="keine" />
+          <camunda:formField id="int_diseaseDescription" label="Vorerkrankung" type="string">
+            <camunda:properties>
+              <camunda:property id="Property_3u3jdti" value="weisheitszaehne" />
+              <camunda:property id="Property_19vigbj" value="raucherlunge" />
+              <camunda:property id="Property_244a6rv" value="fettleber" />
+              <camunda:property id="Property_1bpdv6o" value="herzfehler" />
+            </camunda:properties>
+          </camunda:formField>
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1bgxsc1</bpmn:incoming>
@@ -490,7 +493,7 @@
     <bpmn:userTask id="Activity_1swn75u" name="Kundenart auswählen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="int_newCustomer" label="Neukunde" type="boolean" defaultValue="false" />
+          <camunda:formField id="int_isNewCustomer" label="Neukunde" type="boolean" defaultValue="false" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0i55j18</bpmn:incoming>
@@ -520,19 +523,17 @@
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_customerId" label="Kundennr" type="long" defaultValue="12345" />
-          <camunda:formField id="int_customerName" label="Name" type="string" defaultValue="Fischer" />
-          <camunda:formField id="int_customerFirstName" label="Vorname" type="string" defaultValue="Jens" />
-          <camunda:formField id="int_claimForFamilyMember" label="Antrag für abweichende Person?" type="boolean" defaultValue="false" />
+          <camunda:formField id="int_isClaimForFamilyMember" label="Antrag für abweichende Person?" type="boolean" defaultValue="false" />
           <camunda:formField id="int_insurantName" label="Name des zu Versicherten" type="string" defaultValue="Fischer" />
           <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" defaultValue="Hannah" />
           <camunda:formField id="int_insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/10/2001" />
           <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="w" />
           <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="175" />
           <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="70" />
-          <camunda:formField id="int_insurantZip" label="PLZ" type="string" defaultValue="51515" />
-          <camunda:formField id="int_insurantCity" label="Ort" type="string" defaultValue="Kürten" />
-          <camunda:formField id="int_insurantStreet" label="Straße" type="string" defaultValue="Hofwiese" />
-          <camunda:formField id="int_insurantHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
+          <camunda:formField id="int_locationZip" label="PLZ" type="string" defaultValue="51515" />
+          <camunda:formField id="int_locationName" label="Ort" type="string" defaultValue="Kürten" />
+          <camunda:formField id="int_addressStreet" label="Straße" type="string" defaultValue="Hofwiese" />
+          <camunda:formField id="int_addressHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_194fqs1</bpmn:incoming>
@@ -547,11 +548,11 @@
           <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="m" />
           <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="189" />
           <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="87" />
-          <camunda:formField id="int_insurantZip" label="PLZ" type="string" defaultValue="51515" />
-          <camunda:formField id="int_insurantCity" label="Ort" type="string" defaultValue="Kürten" />
-          <camunda:formField id="int_insurantStreet" label="Straße" type="string" defaultValue="Hofwiese" />
-          <camunda:formField id="int_insurantHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
-          <camunda:formField id="int_insurantPassword" label="Passwort" type="string" defaultValue="demo" />
+          <camunda:formField id="int_locationZip" label="PLZ" type="string" defaultValue="51515" />
+          <camunda:formField id="int_locationName" label="Ort" type="string" defaultValue="Kürten" />
+          <camunda:formField id="int_addressStreet" label="Straße" type="string" defaultValue="Hofwiese" />
+          <camunda:formField id="int_addressHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
+          <camunda:formField id="int_customerPassword" label="Passwort" type="string" defaultValue="demo" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1fo22fo</bpmn:incoming>
@@ -559,10 +560,10 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_1e3ldh2" sourceRef="Activity_1swn75u" targetRef="Gateway_1kvxlq2" />
     <bpmn:sequenceFlow id="Flow_1fo22fo" name="ja" sourceRef="Gateway_1kvxlq2" targetRef="Activity_0qb5vvg">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_newCustomer}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isNewCustomer}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1vrldjq" name="nein" sourceRef="Gateway_1kvxlq2" targetRef="Activity_0hlbx0t">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!int_newCustomer}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!int_isNewCustomer}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1vw8w4a" sourceRef="Activity_0qb5vvg" targetRef="Activity_0hse3q1" />
     <bpmn:sequenceFlow id="Flow_1u0ha0g" sourceRef="Activity_0hse3q1" targetRef="Gateway_0fg6uqt" />
@@ -573,12 +574,12 @@
     <bpmn:sequenceFlow id="Flow_0zlcwmp" sourceRef="Activity_1bbg8yf" targetRef="Activity_0xa6q3z" />
     <bpmn:sequenceFlow id="Flow_1dspndu" sourceRef="Activity_17g15ym" targetRef="Activity_1ncv6kk" />
     <bpmn:sequenceFlow id="Flow_0db4m1q" name="nein" sourceRef="Gateway_0k09nel" targetRef="Activity_0hlbx0t">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not loginIsSuccessful}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not int_isLoginSuccessful}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1q6xjui" sourceRef="Activity_0hlbx0t" targetRef="Activity_18uzkd9" />
     <bpmn:sequenceFlow id="Flow_1yew2z9" sourceRef="Activity_18uzkd9" targetRef="Gateway_0k09nel" />
     <bpmn:sequenceFlow id="Flow_194fqs1" name="ja" sourceRef="Gateway_0k09nel" targetRef="Activity_1shvr6b">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{loginIsSuccessful}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{int_isLoginSuccessful}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1s86tul" sourceRef="Activity_0xa6q3z" targetRef="Gateway_1az1ia7" />
     <bpmn:serviceTask id="Activity_0xa6q3z" name="Vorerkrankungen anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CreatePreDiseasesDelegate">
@@ -595,13 +596,13 @@
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_customerId" label="Kundenummer" type="string" />
-          <camunda:formField id="int_customerName" label="Name" type="string" />
-          <camunda:formField id="int_customerFirstName" label="Vorname" type="string" />
-          <camunda:formField id="approved" label="Status" type="boolean" />
-          <camunda:formField id="monthlyDue" label="monatlicher Beitrag" type="long" />
-          <camunda:formField id="initialDue" label="initialer Beitrag" type="long" />
-          <camunda:formField id="riskDue" label="Risikozuschlag" type="long" />
-          <camunda:formField id="policeStart" label="Vertragsbeginn" type="date" />
+          <camunda:formField id="int_insurantName" label="Name" type="string" />
+          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" />
+          <camunda:formField id="int_insurancePolicyIsActive" label="Status" type="boolean" />
+          <camunda:formField id="int_insurancePolicyMonthlyContribution" label="monatlicher Beitrag" type="long" />
+          <camunda:formField id="int_insurancePolicyInitialContribution" label="initialer Beitrag" type="long" />
+          <camunda:formField id="int_insurancePolicyRiskSurcharge" label="Risikozuschlag" type="long" />
+          <camunda:formField id="int_insurancePolicyStartDateOfContract" label="Vertragsbeginn" type="date" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1g6naee</bpmn:incoming>
@@ -643,11 +644,11 @@
   </bpmn:process>
   <bpmn:message id="Message_1hdarxq" name="int_instantiationMessage" />
   <bpmn:message id="Message_1f441az" name="int_receivedRevisionMessage" />
-  <bpmn:message id="Message_1uw6e3j" name="receivedRejectionMessage" />
+  <bpmn:message id="Message_1uw6e3j" name="int_receivedRejectionMessage" />
   <bpmn:message id="Message_1t6j2hs" name="Message_03rfn30" />
   <bpmn:message id="Message_09pbgk1" name="Message_3ds5ivv" />
-  <bpmn:message id="Message_05lu0on" name="objectionMessage" />
-  <bpmn:message id="Message_0s7ityb" name="approvedPolicyMessage" />
+  <bpmn:message id="Message_05lu0on" name="int_objectionMessage" />
+  <bpmn:message id="Message_0s7ityb" name="int_approvedPolicyMessage" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1fgr3g2">
       <bpmndi:BPMNShape id="Participant_0dnngm2_di" bpmnElement="VertriebUnderwritingParticipant" isHorizontal="true">
@@ -1096,6 +1097,9 @@
       <bpmndi:BPMNShape id="Lane_1tk543f_di" bpmnElement="Lane_1tk543f" isHorizontal="true">
         <dc:Bounds x="180" y="80" width="4760" height="550" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
+        <dc:Bounds x="980" y="429" width="100" height="81" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1xeni61_di" bpmnElement="Flow_1xeni61">
         <di:waypoint x="3560" y="290" />
         <di:waypoint x="3622" y="290" />
@@ -1340,19 +1344,16 @@
       <bpmndi:BPMNShape id="Event_0vrnzx6_di" bpmnElement="Event_0vrnzx6">
         <dc:Bounds x="3252" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
-        <dc:Bounds x="1030" y="410" width="100" height="81" />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0zemvnf_di" bpmnElement="Association_0zemvnf">
+        <di:waypoint x="1010" y="390" />
+        <di:waypoint x="1020" y="429" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_00mtnog_di" bpmnElement="Event_00mtnog">
         <dc:Bounds x="4212" y="362" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4211" y="325" width="40" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0zemvnf_di" bpmnElement="Association_0zemvnf">
-        <di:waypoint x="1032" y="390" />
-        <di:waypoint x="1048" y="410" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0qbmad6_di" bpmnElement="DataOutputAssociation_0qbmad6">
         <di:waypoint x="2870" y="1070" />
         <di:waypoint x="2870" y="1585" />

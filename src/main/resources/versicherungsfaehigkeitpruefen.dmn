@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1jt4pfn" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1jt4pfn" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.5.0">
   <decision id="dmn-versicherungsfaehigkeit-pruefen" name="Versicherungsfähigkeit prüfen">
     <informationRequirement id="InformationRequirement_0gma0v5">
       <requiredDecision href="#dmn-risikofaktor-alter" />
@@ -34,7 +34,7 @@
           <text>rf_krankenhistorie</text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Klassifizierung" name="int_entitledToInsurance" typeRef="string" biodi:width="192">
+      <output id="Output_1" label="Klassifizierung" name="int_isInsurable" typeRef="string" biodi:width="192">
         <outputValues id="UnaryTests_1e9g1cv">
           <text>"versicherungsfaehig","nicht versicherungsfaehig","manuell"</text>
         </outputValues>

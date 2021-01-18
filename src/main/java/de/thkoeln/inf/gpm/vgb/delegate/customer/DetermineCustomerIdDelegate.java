@@ -1,5 +1,6 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
+import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import de.thkoeln.inf.gpm.vgb.model.external.Customer;
 import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -12,6 +13,7 @@ public class DetermineCustomerIdDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         Map<String, Object> processVariables = delegateExecution.getVariables();
+        ProcessContext processContext = new ProcessContext(delegateExecution);
 
         int customerId = (int) processVariables.get("customerId");
         String customerPassword = (String) processVariables.get("customerPassword");

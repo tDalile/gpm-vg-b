@@ -90,8 +90,8 @@ object DbUtil {
                 "Jens",
                 "02/05/2020",
                 'm',
-                187,
-                78,
+                187.0,
+                78.0,
                 stein,
                 customer
             )

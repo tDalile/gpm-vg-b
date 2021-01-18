@@ -5,13 +5,13 @@ import model.InsurantDao;
 import util.DbUtil;
 
 public class Insurant {
-    private Integer id = null;
+    private Long id = null;
     private String name;
     private String firstName;
     private String birthdate;
     private Character sex;
-    private Long size;
-    private Long weight;
+    private Double size;
+    private Double weight;
     private Address address;
     private Customer customer;
 
@@ -27,13 +27,13 @@ public class Insurant {
         DbUtil.INSTANCE.runInTransaction(() -> InsurantDao.Companion.delete(insurantId));
     }
 
-    public Insurant(Integer id,
+    public Insurant(Long id,
                     String name,
                     String firstName,
                     String birthdate,
                     Character sex,
-                    Long size,
-                    Long weight,
+                    Double size,
+                    Double weight,
                     Address address,
                     Customer customer) {
         this.id = id;
@@ -51,8 +51,8 @@ public class Insurant {
                     String firstName,
                     String birthdate,
                     Character sex,
-                    Long size,
-                    Long weight,
+                    Double size,
+                    Double weight,
                     Address address,
                     Customer customer) {
         this.name = name;
@@ -65,7 +65,7 @@ public class Insurant {
         this.customer = customer;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -101,19 +101,19 @@ public class Insurant {
         this.sex = sex;
     }
 
-    public Long getSize() {
+    public Double getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(Double size) {
         this.size = size;
     }
 
-    public Long getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

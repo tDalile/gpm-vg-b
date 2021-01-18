@@ -4,12 +4,15 @@ import de.thkoeln.inf.gpm.vgb.model.external.Insurant
 import model.*
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.LongEntity
+import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
+class InsurantDao(id: EntityID<Long>) : LongEntity(id) {
     private var name by Insurants.name
     private var firstName by Insurants.firstName
     private var birthdate by Insurants.birthdate
@@ -19,7 +22,7 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
     private var address by AddressDao referencedOn Insurants.address
     private var customer by CustomerDao referencedOn Insurants.customerId
 
-    companion object : IntEntityClass<InsurantDao>(Insurants) {
+    companion object : LongEntityClass<InsurantDao>(Insurants) {
         fun save(insurant: Insurant): Insurant? = transaction {
             val address = AddressDao.save(insurant.address) ?: return@transaction null
             val addressDao = AddressDao.findById(address.id!!) ?: return@transaction null
@@ -40,7 +43,7 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
             newInsurant?.toInsurant()
         }
 
-        fun delete(id: Int) = Insurants.deleteWhere { Insurants.id eq id }
+        fun delete(id: Long) = Insurants.deleteWhere { Insurants.id eq id }
 
         fun findAll(): List<Insurant> = InsurantDao.all().map { it.toInsurant() }
     }
@@ -50,8 +53,8 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
         this.firstName = insurant.firstName
         this.birthdate = insurant.birthdate
         this.sex = insurant.sex
-        this.size = insurant.size.toInt()
-        this.weight = insurant.weight.toInt()
+        this.size = insurant.size
+        this.weight = insurant.weight
         this.address = addressDao
         this.customer = customerDao
 
@@ -63,20 +66,20 @@ class InsurantDao(id: EntityID<Int>) : IntEntity(id) {
         firstName,
         birthdate,
         sex,
-        size.toLong(),
-        weight.toLong(),
+        size,
+        weight,
         address.toAddress(),
         customer.toCustomer()
     )
 }
 
-object Insurants : IntIdTable() {
+object Insurants : LongIdTable() {
     val name = text("Name")
     val firstName = text("Vorname")
     val birthdate = text("Geburtstag")
     val sex = char("Geschlecht")
-    val size = integer("Groesse")
-    val weight = integer("Gewicht")
+    val size = double("Groesse")
+    val weight = double("Gewicht")
     val address = reference("Adresse", Addresses)
     val customerId = reference("Kundennr", Customers)
 }
