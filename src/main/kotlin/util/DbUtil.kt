@@ -3,6 +3,7 @@ package util
 import de.thkoeln.inf.gpm.vgb.model.*
 import de.thkoeln.inf.gpm.vgb.model.external.*
 import de.thkoeln.inf.gpm.vgb.model.external.Claim
+import de.thkoeln.inf.gpm.vgb.model.external.Customer
 import model.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
