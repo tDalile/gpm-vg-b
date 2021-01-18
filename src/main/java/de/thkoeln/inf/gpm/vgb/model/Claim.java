@@ -14,6 +14,7 @@ public class Claim {
     private Long riskFactorBmi;
     private Long riskFactorMedicalHistory;
     private Boolean isInsurable;
+    private String rejectionReason;
     private Insurant insurant;
     private InsurancePolicy insurancePolicy;
     private MedicalHistory medicalHistory;
@@ -34,7 +35,7 @@ public class Claim {
         DbUtil.INSTANCE.runInTransaction(() -> ClaimDao.Companion.delete(claimId));
     }
 
-    public Claim(Long id, String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(Long id, String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, String rejectionReason, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.id = id;
         this.claimDate = claimDate;
         this.desiredStartDate = desiredStartDate;
@@ -43,12 +44,13 @@ public class Claim {
         this.riskFactorBmi = riskFactorBmi;
         this.riskFactorMedicalHistory = riskFactorMedicalHistory;
         this.isInsurable = isInsurable;
+        this.rejectionReason = rejectionReason;
         this.insurant = insurant;
         this.insurancePolicy = insurancePolicy;
         this.medicalHistory = medicalHistory;
     }
 
-    public Claim(String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
+    public Claim(String claimDate, String desiredStartDate, Double bmi, Long riskFactorAge, Long riskFactorBmi, Long riskFactorMedicalHistory, Boolean isInsurable, String rejectionReason, Insurant insurant, InsurancePolicy insurancePolicy, MedicalHistory medicalHistory) {
         this.claimDate = claimDate;
         this.desiredStartDate = desiredStartDate;
         this.bmi = bmi;
@@ -56,6 +58,7 @@ public class Claim {
         this.riskFactorBmi = riskFactorBmi;
         this.riskFactorMedicalHistory = riskFactorMedicalHistory;
         this.isInsurable = isInsurable;
+        this.rejectionReason = rejectionReason;
         this.insurant = insurant;
         this.insurancePolicy = insurancePolicy;
         this.medicalHistory = medicalHistory;
@@ -119,6 +122,14 @@ public class Claim {
 
     public void setInsurable(Boolean insurable) {
         isInsurable = insurable;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 
     public Insurant getInsurant() {

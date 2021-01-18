@@ -17,6 +17,7 @@ class ClaimDao(id: EntityID<Long>) : LongEntity(id) {
     private var riskFactorBmi by Claims.riskFactorBmi
     private var riskFactorMedicalHistory by Claims.riskFactorMedicalHistory
     private var isInsurable by Claims.isInsurable
+    private var rejectionReason by Claims.rejectionReason
     private var insurant by InsurantDao referencedOn Claims.insurant
     private var insurancePolicy by InsurancePolicyDao optionalReferencedOn Claims.insurancePolicy
     private var medicalHistory by MedicalHistoryDao optionalReferencedOn Claims.medicalHistory
@@ -58,6 +59,7 @@ class ClaimDao(id: EntityID<Long>) : LongEntity(id) {
         this.riskFactorBmi = claim.riskFactorBmi
         this.riskFactorMedicalHistory = claim.riskFactorMedicalHistory
         this.isInsurable = claim.insurable
+        this.rejectionReason = claim.rejectionReason
         this.insurant = insurantDao
         this.insurancePolicy = insurancePolicyDao
         this.medicalHistory = medicalHistoryDao
@@ -72,6 +74,7 @@ class ClaimDao(id: EntityID<Long>) : LongEntity(id) {
         riskFactorBmi,
         riskFactorMedicalHistory,
         isInsurable,
+        rejectionReason,
         insurant.toInsurant(),
         insurancePolicy?.toInsurancePolicy(),
         medicalHistory?.toMedicalHistory()
@@ -86,6 +89,7 @@ object Claims : LongIdTable() {
     val riskFactorBmi = long("risikofaktor_bmi").nullable()
     val riskFactorMedicalHistory = long("risikofaktor_krankenhistorie").nullable()
     val isInsurable = bool("versicherungsfaehig").nullable()
+    val rejectionReason = text("ablehnungsbegruendung").nullable()
     val insurant = reference("versicherter_id", Insurants)
     val insurancePolicy = reference("versicherungspolice_id", InsurancePolicies).nullable()
     val medicalHistory = reference("krankenhistorie_id", MedicalHistories).nullable()

@@ -88,6 +88,7 @@ object DbUtil {
             null,
             null,
             null,
+            null,
             insurant,
             null,
             medicalHistory
