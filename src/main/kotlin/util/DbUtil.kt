@@ -1,6 +1,5 @@
 package util
 
-import de.thkoeln.inf.gpm.vgb.model.*
 import de.thkoeln.inf.gpm.vgb.model.external.*
 import de.thkoeln.inf.gpm.vgb.model.external.Claim
 import de.thkoeln.inf.gpm.vgb.model.external.Customer
@@ -67,12 +66,12 @@ object DbUtil {
         val gm = Location.createOrUpdate(Location("51643", "Gummersbach"))
         val stein = Address.createOrUpdate(Address("Steinmülleralle", "7b", gm))
         val heart = Disease.createOrUpdate(Disease(3, "Herzfehler"))
-        val customer = Customer.createOrUpdate(Customer("01/01/2020", "demo"))
+        val customer = Customer.createOrUpdate(Customer("2010-10-10T00:00:00", "demo"))
         val insurant = Insurant.createOrUpdate(
             Insurant(
                 "Fischer2",
                 "Jens",
-                "02/05/2020",
+                "2001-10-10T00:00:00",
                 "m",
                 1.87,
                 78.0,
@@ -84,8 +83,8 @@ object DbUtil {
         val precondition = Precondition.createOrUpdate(Precondition(medicalHistory, heart))
         val claim = Claim.createOrUpdate(
             Claim(
-                "01/01/2022",
-                "01/03/2022",
+                "2020-10-10T00:00:00",
+                "2020-10-11T00:00:00",
                 35.0,
                 null,
                 null,
@@ -104,9 +103,9 @@ object DbUtil {
                 null,
                 35.7,
                 33.2,
-                "01/06/2021",
+                "2020-10-12T00:00:00",
                 true,
-                "10/10/1010",
+                "2020-10-11T00:00:00",
                 false,
                 insurant,
                 medicalHistory
