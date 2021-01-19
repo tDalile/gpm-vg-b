@@ -6,27 +6,22 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This is an easy adapter implementation 
- * illustrating how a Java Delegate can be used 
+ * This is an easy adapter implementation
+ * illustrating how a Java Delegate can be used
  * from within a BPMN 2.0 Send Task to start another process by mesaage
- * 
  */
 @Slf4j
 public class InstantiateProcessByMessageDelegate implements JavaDelegate {
-	 public void execute(DelegateExecution execution) throws Exception{
-		 ProcessContext processContext = new ProcessContext(execution);
+    public void execute(DelegateExecution execution) throws Exception {
+        ProcessContext processContext = new ProcessContext(execution);
 
-		 Map<String, Object> processVariables = new HashMap();
-		 processVariables = execution.getVariables();
-
+        Map<String, Object> processVariables = execution.getVariables();
 
 
-
-		 //TODO: setup serialization for objects?
+        //TODO: setup serialization for objects?
 		 /*
 		 processVariables.put("mkundennr", execution.getVariable("kundennr"));
 		 processVariables.put("meintritt", execution.getVariable("eintritt"));
@@ -42,18 +37,21 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
 		 */
 
 
-		 // TODO: Set up Variable Store
-		 // set the correlation id to identify this in receiving process
-		 String correlationId = execution.getBusinessKey();
-		if (correlationId == null) {			// if not set at process start
-			correlationId = execution.getProcessInstanceId();
-			execution.setProcessBusinessKey(correlationId);
-		}
-		 processVariables.put("correlationId", correlationId);
+        // TODO: Set up Variable Store
+        // set the correlation id to identify this in receiving process
+        String correlationId = execution.getBusinessKey();
+        if (correlationId == null) {            // if not set at process start
+            correlationId = execution.getProcessInstanceId();
+            execution.setProcessBusinessKey(correlationId);
+        }
+        processVariables.put("correlationId", correlationId);
 
-		 RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
-		 // correlate process with message name
-		 runtimeService.startProcessInstanceByMessage(processContext.getInternal().getInstantiationMessage(), processVariables);
+        RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
+        // correlate process with message name
+        runtimeService.startProcessInstanceByMessage(
+                processContext.getInternal().getInstantiationMessage(),
+                processVariables
+        );
 
-	  }
+    }
 }

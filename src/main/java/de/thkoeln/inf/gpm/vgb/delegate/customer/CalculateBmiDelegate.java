@@ -6,23 +6,18 @@ import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.util.Map;
 
 public class CalculateBmiDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        Map<String, Object> processVariables;
-        processVariables = delegateExecution.getVariables();
         ProcessContext processContext = new ProcessContext(delegateExecution);
 
-        val insurantId = (Long) processVariables.get("insurantId");
-        val insurant = Insurant.findById(insurantId);
+        val insurant = Insurant.findById(processContext.getInternal().getInsurantId());
 
         double bmi = calcBmi(insurant.getWeight(), insurant.getSize());
 
         processContext.getInternal().setClaimBMI(bmi);
-
     }
     
     // BMI = weight (in kg) divided by size² (in m)

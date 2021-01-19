@@ -11,14 +11,11 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Map;
 
 public class CreateCustomerAccountDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        Map<String, Object> processVariables;
-        processVariables = delegateExecution.getVariables();
         ProcessContext processContext = new ProcessContext(delegateExecution);
 
         val insurant = saveCustomer(
