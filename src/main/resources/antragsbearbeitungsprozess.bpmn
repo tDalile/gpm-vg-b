@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0" camunda:diagramRelationId="ca4cf336-a2d5-4b23-8e38-03d5932250de">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0" camunda:diagramRelationId="ca4cf336-a2d5-4b23-8e38-03d5932250de">
   <bpmn:collaboration id="Collaboration_1fgr3g2">
     <bpmn:participant id="VertriebUnderwritingParticipant" name="Vertrieb &#38; Underwriting" processRef="ProcessInsuranceCompany" />
     <bpmn:participant id="KundeParticipant" name="Kunde" processRef="ProcessCustomer" />
@@ -540,21 +540,6 @@
       <bpmn:outgoing>Flow_050i7if</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:formKey="embedded:app:forms/input-customer-data.html" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="int_insurantName" label="Name" type="string" defaultValue="Fischer" />
-          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" defaultValue="Jens" />
-          <camunda:formField id="int_insurantBirthdate" label="Geburtsdatum" type="date" defaultValue="10/09/1991" />
-          <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="m" />
-          <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="189" />
-          <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="87" />
-          <camunda:formField id="int_locationZip" label="PLZ" type="string" defaultValue="51515" />
-          <camunda:formField id="int_locationName" label="Ort" type="string" defaultValue="Kürten" />
-          <camunda:formField id="int_addressStreet" label="Straße" type="string" defaultValue="Hofwiese" />
-          <camunda:formField id="int_addressHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
-          <camunda:formField id="int_customerPassword" label="Passwort" type="string" defaultValue="demo" />
-        </camunda:formData>
-      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1fo22fo</bpmn:incoming>
       <bpmn:outgoing>Flow_1vw8w4a</bpmn:outgoing>
     </bpmn:userTask>
