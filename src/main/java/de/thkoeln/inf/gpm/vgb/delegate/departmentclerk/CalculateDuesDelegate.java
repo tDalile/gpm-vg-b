@@ -21,7 +21,13 @@ public class CalculateDuesDelegate implements JavaDelegate {
         // TODO: change names of the variables
         Integer age = processContext.getInternal().getInsurantAge();
 
-        double riskDue = processContext.getInternal().getInsurancePolicyRiskSurcharge();
+        double riskDue = 0;
+
+        try {
+            riskDue = processContext.getInternal().getInsurancePolicyRiskSurcharge();
+        } catch (NullPointerException e) {
+            // No risk surchage attached
+        }
 
         // TODO: rename
         Double calc = calculateDue(age, riskDue);
