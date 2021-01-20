@@ -1,0 +1,130 @@
+<form role="form" name="variablesForm">
+    <script cam-script type="text/form-script">
+        camForm.on('form-loaded', function() {
+          camForm.variableManager.fetchVariable('int_customerId');
+          camForm.variableManager.fetchVariable('int_customerEntry');
+          camForm.variableManager.fetchVariable('int_insurantId');
+          camForm.variableManager.fetchVariable('int_insurantFirstName');
+          camForm.variableManager.fetchVariable('int_insurantName');
+          camForm.variableManager.fetchVariable('int_insurantBirthdate');
+          camForm.variableManager.fetchVariable('int_insurantSex');
+          camForm.variableManager.fetchVariable('int_insurantSize');
+          camForm.variableManager.fetchVariable('int_insurantWeight');
+          camForm.variableManager.fetchVariable('int_isPremiumClaim');
+          camForm.variableManager.fetchVariable('int_diseaseDescription');
+          camForm.variableManager.fetchVariable('int_insurantAge');
+          camForm.variableManager.fetchVariable('int_claimRiskFactorAge');
+          camForm.variableManager.fetchVariable('int_claimBMI');
+          camForm.variableManager.fetchVariable('int_claimRiskFactorBMI');
+          camForm.variableManager.fetchVariable('int_claimRiskFactorMedicalFactor');
+          camForm.variableManager.fetchVariable('int_claimRiskCategoryMedicalHistory');
+        });
+        camForm.on('variables-restored', function() {
+          $scope.int_customerId = camForm.variableManager.variableValue('int_customerId');
+          $scope.int_customerEntry = camForm.variableManager.variableValue('int_customerEntry')
+          $scope.int_insurantId = camForm.variableManager.variableValue('int_insurantId');
+          $scope.int_insurantFirstName = camForm.variableManager.variableValue('int_insurantFirstName');
+          $scope.int_insurantName = camForm.variableManager.variableValue('int_insurantName');
+          $scope.int_insurantBirthdate = camForm.variableManager.variableValue('int_insurantBirthdate');
+          $scope.int_insurantSex = camForm.variableManager.variableValue('int_insurantSex');
+          $scope.int_insurantSize = camForm.variableManager.variableValue('int_insurantSize');
+          $scope.int_insurantWeight = camForm.variableManager.variableValue('int_insurantWeight');
+          $scope.int_isPremiumClaim = camForm.variableManager.variableValue('int_isPremiumClaim');
+          $scope.int_diseaseDescription = camForm.variableManager.variableValue('int_diseaseDescription');
+          $scope.int_insurantAge = camForm.variableManager.variableValue('int_insurantAge');
+          $scope.int_claimRiskFactorAge = camForm.variableManager.variableValue('int_claimRiskFactorAge');
+          $scope.int_claimBMI = camForm.variableManager.variableValue('int_claimBMI');
+          $scope.int_claimRiskFactorBMI = camForm.variableManager.variableValue('int_claimRiskFactorBMI');
+          $scope.int_claimRiskFactorMedicalFactor = camForm.variableManager.variableValue('int_claimRiskFactorMedicalFactor');
+          $scope.int_claimRiskCategoryMedicalHistory = camForm.variableManager.variableValue('int_claimRiskCategoryMedicalHistory');
+          console.log("setting variables to scope");
+        });
+    </script>
+
+    <h2>Antragszusammenfassung</h2>
+    <table>
+        <tr>
+            <td>Kundennummer:</td>
+            <td>{{ int_customerId }}</td>
+        </tr>
+        <tr>
+            <td>Eintrittsdatum:</td>
+            <td>{{int_customerEntry}}</td>
+        </tr>
+        <tr>
+            <td>Versicherungsnummer:</td>
+            <td>{{int_insurantId}}</td>
+        </tr>
+    </table>
+
+    <h2>Kundendaten:</h2>
+
+    <strong>
+        <span ng-if="int_insurantSex == 'weiblich'">Frau</span>
+        <span ng-if="int_insurantSex == 'maennlich'">Herr</span>
+        {{int_insurantFirstName}} {{int_insurantName}}
+    </strong><br>
+    <table>
+        <tr>
+            <td>Geburtsdatum:</td>
+            <td>{{ int_insurantBirthdate }}</td>
+        </tr>
+        <tr>
+            <td>Größe:</td>
+            <td>{{ int_insurantSize }}cm</td>
+        </tr>
+        <tr>
+            <td>Gewicht:</td>
+            <td>{{ int_insurantWeight }}kg</td>
+        </tr>
+    </table>
+
+
+    <h2>Tarifauswahl:</h2>
+    <table>
+        <tr>
+            <td>Premium-Tarif:</td>
+            <td>{{ int_isPremiumClaim }}</td>
+        </tr>
+    </table>
+
+    <h2>Vorerkrankung:</h2>
+    <table>
+        <tr>
+            <td>Krankheit:</td>
+            <td>{{ int_diseaseDescription }}</td>
+        </tr>
+    </table>
+
+    <h2>Risiko:</h2>
+    <table>
+        <tr>
+            <td>Alter:</td>
+            <td>{{ int_insurantAge }}</td>
+            <td>Risikofaktor Alter:</td>
+            <td>{{ int_claimRiskFactorAge }}</td>
+        </tr>
+        <tr>
+            <td>BMI:</td>
+            <td>{{ int_claimBMI }}</td>
+            <td>Risikofaktor BMI:</td>
+            <td>{{ int_claimRiskFactorBMI }}</td>
+        </tr>
+        <tr>
+            <td>Risikokategorie</td>
+            <td>{{ int_claimRiskCategoryMedicalHistory }}</td>
+            <td>Risikofaktor Krankenhistorie:</td>
+            <td>{{ int_claimRiskFactorMedicalFactor }}</td>
+        </tr>
+    </table>
+
+
+    <h2>Weiterverarbeitung</h2>
+
+    Ist die Person versicherungsfähig?
+
+    <div class="form-group">
+        <input type="checkbox" cam-variable-name="int_isInsurable" cam-variable-type="Boolean"/>
+    </div>
+
+</form>
