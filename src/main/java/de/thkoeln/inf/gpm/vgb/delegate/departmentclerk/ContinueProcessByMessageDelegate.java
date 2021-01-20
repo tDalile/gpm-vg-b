@@ -2,6 +2,7 @@ package de.thkoeln.inf.gpm.vgb.delegate.departmentclerk;
 
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
+import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -33,7 +34,7 @@ public class ContinueProcessByMessageDelegate implements JavaDelegate {
 		String correlationId = (String) processVariables.get("correlationId");
 
 		runtimeService
-		.createMessageCorrelation(processContext.getInternal().getReceivedRevisionMessage())
+		.createMessageCorrelation(ProcessVariableConstants.INT_RECEIVED_REVISION_MESSAGE)
 		.setVariables(processVariables)
 		// set the correlation id as processInstanceBusinessKey of the waiting process
 		.processInstanceBusinessKey(correlationId)

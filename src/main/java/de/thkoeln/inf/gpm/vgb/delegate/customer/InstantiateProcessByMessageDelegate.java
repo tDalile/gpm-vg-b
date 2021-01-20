@@ -1,6 +1,7 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
 import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
+import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -49,9 +50,8 @@ public class InstantiateProcessByMessageDelegate implements JavaDelegate {
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         // correlate process with message name
         runtimeService.startProcessInstanceByMessage(
-                processContext.getInternal().getInstantiationMessage(),
+                ProcessVariableConstants.INT_INSTANTIATION_MESSAGE,
                 processVariables
         );
-
     }
 }
