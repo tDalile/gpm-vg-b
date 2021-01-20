@@ -55,6 +55,7 @@ public final class ProcessVariableConstants {
     public static final String INT_CLAIM_BMI = "int_claimBMI";
     public static final String INT_CLAIM_RISK_FACTOR_AGE = "int_claimRiskFactorAge";
     public static final String INT_CLAIM_RISK_FACTOR_BMI = "int_claimRiskFactorBMI";
+    public static final String INT_CLAIM_RISK_CATEGORY_MEDICAL_HISTORY = "int_claimRiskCategoryMedicalHistory";
     public static final String INT_CLAIM_RISK_FACTOR_MEDICAL_FACTOR = "int_claimRiskFactorMedicalFactor";
     public static final String INT_CLAIM_IS_INSURABLE = "int_claimIsInsurable";
     public static final String INT_CLAIM_REJECTION_REASON = "int_claimRejectionReason";

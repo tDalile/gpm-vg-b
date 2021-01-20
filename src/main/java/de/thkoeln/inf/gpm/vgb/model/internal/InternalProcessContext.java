@@ -203,6 +203,14 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_BMI, riskFactorBMI);
     }
 
+    public Long getClaimRiskCategoryMedicalHistory() {
+        return (Long) execution.getVariable(ProcessVariableConstants.INT_CLAIM_RISK_CATEGORY_MEDICAL_HISTORY);
+    }
+
+    public void setClaimRiskCategoryMedicalHistory(Long riskCategoryMedicalHistory) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_RISK_CATEGORY_MEDICAL_HISTORY, riskCategoryMedicalHistory);
+    }
+
     public Long getClaimRiskFactorMedicalFactor() {
         return (Long) execution.getVariable(ProcessVariableConstants.INT_CLAIM_RISK_FACTOR_MEDICAL_FACTOR);
     }
@@ -416,7 +424,7 @@ public class InternalProcessContext {
 
 
     // (here messages)
-       public String getInstantiationMessage() {
+    public String getInstantiationMessage() {
         return (String) execution.getVariable(ProcessVariableConstants.INT_INSTANTIATION_MESSAGE);
     }
 
