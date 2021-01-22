@@ -1,30 +1,30 @@
 <form role="form" name="form">
   <script cam-script type="text/form-script">
     camForm.on('form-loaded', function() {
-      camForm.variableManager.fetchVariable('mkundennr');
-      camForm.variableManager.fetchVariable('meintritt');
-      camForm.variableManager.fetchVariable('mversicherter_id');
-      camForm.variableManager.fetchVariable('mvorname');
-      camForm.variableManager.fetchVariable('mnachname');
-      camForm.variableManager.fetchVariable('mgeburtsdatum');
-      camForm.variableManager.fetchVariable('mgeschlecht');
-      camForm.variableManager.fetchVariable('mgroesse');
-      camForm.variableManager.fetchVariable('mgewicht');
-      camForm.variableManager.fetchVariable('mtarif');
-      camForm.variableManager.fetchVariable('mvorerkrankung');
+          camForm.variableManager.fetchVariable('int_customerId');
+          camForm.variableManager.fetchVariable('int_insurantId');
+          camForm.variableManager.fetchVariable('int_customerEntry');
+          camForm.variableManager.fetchVariable('int_insurantFirstName');
+          camForm.variableManager.fetchVariable('int_insurantName');
+          camForm.variableManager.fetchVariable('int_insurantBirthdate');
+          camForm.variableManager.fetchVariable('int_insurantSex');
+          camForm.variableManager.fetchVariable('int_insurantWeight');
+          camForm.variableManager.fetchVariable('int_insurantSize');
+          camForm.variableManager.fetchVariable('int_isPremiumClaim');
+          camForm.variableManager.fetchVariable('int_diseaseDescription');
     });
     camForm.on('variables-restored', function() {
-      $scope.mkundennr = camForm.variableManager.variableValue('mkundennr');
-      $scope.meintritt = camForm.variableManager.variableValue('meintritt');
-      $scope.mversicherter_id = camForm.variableManager.variableValue('mversicherter_id');
-      $scope.mvorname = camForm.variableManager.variableValue('mvorname');
-      $scope.mnachname = camForm.variableManager.variableValue('mnachname');
-      $scope.mgeburtsdatum = camForm.variableManager.variableValue('mgeburtsdatum');
-      $scope.mgeschlecht = camForm.variableManager.variableValue('mgeschlecht');
-      $scope.mgroesse = camForm.variableManager.variableValue('mgroesse');
-      $scope.mgewicht = camForm.variableManager.variableValue('mgewicht');
-      $scope.mtarif = camForm.variableManager.variableValue('mtarif');
-      $scope.mvorerkrankung = camForm.variableManager.variableValue('mvorerkrankung');
+      $scope.int_customerId = camForm.variableManager.variableValue('int_customerId');
+      $scope.int_insurantId = camForm.variableManager.variableValue('int_insurantId');
+      $scope.int_customerEntry = camForm.variableManager.variableValue('int_customerEntry');
+      $scope.int_insurantFirstName = camForm.variableManager.variableValue('int_insurantFirstName');
+      $scope.int_insurantName = camForm.variableManager.variableValue('int_insurantName');
+      $scope.int_insurantBirthdate = camForm.variableManager.variableValue('int_insurantBirthdate');
+      $scope.int_insurantSex = camForm.variableManager.variableValue('int_insurantSex');
+      $scope.int_insurantSize = camForm.variableManager.variableValue('int_insurantSize');
+      $scope.int_insurantWeight = camForm.variableManager.variableValue('int_insurantWeight');
+      $scope.int_isPremiumClaim = camForm.variableManager.variableValue('int_isPremiumClaim');
+      $scope.int_diseaseDescription = camForm.variableManager.variableValue('int_diseaseDescription');
       console.log("setting variables to scope");
     });
   </script>
@@ -34,17 +34,17 @@
 
     <tr>
       <td>Kundennummer:</td>
-      <td>{{ mkundennr }}</td>
+      <td>{{ int_customerId }}</td>
     </tr>
 
     <tr>
       <td>Eintrittsdatum:</td>
-      <td>{{meintritt}}</td>
+      <td>{{int_customerEntry}}</td>
     </tr>
 
     <tr>
       <td>Versicherungsnummer:</td>
-      <td>{{mversicherter_id}}</td>
+      <td>{{int_insurantId}}</td>
     </tr>
     
   </table>
@@ -53,25 +53,25 @@
 
   <data>
     <strong>
-      <span ng-if="mgeschlecht == 'weiblich'">Frau</span>
-      <span ng-if="mgeschlecht == 'maennlich'">Herr</span>
-      {{mvorname}} {{mnachname}}
+      <span ng-if="int_insurantSex == 'weiblich'">Frau</span>
+      <span ng-if="int_insurantSex == 'maennlich'">Herr</span>
+      {{int_insurantFirstName}} {{int_insurantName}}
     </strong><br>
     <table>
 
       <tr>
         <td>Geburtsdatum:</td>
-        <td>{{ mgeburtsdatum }}</td>
+        <td>{{ int_insurantBirthdate }}</td>
       </tr>
 
       <tr>
         <td>Größe:</td>
-        <td>{{mgroesse}}cm</td>
+        <td>{{int_insurantSize}}cm</td>
       </tr>
 
       <tr>
         <td>Gewicht:</td>
-        <td>{{mgewicht}}kg</td>
+        <td>{{int_insurantWeight}}kg</td>
       </tr>
 
     </table>
@@ -83,7 +83,10 @@
 
     <tr>
       <td>Tarif:</td>
-      <td>{{ mtarif }}</td>
+      <td>
+        <span ng-if="int_isPremiumClaim">Premium</span>
+        <span ng-if="!int_isPremiumClaim">Basis</span>
+      </td>
     </tr>
 
   </table>
@@ -93,7 +96,7 @@
 
     <tr>
       <td>Krankheit:</td>
-      <td>{{ mvorerkrankung }}</td>
+      <td>{{ int_diseaseDescription }}</td>
     </tr>
 
   </table>
