@@ -30,6 +30,14 @@ public class DateUtil {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
+    public static Date now() {
+        return toDate(LocalDate.now());
+    }
+
+    public static String nowAsString() {
+        return toString(now());
+    }
+
     public static Integer calcAge(String birthdate) throws ParseException {
         return calcAge(parseDate(birthdate));
     }
