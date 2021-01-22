@@ -7,57 +7,37 @@ import de.thkoeln.inf.gpm.vgb.model.external.MedicalHistory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Map;
-
 public class CreatePolicyDelegate implements JavaDelegate {
-    private long policeId = 10000;
-    private long customerId;
-    private String name;
-    private String firstname;
-    private Boolean isPremium;
-    private long initialDue;
-    private Double monthlyDue;
-    private long riskDue;
-    private String riskDueDescription;
-    private Date approvedStartDate; // TODO: überrpfüter Vertagsbeginn
-    private Date creatiionDate; // TODO: Datum der Unterschrift (nach 14 Tagen wdiderruf)
-    private Date wishedDate; // TODO: gewünschtes Datum vom Kunden (aus Antrag entnehmen)
-
-    // TODO: Precondtions müsste eigentlich ein Array sein oder?
-    // private String precondition[];
-    private String precondtios;
-
-    private boolean approved = false;
+    //private Date approvedStartDate; TODO: überpfrüter Vertagsbeginn
+    //private Date creatiionDate; TODO: Datum der Unterschrift (nach 14 Tagen widerruf)
+    //private Date wishedDate; TODO: gewünschtes Datum vom Kunden (aus Antrag entnehmen)
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        Map<String, Object> processVariables;
-        processVariables = delegateExecution.getVariables();
+
         ProcessContext processContext = new ProcessContext(delegateExecution);
-        customerId = processContext.getInternal().getCustomerId();
-        name = processContext.getInternal().getInsurantName();
-        firstname = processContext.getInternal().getInsurantFirstName();
-        isPremium = processContext.getInternal().getIsPremiumClaim();
 
-        initialDue = 110; // (double) processVariables.get("initialDue");
-        monthlyDue = processContext.getInternal().getInsurancePolicyMonthlyContribution();
-        riskDue = 0; // (long) processVariables.get("riskDue");
-        // TODO: ???
-        riskDueDescription = ""; // (String) processVariables.get("riskDueDescription");
+        Insurant insurant = Insurant.findById(processContext.getInternal().getInsurantId());
+        MedicalHistory medicalHistory = MedicalHistory.findById(processContext.getInternal().getMedicalHistoryId());
 
-        // TODO: Datenbank Erkrankungskategorie mappen
-        precondtios = processContext.getInternal().getDiseaseDescription();
+        InsurancePolicy insurePolicy = savePolicy(
+                processContext.getInternal().getIsNewCustomer(),
+                processContext.getInternal().getInsurancePolicyRiskSurcharge(),
+                processContext.getInternal().getInsurancePolicyRiskSurchargeReason(),
+                processContext.getInternal().getInsurancePolicyMonthlyContribution(),
+                processContext.getInternal().getInsurancePolicyInitialContribution(),
+                processContext.getInternal().getClaimDesiredStartDate(),
+                processContext.getInternal().getIsPremiumClaim(),
+                processContext.getInternal().getInsurancePolicySignDateOfContract(),
+                processContext.getInternal().getInsurancePolicyIsActive(),
+                insurant,
+                medicalHistory
+        );
 
-        // processVariables.put("creationDate", setDate());
-        processContext.getInternal().setInsurancePolicyId(policeId);
-
-
+        processContext.getInternal().setInsurancePolicyId(insurePolicy.getId());
     }
-
-    private Date setDate(){
+/*
+    private Date setDate() {
 
         ZoneId defaultZoneId = ZoneId.systemDefault();
         LocalDate local = LocalDate.now();
@@ -65,7 +45,35 @@ public class CreatePolicyDelegate implements JavaDelegate {
 
         return approvedStartDate;
     }
+*/
+    private InsurancePolicy savePolicy(
+            Boolean isNewCustomer,
+            Double riskSurcharge,
+            String riskSurchargeReason,
+            Double monthlyContribution,
+            Double initialContribution,
+            String startOfContract,
+            Boolean isPremiumTarif,
+            String signDate,
+            Boolean isActive,
+            Insurant insurant,
+            MedicalHistory medicalHistory
+    ) {
+        return InsurancePolicy.createOrUpdate(
+                new InsurancePolicy(
+                        isNewCustomer,
+                        riskSurcharge,
+                        riskSurchargeReason,
+                        monthlyContribution,
+                        initialContribution,
+                        startOfContract,
+                        isPremiumTarif,
+                        signDate,
+                        isActive,
+                        insurant,
+                        medicalHistory)
+        );
+    }
 
-    // TODO: add new Database Object with type Police
-    // TODO: generate ID & fill the intermediate table
+
 }

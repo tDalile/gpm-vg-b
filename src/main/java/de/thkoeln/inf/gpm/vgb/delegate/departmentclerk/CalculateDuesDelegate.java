@@ -4,33 +4,25 @@ import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.util.Map;
-
 public class CalculateDuesDelegate implements JavaDelegate {
-
-
-
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        Map<String, Object> processVariables;
-        processVariables = delegateExecution.getVariables();
-
-        ProcessContext processContext = new ProcessContext(delegateExecution);
+         ProcessContext processContext = new ProcessContext(delegateExecution);
 
         // TODO: change names of the variables
         Integer age = processContext.getInternal().getInsurantAge();
 
-        double riskDue = 0;
+        double riskSurcharge;
 
         try {
-            riskDue = processContext.getInternal().getInsurancePolicyRiskSurcharge();
+            riskSurcharge = processContext.getInternal().getInsurancePolicyRiskSurcharge();
         } catch (NullPointerException e) {
-            // No risk surchage attached
+            riskSurcharge = 0;
         }
 
         // TODO: rename
-        Double calc = calculateDue(age, riskDue);
+        Double calc = calculateDue(age, riskSurcharge);
 
         processContext.getInternal().setInsurancePolicyMonthlyContribution(calc);
         processContext.getInternal().setInsurancePolicyInitialContribution(calc);
