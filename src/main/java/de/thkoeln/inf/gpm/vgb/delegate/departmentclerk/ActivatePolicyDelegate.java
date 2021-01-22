@@ -5,11 +5,7 @@ import de.thkoeln.inf.gpm.vgb.model.external.InsurancePolicy;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.util.Map;
-
 public class ActivatePolicyDelegate implements JavaDelegate {
-
-    private long policeID;
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
@@ -17,7 +13,7 @@ public class ActivatePolicyDelegate implements JavaDelegate {
 
         InsurancePolicy insurancePolicy = InsurancePolicy.findById(processContext.getInternal().getInsurancePolicyId());
 
-        insurancePolicy.setActive(false);
+        insurancePolicy.setActive(true);
         InsurancePolicy.createOrUpdate(insurancePolicy);
 
         processContext.getInternal().setInsurancePolicyIsActive(true);
