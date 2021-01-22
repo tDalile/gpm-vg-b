@@ -1,8 +1,21 @@
 <form role="form" name="form">
     <script cam-script type="text/form-script">
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.dateFieldOpened = true;
+  };
+   $scope.testopen = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.test = true;
+  };
 
     </script>
-    <h3>Tarifauswahl</h3>
+
+    <label>Tarifauswahl</label>
     <div class="form-group controls">
         <select cam-variable-name="int_isPremiumClaim"
                 cam-variable-type="Boolean" class="form-control">
@@ -10,5 +23,25 @@
             <option value="true">Premium-Tarif</option>
         </select>
     </div>
+
+    <label>Gewünschter Vertragsstart</label>
+    <p class="input-group">
+
+        <input type="dateFieldOpened"
+
+               cam-variable-name="int_claimDesiredStartDate"
+               cam-variable-type="Date"
+               class="form-control"
+               uib-datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
+               is-open="test" />
+
+        <span class="input-group-btn">
+    <button type="button"
+            class="btn btn-default"
+            ng-click="testopen($event)">
+      <i class="glyphicon glyphicon-calendar"></i>
+    </button>
+  </span>
+    </p>
 
 </form>

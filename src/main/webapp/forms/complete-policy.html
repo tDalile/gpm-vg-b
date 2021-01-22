@@ -7,6 +7,9 @@
           camForm.variableManager.fetchVariable('int_insurantName');
           camForm.variableManager.fetchVariable('int_isPremiumClaim');
           camForm.variableManager.fetchVariable('int_diseaseDescription');
+          camForm.variableManager.fetchVariable('int_insurantBirthdate');
+          camForm.variableManager.fetchVariable('int_insurantSize');
+          camForm.variableManager.fetchVariable('int_insurantWeight');
     });
     camForm.on('variables-restored', function() {
       $scope.int_customerId = camForm.variableManager.variableValue('int_customerId');
@@ -15,10 +18,13 @@
       $scope.int_insurantName = camForm.variableManager.variableValue('int_insurantName');
       $scope.int_isPremiumClaim = camForm.variableManager.variableValue('int_isPremiumClaim');
       $scope.int_diseaseDescription = camForm.variableManager.variableValue('int_diseaseDescription');
+      $scope.int_insurantBirthdate = camForm.variableManager.variableValue('int_insurantBirthdate');
+      $scope.int_insurantSize = camForm.variableManager.variableValue('int_insurantSize');
+      $scope.int_insurantWeight = camForm.variableManager.variableValue('int_insurantWeight');
       console.log("setting variables to scope");
     });
   </script>
-    <h2>Antragszusammenfassung</h2>
+    <h2>Vertragszusammenfassung</h2>
 
     <table>
 
@@ -29,7 +35,7 @@
 
         <tr>
             <td>Versicherungsnummer:</td>
-            <td>{{int_insurantId}}</td>
+            <td>{{ int_insurantId }}</td>
         </tr>
 
     </table>
@@ -42,7 +48,7 @@
                 <strong>
                     <span ng-if="int_insurantSex == 'weiblich'">Frau</span>
                     <span ng-if="int_insurantSex == 'maennlich'">Herr</span>
-                    {{int_insurantFirstName}} {{int_insurantName}}
+                    {{ int_insurantFirstName }} {{ int_insurantName }}
                 </strong><br>
             </tr>
 
@@ -53,12 +59,12 @@
 
             <tr>
                 <td>Größe:</td>
-                <td>{{int_insurantSize}}cm</td>
+                <td>{{ int_insurantSize }}cm</td>
             </tr>
 
             <tr>
                 <td>Gewicht:</td>
-                <td>{{int_insurantWeight}}kg</td>
+                <td>{{ int_insurantWeight }}kg</td>
             </tr>
 
         </table>
