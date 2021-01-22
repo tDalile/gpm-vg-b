@@ -418,6 +418,14 @@
           <text>"risikogruppe 3"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0jy1yz5">
+        <inputEntry id="UnaryTests_0hiigmy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11sfewa">
+          <text>"keine vorerkrankungen"</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>
