@@ -551,19 +551,7 @@
       <bpmn:outgoing>Flow_1g6naee</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0s4rypp" messageRef="Message_0s7ityb" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="Activity_0aitxl9" name="Prüfe Antragsbestätigung" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="int_customerId" label="Kundenummer" type="string" />
-          <camunda:formField id="int_insurantName" label="Name" type="string" />
-          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" />
-          <camunda:formField id="int_insurancePolicyIsActive" label="Status" type="boolean" />
-          <camunda:formField id="int_insurancePolicyMonthlyContribution" label="monatlicher Beitrag" type="long" />
-          <camunda:formField id="int_insurancePolicyInitialContribution" label="initialer Beitrag" type="long" />
-          <camunda:formField id="int_insurancePolicyRiskSurcharge" label="Risikozuschlag" type="long" />
-          <camunda:formField id="int_insurancePolicyStartDateOfContract" label="Vertragsbeginn" type="date" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Activity_0aitxl9" name="Prüfe Antragsbestätigung" camunda:formKey="embedded:app:forms/check-policy.html" camunda:assignee="demo">
       <bpmn:incoming>Flow_1g6naee</bpmn:incoming>
       <bpmn:outgoing>Flow_0viktu0</bpmn:outgoing>
     </bpmn:userTask>
