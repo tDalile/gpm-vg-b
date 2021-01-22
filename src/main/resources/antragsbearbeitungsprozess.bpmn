@@ -232,17 +232,7 @@
     <bpmn:endEvent id="Event_0ryofou" name="Antragsbestätigung widersprochen">
       <bpmn:incoming>Flow_0eycv6j</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="int_customerId" label="Kundenummer" type="string" />
-          <camunda:formField id="int_insurantName" label="Nachname" type="string" />
-          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" />
-          <camunda:formField id="int_isPremiumClaim" label="Tarif" type="string" />
-          <camunda:formField id="int_isInsurable" label="Versicherungsfähig" type="string" />
-          <camunda:formField id="int_diseaseDescription" label="Vorerkrankungen" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:formKey="embedded:app:forms/complete-policy.html" camunda:assignee="demo">
       <bpmn:incoming>Flow_0v1zzw4</bpmn:incoming>
       <bpmn:outgoing>Flow_12k16mv</bpmn:outgoing>
     </bpmn:userTask>
@@ -448,14 +438,7 @@
     <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="int_diseaseDescription" label="Vorerkrankung" type="string">
-            <camunda:properties>
-              <camunda:property id="Property_3u3jdti" value="weisheitszaehne" />
-              <camunda:property id="Property_19vigbj" value="raucherlunge" />
-              <camunda:property id="Property_244a6rv" value="fettleber" />
-              <camunda:property id="Property_1bpdv6o" value="herzfehler" />
-            </camunda:properties>
-          </camunda:formField>
+          <camunda:formField id="int_diseaseDescription" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1bgxsc1</bpmn:incoming>

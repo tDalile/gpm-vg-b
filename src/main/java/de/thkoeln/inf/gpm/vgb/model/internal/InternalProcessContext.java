@@ -171,11 +171,11 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_CLAIM_DATE, claimDate);
     }
 
-    public String getClaimDesiredStartDate() {
-        return (String) execution.getVariable(ProcessVariableConstants.INT_CLAIM_DESIRED_START_DATE);
+    public Date getClaimDesiredStartDate() {
+        return (Date) execution.getVariable(ProcessVariableConstants.INT_CLAIM_DESIRED_START_DATE);
     }
 
-    public void setClaimDesiredStartDate(String desiredStartDate) {
+    public void setClaimDesiredStartDate(Date desiredStartDate) {
         execution.setVariable(ProcessVariableConstants.INT_CLAIM_DESIRED_START_DATE, desiredStartDate);
     }
 
