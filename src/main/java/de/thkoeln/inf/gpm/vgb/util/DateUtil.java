@@ -18,6 +18,18 @@ public class DateUtil {
         return CAMUNDA_DATE_FORMAT.parse(date);
     }
 
+    public static String toString(Date date) {
+        return CAMUNDA_DATE_FORMAT.format(date);
+    }
+
+    public static String toString(LocalDate date) {
+        return CAMUNDA_DATE_FORMAT.format(toDate(date));
+    }
+
+    public static Date toDate(LocalDate localDate) {
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
     public static Integer calcAge(String birthdate) throws ParseException {
         return calcAge(parseDate(birthdate));
     }

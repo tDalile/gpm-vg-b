@@ -5,6 +5,7 @@ import de.thkoeln.inf.gpm.vgb.model.external.Address;
 import de.thkoeln.inf.gpm.vgb.model.external.Customer;
 import de.thkoeln.inf.gpm.vgb.model.external.Insurant;
 import de.thkoeln.inf.gpm.vgb.model.external.Location;
+import de.thkoeln.inf.gpm.vgb.util.DateUtil;
 import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -49,13 +50,13 @@ public class CreateCustomerAccountDelegate implements JavaDelegate {
             String street,
             String houseNumber
     ) {
-        val customer = Customer.createOrUpdate(new Customer(LocalDate.now().toString(), password));
+        val customer = Customer.createOrUpdate(new Customer(DateUtil.toString(LocalDate.now()), password));
         val location = Location.createOrUpdate(new Location(zipCode, city));
         val address = Address.createOrUpdate(new Address(street, houseNumber, location));
 
         return Insurant.createOrUpdate(
                 new Insurant(
-                        name, firstName, birthday.toString(), sex, size, weight, address, customer
+                        name, firstName, DateUtil.toString(birthday), sex, size, weight, address, customer
                 )
         );
     }
