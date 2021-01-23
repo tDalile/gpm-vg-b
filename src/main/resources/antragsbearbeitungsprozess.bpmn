@@ -435,12 +435,7 @@
       <bpmn:incoming>Flow_0x17gtt</bpmn:incoming>
       <bpmn:outgoing>Flow_1bgxsc1</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="int_diseaseDescription" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:formKey="embedded:app:forms/precondition-select.html" camunda:assignee="demo">
       <bpmn:incoming>Flow_1bgxsc1</bpmn:incoming>
       <bpmn:outgoing>Flow_0zlcwmp</bpmn:outgoing>
     </bpmn:userTask>

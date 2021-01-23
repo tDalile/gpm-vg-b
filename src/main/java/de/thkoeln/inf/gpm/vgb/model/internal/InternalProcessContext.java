@@ -337,7 +337,23 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_PRECONDITION_ID, preconditionId);
     }
 
+    public String getPreconditionList() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_PRECONDITION_LIST);
+    }
+
+    public void setPreconditionList(String preconditionList) {
+        execution.setVariable(ProcessVariableConstants.INT_PRECONDITION_LIST, preconditionList);
+    }
+
     // Disease
+    public String getDiseaseList() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_DISEASE_LIST);
+    }
+
+    public void setDiseaseList(String list) {
+        execution.setVariable(ProcessVariableConstants.INT_DISEASE_LIST, list);
+    }
+
     public Long getDiseaseId() {
         return (Long) execution.getVariable(ProcessVariableConstants.INT_DISEASE_ID);
     }

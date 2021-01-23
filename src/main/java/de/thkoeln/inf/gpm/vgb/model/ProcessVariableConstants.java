@@ -77,8 +77,10 @@ public final class ProcessVariableConstants {
 
     // Precondition
     public static final String INT_PRECONDITION_ID = "int_preconditionId";
+    public static final String INT_PRECONDITION_LIST = "int_preconditionList";
 
     // Disease
+    public static final String INT_DISEASE_LIST = "int_diseaseList";
     public static final String INT_DISEASE_ID = "int_diseaseId";
     public static final String INT_DISEASE_CATEGORY = "int_diseaseCategory";
     public static final String INT_DISEASE_DESCRIPTION = "int_diseaseDescription";

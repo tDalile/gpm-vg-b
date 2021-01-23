@@ -1,0 +1,92 @@
+<form name="diseaseForm" role="form">
+    <script cam-script type="text/form-script">
+        camForm.on('form-loaded', function() {
+          camForm.variableManager.fetchVariable('int_diseaseList');
+        });
+        camForm.on('variables-restored', function() {
+          $scope.int_diseaseList = camForm.variableManager.variableValue('int_diseaseList');
+          $scope.list = $scope.int_diseaseList.split(";");
+          generateForm($scope.list);
+        });
+
+    </script>
+
+    <h3>Vorerkrankungen</h3>
+    <p>Bitte wählen sie auf Sie auf die zu Versichernde bekannte Vorerkrankungen aus der Liste aus.</p>
+
+    <div id="listWrapper" class="form-group">
+        <!-- generate checkboxes here -->
+    </div>
+
+    <div class="form-group" style="display: block">
+        <label for="diseaseList">Ausgewählte Krankheiten</label>
+        <input class="form-control"
+               id="diseaseList"
+               type="text"
+               cam-variable-name="int_preconditionList"
+               cam-variable-type="String"
+               placeholder="demo"/>
+        <!--        cam-variable-name="int_diseaseList"-->
+        <!--        cam-variable-type="String"-->
+    </div>
+
+</form>
+
+<script type="text/javascript">
+
+    function generateForm(list) {
+        clearDiseaseList()
+
+        let listWrapper = document.getElementById("listWrapper")
+
+        list.forEach(disease => {
+            if (disease === '') return
+
+            let checkbox = document.createElement('input')
+            checkbox.type = 'checkbox'
+            checkbox.value = disease
+            checkbox.name = disease
+            checkbox.className = 'form-group'
+            checkbox.onclick = function () {
+                toggleDisease(disease)
+            }
+
+            let label = document.createElement('label')
+            label.htmlFor = disease
+            label.className = 'form-group'
+            label.textContent = ' ' + disease
+
+            let div = document.createElement('div')
+            div.className = 'form-group'
+
+
+            div.appendChild(checkbox)
+            div.appendChild(label)
+            listWrapper.appendChild(div)
+            console.log(disease)
+        });
+    }
+
+    function clearDiseaseList() {
+        document.getElementById("diseaseList").value = "";
+    }
+
+    function removeDisease(disease) {
+        let diseaseList = document.getElementById("diseaseList").value
+        document.getElementById("diseaseList").value = diseaseList.replace(disease + ';', '')
+    }
+
+    function addDisease(disease) {
+        let diseaseList = document.getElementById("diseaseList").value
+        document.getElementById("diseaseList").value = diseaseList.concat(disease + ';')
+    }
+
+    function toggleDisease(disease) {
+        let diseaseList = document.getElementById("diseaseList").value
+
+        if (diseaseList.includes(disease))
+            removeDisease(disease)
+        else
+            addDisease(disease)
+    }
+</script>

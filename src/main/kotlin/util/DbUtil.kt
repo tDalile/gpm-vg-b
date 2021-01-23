@@ -66,6 +66,8 @@ object DbUtil {
         val gm = Location.createOrUpdate(Location("51643", "Gummersbach"))
         val stein = Address.createOrUpdate(Address("Steinmülleralle", "7b", gm))
         val heart = Disease.createOrUpdate(Disease(3, "Herzfehler"))
+        Disease.createOrUpdate(Disease(2, "Raucherlunge"))
+        Disease.createOrUpdate(Disease(1, "Schlechte Zähne"))
         val customer = Customer.createOrUpdate(Customer("2010-10-10T00:00:00", "demo"))
         val insurant = Insurant.createOrUpdate(
             Insurant(
