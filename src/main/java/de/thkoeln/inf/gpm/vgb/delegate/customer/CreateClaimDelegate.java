@@ -9,7 +9,6 @@ import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class CreateClaimDelegate implements JavaDelegate {
@@ -33,10 +32,7 @@ public class CreateClaimDelegate implements JavaDelegate {
 
         // get all available diseases
         val diseases = Disease.findAll();
-        val diseasesStrings = new ArrayList<String>();
         StringBuilder stringBuilder = new StringBuilder();
-        diseases.forEach(it -> diseasesStrings.add(it.getDescription()));
-
         for (Disease d: diseases) stringBuilder.append(d.getDescription()).append(";");
 
         processContext.getInternal().setInsurantBirthday(DateUtil.parseDate(insurant.getBirthdate()));
