@@ -386,33 +386,25 @@
           <text>"Keine Vorerkranungen","Risikogruppe 1","Risikogruppe 2","Risikogruppe 3"</text>
         </outputValues>
       </output>
-      <rule id="DecisionRule_1fgspxg">
-        <inputEntry id="UnaryTests_0kwgafv">
-          <text>"weisheitszaehne"</text>
+      <rule id="DecisionRule_10c11ha">
+        <inputEntry id="UnaryTests_0j4axb2">
+          <text>"Schlechte Zähne"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_07cxdw9">
-          <text>"keine vorerkrankungen"</text>
+        <outputEntry id="LiteralExpression_1egwvbo">
+          <text>"risikogruppe 1"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1pre7ab">
         <inputEntry id="UnaryTests_18umc9k">
-          <text>"raucherlunge"</text>
+          <text>"Raucherlunge"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1d8uotb">
-          <text>"risikogruppe 1"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_10c11ha">
-        <inputEntry id="UnaryTests_0j4axb2">
-          <text>"fettleber"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1egwvbo">
           <text>"risikogruppe 2"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1qjmqei">
         <inputEntry id="UnaryTests_0n8uzoi">
-          <text>"herzfehler"</text>
+          <text>"Herzfehler"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0m7mols">
           <text>"risikogruppe 3"</text>
@@ -420,7 +412,7 @@
       </rule>
       <rule id="DecisionRule_0jy1yz5">
         <inputEntry id="UnaryTests_0hiigmy">
-          <text></text>
+          <text>null</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_11sfewa">
           <text>"keine vorerkrankungen"</text>

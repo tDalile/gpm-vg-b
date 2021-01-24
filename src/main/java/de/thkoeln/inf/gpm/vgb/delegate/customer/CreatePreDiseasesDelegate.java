@@ -50,6 +50,8 @@ public class CreatePreDiseasesDelegate implements JavaDelegate {
             processContext.getInternal().setDiseaseCategory(highestCategoryDisease.getCategory());
             processContext.getInternal().setDiseaseId(highestCategoryDisease.getId());
             processContext.getInternal().setDiseaseDescription(highestCategoryDisease.getDescription());
+        } else {
+            processContext.getInternal().setDiseaseDescription(null);
         }
 
         // update claim
