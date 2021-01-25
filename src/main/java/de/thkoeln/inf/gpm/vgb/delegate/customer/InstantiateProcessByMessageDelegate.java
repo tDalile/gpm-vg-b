@@ -1,6 +1,5 @@
 package de.thkoeln.inf.gpm.vgb.delegate.customer;
 
-import de.thkoeln.inf.gpm.vgb.model.ProcessContext;
 import de.thkoeln.inf.gpm.vgb.model.ProcessVariableConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.RuntimeService;
@@ -17,8 +16,6 @@ import java.util.Map;
 @Slf4j
 public class InstantiateProcessByMessageDelegate implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
-        ProcessContext processContext = new ProcessContext(execution);
-
         Map<String, Object> processVariables = execution.getVariables();
 
 
