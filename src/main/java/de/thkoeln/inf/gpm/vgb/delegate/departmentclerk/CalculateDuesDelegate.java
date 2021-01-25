@@ -6,12 +6,12 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 public class CalculateDuesDelegate implements JavaDelegate {
 
+    private static final long MIN_CONTRIBUTION = 110;
+    private static final long CONTRIBUTION_MULTIPLIER = 10;
+
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-         ProcessContext processContext = new ProcessContext(delegateExecution);
-
-        // TODO: change names of the variables
-        Integer age = processContext.getInternal().getInsurantAge();
+        ProcessContext processContext = new ProcessContext(delegateExecution);
 
         double riskSurcharge;
 
@@ -21,28 +21,20 @@ public class CalculateDuesDelegate implements JavaDelegate {
             riskSurcharge = 0;
         }
 
-        // TODO: rename
-        Double calc = calculateDue(age, riskSurcharge);
+        Integer age = processContext.getInternal().getInsurantAge();
+        Double contribution = calculateContribution(age, riskSurcharge);
 
-        processContext.getInternal().setInsurancePolicyMonthlyContribution(calc);
-        processContext.getInternal().setInsurancePolicyInitialContribution(calc);
+        processContext.getInternal().setInsurancePolicyMonthlyContribution(contribution);
+        processContext.getInternal().setInsurancePolicyInitialContribution(contribution);
     }
 
-    double calculateDue(Integer age, Double riskDue){
-        long initialDue = 110;
-        long multiplier = 10;
-        long monthlyDue;
+    double calculateContribution(Integer age, Double riskSurcharge) {
+        if (age == 0) age = 1;
 
-        // TODO: CHANGE emergency solution
-        if(age == 0) monthlyDue = multiplier + riskDue.intValue();
-        else monthlyDue = multiplier * age + riskDue.intValue();
+        long monthlyContribution = CONTRIBUTION_MULTIPLIER * age;
 
-        if (monthlyDue > initialDue) monthlyDue = initialDue + riskDue.intValue();
+        if (monthlyContribution < MIN_CONTRIBUTION) monthlyContribution = MIN_CONTRIBUTION;
 
-        return monthlyDue;
+        return monthlyContribution + riskSurcharge.intValue();
     }
-
-
-
-
 }
