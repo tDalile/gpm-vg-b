@@ -83,8 +83,11 @@
     <h2>Tarifauswahl:</h2>
     <table>
         <tr>
-            <td>Premium-Tarif:</td>
-            <td>{{ int_isPremiumClaim }}</td>
+            <td>Tarif:</td>
+            <td>
+                <span ng-if="int_isPremiumClaim">Premium</span>
+                <span ng-if="!int_isPremiumClaim">Basis</span>
+            </td>
         </tr>
     </table>
 

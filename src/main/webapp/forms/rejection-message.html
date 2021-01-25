@@ -89,9 +89,11 @@
             <table>
                 <tr>
                     <td>Tarif:</td>
-                    <td>{{ int_isPremiumClaim }}</td>
+                    <td>
+                        <span ng-if="int_isPremiumClaim">Premium</span>
+                        <span ng-if="!int_isPremiumClaim">Basis</span>
+                    </td>
                 </tr>
-
                 <tr>
                     <td>Risikofaktor Alter:</td>
                     <td>{{int_claimRiskFactorAge}} (Alter: {{int_insurantAge}})</td>
