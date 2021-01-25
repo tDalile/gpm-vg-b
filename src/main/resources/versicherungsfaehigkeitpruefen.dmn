@@ -87,6 +87,23 @@
           <text>"versicherungsfaehig"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0r61neu">
+        <inputEntry id="UnaryTests_06aahd8">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1czbshm">
+          <text>[50..70)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00mkfnz">
+          <text>[50..70)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v8ktas">
+          <text>&lt;50</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t5lpmt">
+          <text>"manuell"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_09h4jho">
         <inputEntry id="UnaryTests_18ry31z">
           <text>true</text>
@@ -119,23 +136,6 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_0iknsdy">
           <text>"versicherungsfaehig"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0r61neu">
-        <inputEntry id="UnaryTests_06aahd8">
-          <text>true</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1czbshm">
-          <text>[50..70)</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_00mkfnz">
-          <text>[50..70)</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1v8ktas">
-          <text>&lt;50</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0t5lpmt">
-          <text>"manuell"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0ahmd96">
@@ -209,7 +209,7 @@
     </decisionTable>
   </decision>
   <decision id="dmn-risikofaktor-alter" name="Risikofaktor Alter">
-    <decisionTable id="DecisionTable_0tvlaxz" hitPolicy="FIRST">
+    <decisionTable id="DecisionTable_0tvlaxz">
       <input id="InputClause_02ybqte" label="Alter des Kunden" biodi:width="192">
         <inputExpression id="LiteralExpression_0t75ni6" typeRef="integer">
           <text>int_insurantAge</text>
@@ -218,7 +218,7 @@
       <output id="OutputClause_1q5i5f9" label="Bewertung des Alters" name="int_claimRiskFactorAge" typeRef="integer" />
       <rule id="DecisionRule_01nkct9">
         <inputEntry id="UnaryTests_1gzt8jd">
-          <text>&lt;=40</text>
+          <text>[0..40]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_09k7yz8">
           <text>0</text>
@@ -226,7 +226,7 @@
       </rule>
       <rule id="DecisionRule_13cyoaa">
         <inputEntry id="UnaryTests_18yraq3">
-          <text>&gt;40</text>
+          <text>[41..50]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ox87p4">
           <text>20</text>
@@ -234,7 +234,7 @@
       </rule>
       <rule id="DecisionRule_08brybc">
         <inputEntry id="UnaryTests_0ryb5p2">
-          <text>&gt;50</text>
+          <text>[51..60]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0rfobrv">
           <text>50</text>
@@ -242,7 +242,7 @@
       </rule>
       <rule id="DecisionRule_085d7zv">
         <inputEntry id="UnaryTests_0r0xiz7">
-          <text>&gt;60</text>
+          <text>[61..70]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1gsi5o0">
           <text>70</text>
@@ -251,25 +251,16 @@
       <rule id="DecisionRule_0lt0kb4">
         <description>Ab hier muss manuell geprüft werden</description>
         <inputEntry id="UnaryTests_0i56fsh">
-          <text>&gt;70</text>
+          <text>[71..125]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_00hgp22">
           <text>100</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1kr77ym">
-        <description>999 Damit in jedem Fall manuell getriggert wird</description>
-        <inputEntry id="UnaryTests_0mnb6f3">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0s8vjz2">
-          <text>999</text>
-        </outputEntry>
-      </rule>
     </decisionTable>
   </decision>
   <decision id="dmn-risikofaktor-bmi" name="Risikofaktor BMI">
-    <decisionTable id="DecisionTable_0tiz9vd" hitPolicy="FIRST">
+    <decisionTable id="DecisionTable_0tiz9vd">
       <input id="InputClause_1szfar3" label="BMI des Kunden" biodi:width="185">
         <inputExpression id="LiteralExpression_1tcg7v9" typeRef="double">
           <text>int_claimBMI</text>
@@ -279,7 +270,7 @@
       <rule id="DecisionRule_1p0086i">
         <description>Hier muss manuell geprüft werden</description>
         <inputEntry id="UnaryTests_0kcqi6n">
-          <text>&lt;20</text>
+          <text>[0..19]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0byuxi7">
           <text>50</text>
@@ -296,7 +287,7 @@
       <rule id="DecisionRule_17gxc10">
         <description>Hier muss manuell geprüft werden</description>
         <inputEntry id="UnaryTests_13q28df">
-          <text>&gt;26</text>
+          <text>[27..29]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0cxxko6">
           <text>50</text>
@@ -305,7 +296,7 @@
       <rule id="DecisionRule_1pud5j8">
         <description>Hier muss manuell geprüft werden</description>
         <inputEntry id="UnaryTests_0lvu44g">
-          <text>&gt;29</text>
+          <text>[30..32]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1wi2mbc">
           <text>70</text>
@@ -314,7 +305,7 @@
       <rule id="DecisionRule_079jfyc">
         <description>Ab hier wird abgelehnt</description>
         <inputEntry id="UnaryTests_1d9a467">
-          <text>&gt;32</text>
+          <text>[33..60]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1av2k74">
           <text>100</text>
@@ -372,7 +363,7 @@
     </decisionTable>
   </decision>
   <decision id="dmn-vorerkrankungen" name="Vorerkrankungen">
-    <decisionTable id="DecisionTable_17rhdrz">
+    <decisionTable id="DecisionTable_17rhdrz" hitPolicy="FIRST">
       <input id="InputClause_065g1fo" label="Erkrankungen">
         <inputExpression id="LiteralExpression_045ryh0" typeRef="string">
           <text>int_diseaseDescription</text>
@@ -388,7 +379,7 @@
       </output>
       <rule id="DecisionRule_1fgspxg">
         <inputEntry id="UnaryTests_0kwgafv">
-          <text>"weisheitszaehne"</text>
+          <text>"Schlechte Zähne"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_07cxdw9">
           <text>"keine vorerkrankungen"</text>
@@ -396,7 +387,7 @@
       </rule>
       <rule id="DecisionRule_1pre7ab">
         <inputEntry id="UnaryTests_18umc9k">
-          <text>"raucherlunge"</text>
+          <text>"Raucherlunge"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1d8uotb">
           <text>"risikogruppe 1"</text>
@@ -404,7 +395,7 @@
       </rule>
       <rule id="DecisionRule_10c11ha">
         <inputEntry id="UnaryTests_0j4axb2">
-          <text>"fettleber"</text>
+          <text>"Fettleber"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1egwvbo">
           <text>"risikogruppe 2"</text>
@@ -412,7 +403,7 @@
       </rule>
       <rule id="DecisionRule_1qjmqei">
         <inputEntry id="UnaryTests_0n8uzoi">
-          <text>"herzfehler"</text>
+          <text>"Herzfehler"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0m7mols">
           <text>"risikogruppe 3"</text>
