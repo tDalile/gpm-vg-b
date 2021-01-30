@@ -5,11 +5,24 @@ version: "3.8"
 services:
   camunda:
     image: vgb:0.0.1-SNAPSHOT
+    environment: 
+      #LDAP_ENABLED: "false"
+      #REST_AUTH_ENABLED: "false"
+      - CAMUNDA_USERNAME=demo
+      - CAMUNDA_PASSWORD=demo
+      - TZ=Europe/Berlin
+      - DB_DRIVER=org.postgresql.Driver
+      - 'DB_URL=jdbc:postgresql://psql:5432/ENGINE'
+      - DB_USERNAME=POSTGRES
+      - DB_PASSWORD=POSTGRES
+      - 'WAIT_FOR=psql:5432'
     container_name: "camunda"
     ports:
       - "8080:8080"
     volumes:
       - ./target/vgb.war:/camunda/webapps/vgb.war
+    links:
+      - 'psql'
 
   psql:
     container_name: gpm-db
@@ -17,11 +30,12 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: POSTGRES
-      POSTGRES_PASSWORD: POSTGRES
-      POSTGRES_DB: GPM
+      - POSTGRES_MULTIPLE_DATABASES="GPM","ENGINE"
+      - POSTGRES_USER=POSTGRES
+      - POSTGRES_PASSWORD=POSTGRES
     volumes:
-      - psql_vol:/var/lib/postgresql/datas
+#      - ./docker-data/psql_vol:/var/lib/postgresql/data
+      - ./docker-data/docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
 
 volumes:
   psql_vol:
