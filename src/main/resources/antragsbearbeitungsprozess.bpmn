@@ -44,17 +44,12 @@
         <bpmn:flowNodeRef>Gateway_1kbamho</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0c3js60</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_195m3xx</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0hlefub</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1jfqs60</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1x0f001</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1f7uqaf</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_08gl2lv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0t6o040</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataStoreReference id="DatenbankDataStoreReference" name="Datenbank" />
-    <bpmn:dataStoreReference id="DataStoreReference_1vznyq9" name="Datenbank" />
-    <bpmn:dataStoreReference id="DataStoreReference_1yv620e" name="Datenbank" />
     <bpmn:dataStoreReference id="DataStoreReference_0jrwt15" name="Datenbank" />
     <bpmn:dataStoreReference id="DataStoreReference_0apxbl4" name="Datenbank" />
     <bpmn:dataStoreReference id="DataStoreReference_107uhbo" name="Datenbank" />
@@ -120,18 +115,9 @@
       <bpmn:incoming>Flow_119acip</bpmn:incoming>
       <bpmn:outgoing>Flow_1y4qqdk</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag einpflegen" camunda:formKey="embedded:app:forms/add-risk-surcharge.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag und Risikozuschlagsbegründung einpflegen" camunda:formKey="embedded:app:forms/add-risk-surcharge.html" camunda:assignee="demo">
       <bpmn:incoming>Flow_0a8pp10</bpmn:incoming>
-      <bpmn:outgoing>Flow_1n8i4kr</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:assignee="demo">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="int_insurancePolicyRiskSurchargeReason" label="Begründung für den Risikozuschlag" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0fq0f68</bpmn:incoming>
-      <bpmn:outgoing>Flow_037j1k9</bpmn:outgoing>
+      <bpmn:outgoing>Flow_072fdqo</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_1jfqs60" name="Risikozuschlag?">
       <bpmn:incoming>Flow_1qovpep</bpmn:incoming>
@@ -147,20 +133,6 @@
       <bpmn:incoming>Flow_0085hw1</bpmn:incoming>
       <bpmn:outgoing>Flow_1qovpep</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_1f7uqaf" name="Antrag anpassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmenthead.AttachRiskSurchargeDelegate">
-      <bpmn:incoming>Flow_1n8i4kr</bpmn:incoming>
-      <bpmn:outgoing>Flow_0fq0f68</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0gf8ci5">
-        <bpmn:targetRef>DataStoreReference_1vznyq9</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_08gl2lv" name="Risikozuschlagsbegründung anhängen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmenthead.RiskSurchargeJustificationDelegate">
-      <bpmn:incoming>Flow_037j1k9</bpmn:incoming>
-      <bpmn:outgoing>Flow_072fdqo</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1934v79">
-        <bpmn:targetRef>DataStoreReference_1yv620e</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
     <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:formKey="embedded:app:forms/show-claim-data.html" camunda:assignee="demo">
       <bpmn:incoming>Flow_0cw5btk</bpmn:incoming>
       <bpmn:outgoing>Flow_0yheq9s</bpmn:outgoing>
@@ -249,7 +221,6 @@
     <bpmn:dataStoreReference id="DataStoreReference_1tveqz9" name="Datenbank" />
     <bpmn:sequenceFlow id="Flow_1vhhi80" sourceRef="Gateway_1t8q345" targetRef="AblehnungsnachrichtVersendenTask" />
     <bpmn:sequenceFlow id="Flow_1y4qqdk" sourceRef="Activity_0c3js60" targetRef="Gateway_1t8q345" />
-    <bpmn:sequenceFlow id="Flow_072fdqo" sourceRef="Activity_08gl2lv" targetRef="Gateway_0uivxd4" />
     <bpmn:sequenceFlow id="Flow_1d0hem6" name="nein" sourceRef="Gateway_1jfqs60" targetRef="Gateway_0uivxd4">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isAddSurcharge == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -269,9 +240,6 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isInsurable=="manuell"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1qovpep" sourceRef="Activity_1x0f001" targetRef="Gateway_1jfqs60" />
-    <bpmn:sequenceFlow id="Flow_037j1k9" sourceRef="Activity_0hlefub" targetRef="Activity_08gl2lv" />
-    <bpmn:sequenceFlow id="Flow_0fq0f68" sourceRef="Activity_1f7uqaf" targetRef="Activity_0hlefub" />
-    <bpmn:sequenceFlow id="Flow_1n8i4kr" sourceRef="Activity_195m3xx" targetRef="Activity_1f7uqaf" />
     <bpmn:sequenceFlow id="Flow_0a8pp10" name="ja" sourceRef="Gateway_1jfqs60" targetRef="Activity_195m3xx">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${int_isAddSurcharge == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -303,11 +271,9 @@
     <bpmn:sequenceFlow id="Flow_182rhkt" sourceRef="AblehnungsnachrichtVersendenTask" targetRef="AntragAbgelehntEndEvent" />
     <bpmn:sequenceFlow id="Flow_102uf7s" sourceRef="RisikofaktorKrankhistorieTask" targetRef="VersicherungsfahigkeitPrufenTask" />
     <bpmn:sequenceFlow id="Flow_13amgq1" sourceRef="VersicherungsfahigkeitPrufenTask" targetRef="VersicherungsfahgigGateway" />
+    <bpmn:sequenceFlow id="Flow_072fdqo" sourceRef="Activity_195m3xx" targetRef="Gateway_0uivxd4" />
     <bpmn:textAnnotation id="TextAnnotation_0hqvexj">
       <bpmn:text>Zeigen: Antragsdaten + 3 Risikof.</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_17ifdol">
-      <bpmn:text>POJO erstellen mit entsprechenden Variablen</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1s73opd">
       <bpmn:text>parallele visuelle Sichtung, wie aussteigen bei Fehler?</bpmn:text>
@@ -333,7 +299,6 @@
     <bpmn:association id="Association_03uvbai" sourceRef="VersicherungsfahigkeitPrufenTask" targetRef="TextAnnotation_0zkw18z" />
     <bpmn:association id="Association_0j9pp0z" sourceRef="RisikofaktorKrankhistorieTask" targetRef="TextAnnotation_196fhsu" />
     <bpmn:association id="Association_06zc9s9" sourceRef="VorerkrankungenTask" targetRef="TextAnnotation_0grpcop" />
-    <bpmn:association id="Association_1asykaw" sourceRef="Activity_08gl2lv" targetRef="TextAnnotation_17ifdol" />
     <bpmn:association id="Association_1311g1r" sourceRef="Activity_0t6o040" targetRef="TextAnnotation_0hqvexj" />
     <bpmn:association id="Association_0l6tpua" sourceRef="Event_0ryofou" targetRef="TextAnnotation_0amti5f" />
     <bpmn:association id="Association_0o2ukjo" sourceRef="Activity_0n2yobs" targetRef="TextAnnotation_1s73opd" />
@@ -693,18 +658,6 @@
           <dc:Bounds x="3827" y="1412" width="8" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1n8i4kr_di" bpmnElement="Flow_1n8i4kr">
-        <di:waypoint x="4010" y="1430" />
-        <di:waypoint x="4080" y="1430" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0fq0f68_di" bpmnElement="Flow_0fq0f68">
-        <di:waypoint x="4180" y="1430" />
-        <di:waypoint x="4250" y="1430" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_037j1k9_di" bpmnElement="Flow_037j1k9">
-        <di:waypoint x="4350" y="1430" />
-        <di:waypoint x="4420" y="1430" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1qovpep_di" bpmnElement="Flow_1qovpep">
         <di:waypoint x="3650" y="1430" />
         <di:waypoint x="3725" y="1430" />
@@ -773,10 +726,8 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_072fdqo_di" bpmnElement="Flow_072fdqo">
-        <di:waypoint x="4470" y="1390" />
-        <di:waypoint x="4470" y="1310" />
-        <di:waypoint x="3810" y="1310" />
-        <di:waypoint x="3810" y="1230" />
+        <di:waypoint x="3960" y="1390" />
+        <di:waypoint x="3960" y="1230" />
         <di:waypoint x="3395" y="1230" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1y4qqdk_di" bpmnElement="Flow_1y4qqdk">
@@ -846,9 +797,6 @@
       <bpmndi:BPMNShape id="Activity_195m3xx_di" bpmnElement="Activity_195m3xx">
         <dc:Bounds x="3910" y="1390" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0hlefub_di" bpmnElement="Activity_0hlefub">
-        <dc:Bounds x="4250" y="1390" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1jfqs60_di" bpmnElement="Gateway_1jfqs60" isMarkerVisible="true">
         <dc:Bounds x="3725" y="1405" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -857,12 +805,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1x0f001_di" bpmnElement="Activity_1x0f001">
         <dc:Bounds x="3550" y="1390" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1f7uqaf_di" bpmnElement="Activity_1f7uqaf">
-        <dc:Bounds x="4080" y="1390" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_08gl2lv_di" bpmnElement="Activity_08gl2lv">
-        <dc:Bounds x="4420" y="1390" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0t6o040_di" bpmnElement="Activity_0t6o040">
         <dc:Bounds x="3220" y="1390" width="100" height="80" />
@@ -948,9 +890,6 @@
       <bpmndi:BPMNShape id="TextAnnotation_0hqvexj_di" bpmnElement="TextAnnotation_0hqvexj">
         <dc:Bounds x="3270" y="1510" width="100" height="51" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_17ifdol_di" bpmnElement="TextAnnotation_17ifdol">
-        <dc:Bounds x="4580" y="1360" width="158" height="39" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1s73opd_di" bpmnElement="TextAnnotation_1s73opd">
         <dc:Bounds x="3619" y="1003" width="100" height="78" />
       </bpmndi:BPMNShape>
@@ -984,10 +923,6 @@
         <di:waypoint x="2860" y="1120" />
         <di:waypoint x="2852" y="1082" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1asykaw_di" bpmnElement="Association_1asykaw">
-        <di:waypoint x="4520" y="1422" />
-        <di:waypoint x="4580" y="1396" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1311g1r_di" bpmnElement="Association_1311g1r">
         <di:waypoint x="3289" y="1470" />
         <di:waypoint x="3310" y="1510" />
@@ -1012,18 +947,6 @@
         <dc:Bounds x="2845" y="1715" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2843" y="1772" width="54" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_1vznyq9_di" bpmnElement="DataStoreReference_1vznyq9">
-        <dc:Bounds x="4105" y="1695" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="4103" y="1755" width="54" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_1yv620e_di" bpmnElement="DataStoreReference_1yv620e">
-        <dc:Bounds x="4445" y="1695" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="4443" y="1752" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_0jrwt15_di" bpmnElement="DataStoreReference_0jrwt15">
@@ -1291,9 +1214,6 @@
       <bpmndi:BPMNShape id="Event_0vrnzx6_di" bpmnElement="Event_0vrnzx6">
         <dc:Bounds x="3252" y="402" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
-        <dc:Bounds x="980" y="559" width="100" height="81" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_1ei0iid_di" bpmnElement="DataStoreReference_1ei0iid">
         <dc:Bounds x="585" y="575" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -1305,6 +1225,9 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4319" y="569" width="61" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
+        <dc:Bounds x="980" y="559" width="100" height="81" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00mtnog_di" bpmnElement="Event_00mtnog">
         <dc:Bounds x="4212" y="492" width="36" height="36" />
@@ -1319,14 +1242,6 @@
       <bpmndi:BPMNEdge id="DataOutputAssociation_0qbmad6_di" bpmnElement="DataOutputAssociation_0qbmad6">
         <di:waypoint x="2870" y="1200" />
         <di:waypoint x="2870" y="1715" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0gf8ci5_di" bpmnElement="DataOutputAssociation_0gf8ci5">
-        <di:waypoint x="4130" y="1470" />
-        <di:waypoint x="4130" y="1695" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_1934v79_di" bpmnElement="DataOutputAssociation_1934v79">
-        <di:waypoint x="4470" y="1470" />
-        <di:waypoint x="4470" y="1695" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0ydgv16_di" bpmnElement="DataOutputAssociation_0ydgv16">
         <di:waypoint x="4509" y="1033" />
