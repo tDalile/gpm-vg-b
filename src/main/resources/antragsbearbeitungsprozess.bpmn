@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0" camunda:diagramRelationId="ca4cf336-a2d5-4b23-8e38-03d5932250de">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0" camunda:diagramRelationId="ca4cf336-a2d5-4b23-8e38-03d5932250de">
   <bpmn:collaboration id="Collaboration_1fgr3g2">
     <bpmn:participant id="VertriebUnderwritingParticipant" name="Vertrieb &#38; Underwriting" processRef="ProcessInsuranceCompany" />
     <bpmn:participant id="KundeParticipant" name="Kunde" processRef="ProcessCustomer" />
@@ -82,7 +82,7 @@
     <bpmn:sendTask id="UberarbeitungsanfrageSendenTask" name="Überarbeitungsanfrage senden" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.departmentclerk.ContinueProcessByMessageDelegate">
       <bpmn:incoming>NeinSequenceFlow1</bpmn:incoming>
     </bpmn:sendTask>
-    <bpmn:userTask id="UberprufeAntragTask" name="Überprüfe Antrag" camunda:formKey="embedded:app:forms/check-claim.html">
+    <bpmn:userTask id="UberprufeAntragTask" name="Überprüfe Antrag" camunda:formKey="embedded:app:forms/check-claim.html" camunda:candidateGroups="service">
       <bpmn:incoming>Flow_1bslhts</bpmn:incoming>
       <bpmn:outgoing>Flow_0gra15k</bpmn:outgoing>
     </bpmn:userTask>
@@ -94,7 +94,7 @@
       <bpmn:incoming>Flow_1vhhi80</bpmn:incoming>
       <bpmn:outgoing>Flow_182rhkt</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:userTask id="AblehnungsbegrundungHinzufugenTask" name="Ablehnungsbegründung hinzufügen" camunda:formKey="embedded:app:forms/rejection-message.html">
+    <bpmn:userTask id="AblehnungsbegrundungHinzufugenTask" name="Ablehnungsbegründung hinzufügen" camunda:formKey="embedded:app:forms/rejection-message.html" camunda:candidateGroups="service">
       <bpmn:incoming>NeinSequenceFlow</bpmn:incoming>
       <bpmn:outgoing>Flow_0q1hsu3</bpmn:outgoing>
     </bpmn:userTask>
@@ -111,7 +111,7 @@
       <bpmn:outgoing>Flow_119acip</bpmn:outgoing>
       <bpmn:outgoing>Flow_0085hw1</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0c3js60" name="Ablehnungs-begründung hinzufügen" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0c3js60" name="Ablehnungs-begründung hinzufügen" camunda:candidateGroups="head">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_claimRejectionReason" label="Begründung für die Ablehnung" type="string" />
@@ -120,11 +120,11 @@
       <bpmn:incoming>Flow_119acip</bpmn:incoming>
       <bpmn:outgoing>Flow_1y4qqdk</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag einpflegen" camunda:formKey="embedded:app:forms/add-risk-surcharge.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag einpflegen" camunda:formKey="embedded:app:forms/add-risk-surcharge.html" camunda:candidateGroups="head">
       <bpmn:incoming>Flow_0a8pp10</bpmn:incoming>
       <bpmn:outgoing>Flow_1n8i4kr</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:assignee="demo" camunda:candidateGroups="head">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_insurancePolicyRiskSurchargeReason" label="Begründung für den Risikozuschlag" type="string" />
@@ -138,7 +138,7 @@
       <bpmn:outgoing>Flow_0a8pp10</bpmn:outgoing>
       <bpmn:outgoing>Flow_1d0hem6</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_1x0f001" name="Risikozuschlag auswählen" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_1x0f001" name="Risikozuschlag auswählen" camunda:candidateGroups="head">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_isAddSurcharge" label="Soll ein Risikozuschlag hinzugefügt werden?" type="boolean" />
@@ -161,7 +161,7 @@
         <bpmn:targetRef>DataStoreReference_1yv620e</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:formKey="embedded:app:forms/show-claim-data.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:formKey="embedded:app:forms/show-claim-data.html" camunda:candidateGroups="head">
       <bpmn:incoming>Flow_0cw5btk</bpmn:incoming>
       <bpmn:outgoing>Flow_0yheq9s</bpmn:outgoing>
     </bpmn:userTask>
@@ -194,7 +194,7 @@
     <bpmn:endEvent id="Event_0ryofou" name="Antragsbestätigung widersprochen">
       <bpmn:incoming>Flow_0eycv6j</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:formKey="embedded:app:forms/complete-policy.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:formKey="embedded:app:forms/complete-policy.html" camunda:assignee="demo" camunda:candidateGroups="service">
       <bpmn:incoming>Flow_0v1zzw4</bpmn:incoming>
       <bpmn:outgoing>Flow_12k16mv</bpmn:outgoing>
     </bpmn:userTask>
@@ -390,7 +390,7 @@
       <bpmn:outgoing>Flow_0vr0k9o</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1kjs8hp" messageRef="Message_1f441az" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="UberarbeitungAntragTask" name="Überarbeitung Antrag" camunda:formKey="embedded:app:forms/start-form.html">
+    <bpmn:userTask id="UberarbeitungAntragTask" name="Überarbeitung Antrag" camunda:formKey="embedded:app:forms/start-form.html" camunda:candidateGroups="customer">
       <bpmn:incoming>Flow_0vr0k9o</bpmn:incoming>
       <bpmn:outgoing>Flow_1fhmoab</bpmn:outgoing>
     </bpmn:userTask>
@@ -436,11 +436,11 @@
         <bpmn:targetRef>DataStoreReference_0apxbl4</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:formKey="embedded:app:forms/precondition-select.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:formKey="embedded:app:forms/precondition-select.html" camunda:candidateGroups="customer">
       <bpmn:incoming>Flow_1bgxsc1</bpmn:incoming>
       <bpmn:outgoing>Flow_0zlcwmp</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_1ncv6kk" name="Auswahl Vertragsart" camunda:formKey="embedded:app:forms/choose-tariff.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_1ncv6kk" name="Auswahl Vertragsart" camunda:formKey="embedded:app:forms/choose-tariff.html" camunda:candidateGroups="customer">
       <bpmn:incoming>Flow_1dspndu</bpmn:incoming>
       <bpmn:outgoing>Flow_0x17gtt</bpmn:outgoing>
     </bpmn:userTask>
@@ -448,11 +448,11 @@
       <bpmn:incoming>Flow_1uvvnp2</bpmn:incoming>
       <bpmn:outgoing>Flow_1dspndu</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1swn75u" name="Kundenart auswählen" camunda:formKey="embedded:app:forms/choose-customer-type.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_1swn75u" name="Kundenart auswählen" camunda:formKey="embedded:app:forms/choose-customer-type.html" camunda:candidateGroups="customer">
       <bpmn:incoming>Flow_0i55j18</bpmn:incoming>
       <bpmn:outgoing>Flow_1e3ldh2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0hlbx0t" name="Eingabe KundenID" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0hlbx0t" name="Eingabe KundenID" camunda:candidateGroups="customer">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_customerId" label="Kundennummer" type="long" defaultValue="1" />
@@ -475,7 +475,7 @@
       <bpmn:outgoing>Flow_0db4m1q</bpmn:outgoing>
       <bpmn:outgoing>Flow_194fqs1</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_1shvr6b" name="Eingabe Vertragsdaten" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_1shvr6b" name="Eingabe Vertragsdaten" camunda:candidateGroups="customer">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_customerId" label="Kundennr" type="long" defaultValue="12345" />
@@ -495,7 +495,7 @@
       <bpmn:incoming>Flow_194fqs1</bpmn:incoming>
       <bpmn:outgoing>Flow_050i7if</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:formKey="embedded:app:forms/input-customer-data.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:formKey="embedded:app:forms/input-customer-data.html" camunda:candidateGroups="customer">
       <bpmn:incoming>Flow_1fo22fo</bpmn:incoming>
       <bpmn:outgoing>Flow_1vw8w4a</bpmn:outgoing>
     </bpmn:userTask>
@@ -511,14 +511,14 @@
       <bpmn:outgoing>Flow_1g6naee</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0s4rypp" messageRef="Message_0s7ityb" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="Activity_0aitxl9" name="Prüfe Antragsbestätigung" camunda:formKey="embedded:app:forms/check-policy.html" camunda:assignee="demo">
+    <bpmn:userTask id="Activity_0aitxl9" name="Prüfe Antragsbestätigung" camunda:formKey="embedded:app:forms/check-policy.html" camunda:assignee="demo" camunda:candidateGroups="customer">
       <bpmn:incoming>Flow_1g6naee</bpmn:incoming>
       <bpmn:outgoing>Flow_0viktu0</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="Event_14jycph" name="Antrag genehmigt">
       <bpmn:incoming>Flow_0eatyjd</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="AblehnungsgrundAnzeigenTask" name="Ablehnungsgrund anzeigen" camunda:formKey="embedded:app:forms/show-rejection-message.html">
+    <bpmn:userTask id="AblehnungsgrundAnzeigenTask" name="Ablehnungsgrund anzeigen" camunda:formKey="embedded:app:forms/show-rejection-message.html" camunda:candidateGroups="customer">
       <bpmn:incoming>Flow_1cbc860</bpmn:incoming>
       <bpmn:outgoing>Flow_1xeni61</bpmn:outgoing>
     </bpmn:userTask>
@@ -1291,9 +1291,6 @@
       <bpmndi:BPMNShape id="Event_0vrnzx6_di" bpmnElement="Event_0vrnzx6">
         <dc:Bounds x="3252" y="402" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
-        <dc:Bounds x="980" y="559" width="100" height="81" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_1ei0iid_di" bpmnElement="DataStoreReference_1ei0iid">
         <dc:Bounds x="585" y="575" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -1305,6 +1302,9 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4319" y="569" width="61" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
+        <dc:Bounds x="980" y="559" width="100" height="81" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00mtnog_di" bpmnElement="Event_00mtnog">
         <dc:Bounds x="4212" y="492" width="36" height="36" />
