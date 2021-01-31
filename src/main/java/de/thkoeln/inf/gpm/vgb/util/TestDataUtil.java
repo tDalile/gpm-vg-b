@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 
 import static org.camunda.bpm.engine.authorization.Authorization.ANY;
 import static org.camunda.bpm.engine.authorization.Authorization.AUTH_TYPE_GRANT;
-import static org.camunda.bpm.engine.authorization.BatchPermissions.*;
-import static org.camunda.bpm.engine.authorization.Permissions.ACCESS;
+import static org.camunda.bpm.engine.authorization.Permissions.*;
 import static org.camunda.bpm.engine.authorization.Resources.*;
+
 
 public class TestDataUtil {
     private final static Logger LOGGER = Logger.getLogger(TestDataUtil.class.getName());
@@ -29,7 +29,7 @@ public class TestDataUtil {
     private static final String[] LAST_NAMES = {"Müller", "Schmidt", "Schneider", "Fischer", "Weber", "Meier",
             "Wagner", "Becker", "Schulz", "Hoffmann"};
 
-    private static final String[] FIRST_NAMES = {"Peter", "Michael", "Thomas", "Andreas", "Stefan", "Anna",
+    private static final String[] FIRST_NAMES = {"Head", "Michael", "Thomas", "Andreas", "Stefan", "Anna",
             "Andrea", "Karin", "Monika", "Maria"};
 
     private static final String[] STREETS = {"Hauptstraße", "Schillerstraße", "Rathausplatz", "Bahnhofstraße",
@@ -70,18 +70,10 @@ public class TestDataUtil {
 
         final IdentityServiceImpl identityService = (IdentityServiceImpl) engine.getIdentityService();
 
-        if(identityService.isReadOnly()) {
-            LOGGER.info("Identity service provider is Read Only, not creating any demo users.");
-            return;
-        }
-
-        User singleResult = identityService.createUserQuery().userId("demo").singleResult();
-        if (singleResult != null) {
-            return;
-        }
-
         LOGGER.info("Generating demo data for vgb process");
 
+
+        // Create Demo User
         User user = identityService.newUser("demo");
         user.setFirstName("Demo");
         user.setLastName("Demo");
@@ -89,28 +81,50 @@ public class TestDataUtil {
         user.setEmail("demo@vgb.org");
         identityService.saveUser(user, true);
 
-        User user10 = identityService
-                .createUserQuery()
-                .userId("demo2")
-                .singleResult();
+        // Create Customer User
+        User user1 = identityService.newUser("customer");
+        user1.setFirstName("Customer");
+        user1.setLastName("Customer");
+        user1.setPassword("customer");
+        user1.setEmail("customer@gmail.com");
+        identityService.saveUser(user1, true);
 
 
-        User user2 = identityService.newUser("john");
-        user2.setFirstName("John");
-        user2.setLastName("Doe");
-        user2.setPassword("john");
-        user2.setEmail("john@camunda.org");
+        // Create Clerk User
+        User user2 = identityService.newUser("clerk");
+        user2.setFirstName("Clerk");
+        user2.setLastName("Clerk");
+        user2.setPassword("clerk");
+        user2.setEmail("clerk@vgb.org");
         identityService.saveUser(user2, true);
 
+        // Create Head User
+        User user3 = identityService.newUser("head");
+        user3.setFirstName("Head");
+        user3.setLastName("Head");
+        user3.setPassword("head");
+        user3.setEmail("head@vgb.org");
+        identityService.saveUser(user3, true);
 
-
-        Group salesGroup = identityService.newGroup("sales");
-        salesGroup.setName("Sales");
-        salesGroup.setType("WORKFLOW");
-        identityService.saveGroup(salesGroup);
 
 
         final AuthorizationService authorizationService = engine.getAuthorizationService();
+
+        Group customerGroup = identityService.newGroup("customer");
+        customerGroup.setName("Customer");
+        customerGroup.setType("WORKFLOW");
+        identityService.saveGroup(customerGroup);
+
+        Group serviceGroup = identityService.newGroup("service");
+        serviceGroup.setName("Service");
+        serviceGroup.setType("WORKFLOW");
+        identityService.saveGroup(serviceGroup);
+
+        Group managementGroup = identityService.newGroup("management");
+        managementGroup.setName("Management");
+        managementGroup.setType("WORKFLOW");
+        identityService.saveGroup(managementGroup);
+
 
         // create group
         if(identityService.createGroupQuery().groupId(Groups.CAMUNDA_ADMIN).count() == 0) {
@@ -132,45 +146,50 @@ public class TestDataUtil {
             }
         }
 
+
         identityService.createMembership("demo", "camunda-admin");
-        identityService.createMembership("demo2", "camunda-admin");
 
-
-
+        identityService.createMembership("customer", "customer");
+        identityService.createMembership("clerk", "service");
+        identityService.createMembership("head", "management");
 
         // authorize groups for tasklist only:
+        Authorization customerTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        customerTasklistAuth.setGroupId("customer");
+        customerTasklistAuth.addPermission(ACCESS);
+        customerTasklistAuth.setResourceId("tasklist");
+        customerTasklistAuth.setResource(APPLICATION);
+        authorizationService.saveAuthorization(customerTasklistAuth);
 
-        Authorization salesTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        salesTasklistAuth.setGroupId("sales");
-        salesTasklistAuth.addPermission(ACCESS);
-        salesTasklistAuth.setResourceId("tasklist");
-        salesTasklistAuth.setResource(APPLICATION);
-        authorizationService.saveAuthorization(salesTasklistAuth);
+        Authorization customerCreateProcessDefinition = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        customerCreateProcessDefinition.setGroupId("customer");
+        customerCreateProcessDefinition.addPermission(Permissions.READ);
+        customerCreateProcessDefinition.addPermission(Permissions.CREATE_INSTANCE);
+        customerCreateProcessDefinition.addPermission(Permissions.READ_HISTORY);
+        customerCreateProcessDefinition.setResource(Resources.PROCESS_DEFINITION);
+        customerCreateProcessDefinition.setResourceId("ProcessCustomer");
+        authorizationService.saveAuthorization(customerCreateProcessDefinition);
 
-        Authorization salesReadProcessDefinition = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        salesReadProcessDefinition.setGroupId("sales");
-        salesReadProcessDefinition.addPermission(Permissions.READ);
-        salesReadProcessDefinition.addPermission(Permissions.READ_HISTORY);
-        salesReadProcessDefinition.setResource(Resources.PROCESS_DEFINITION);
-        // restrict to invoice process definition only
-        salesReadProcessDefinition.setResourceId("invoice");
-        authorizationService.saveAuthorization(salesReadProcessDefinition);
+        Authorization customerCreateProcessInstance = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        customerCreateProcessInstance.setGroupId("customer");
+        customerCreateProcessInstance.addPermission(Permissions.CREATE);
+        customerCreateProcessInstance.setResource(Resources.PROCESS_INSTANCE);
+        customerCreateProcessInstance.setResourceId("*");
+        authorizationService.saveAuthorization(customerCreateProcessInstance);
 
-        Authorization accountingTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        accountingTasklistAuth.setGroupId("accounting");
-        accountingTasklistAuth.addPermission(ACCESS);
-        accountingTasklistAuth.setResourceId("tasklist");
-        accountingTasklistAuth.setResource(APPLICATION);
-        authorizationService.saveAuthorization(accountingTasklistAuth);
+        Authorization serviceTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceTasklistAuth.setGroupId("service");
+        serviceTasklistAuth.addPermission(ACCESS);
+        serviceTasklistAuth.setResourceId("tasklist");
+        serviceTasklistAuth.setResource(APPLICATION);
+        authorizationService.saveAuthorization(serviceTasklistAuth);
 
-        Authorization accountingReadProcessDefinition = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        accountingReadProcessDefinition.setGroupId("accounting");
-        accountingReadProcessDefinition.addPermission(Permissions.READ);
-        accountingReadProcessDefinition.addPermission(Permissions.READ_HISTORY);
-        accountingReadProcessDefinition.setResource(Resources.PROCESS_DEFINITION);
-        // restrict to invoice process definition only
-        accountingReadProcessDefinition.setResourceId("invoice");
-        authorizationService.saveAuthorization(accountingReadProcessDefinition);
+        Authorization serviceReadProcessDefinition = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceReadProcessDefinition.setGroupId("service");
+        serviceReadProcessDefinition.addPermission(Permissions.READ);
+        serviceReadProcessDefinition.addPermission(Permissions.READ_HISTORY);
+        serviceReadProcessDefinition.setResource(Resources.PROCESS_DEFINITION);
+        authorizationService.saveAuthorization(serviceReadProcessDefinition);
 
         Authorization managementTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
         managementTasklistAuth.setGroupId("management");
@@ -184,23 +203,35 @@ public class TestDataUtil {
         managementReadProcessDefinition.addPermission(Permissions.READ);
         managementReadProcessDefinition.addPermission(Permissions.READ_HISTORY);
         managementReadProcessDefinition.setResource(Resources.PROCESS_DEFINITION);
-        // restrict to invoice process definition only
-        managementReadProcessDefinition.setResourceId("invoice");
         authorizationService.saveAuthorization(managementReadProcessDefinition);
 
-        Authorization salesDemoAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        salesDemoAuth.setGroupId("sales");
-        salesDemoAuth.setResource(USER);
-        salesDemoAuth.setResourceId("demo");
-        salesDemoAuth.addPermission(READ);
-        authorizationService.saveAuthorization(salesDemoAuth);
+        Authorization customerCustomerAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        customerCustomerAuth.setGroupId("customer");
+        customerCustomerAuth.setResource(USER);
+        customerCustomerAuth.setResourceId("customer");
+        customerCustomerAuth.addPermission(READ);
+        authorizationService.saveAuthorization(customerCustomerAuth);
 
-        Authorization salesJohnAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        salesJohnAuth.setGroupId("sales");
-        salesJohnAuth.setResource(USER);
-        salesJohnAuth.setResourceId("john");
-        salesJohnAuth.addPermission(READ);
-        authorizationService.saveAuthorization(salesJohnAuth);
+        Authorization customerDemoAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        customerDemoAuth.setGroupId("customer");
+        customerDemoAuth.setResource(USER);
+        customerDemoAuth.setResourceId("demo");
+        customerDemoAuth.addPermission(READ);
+        authorizationService.saveAuthorization(customerDemoAuth);
+
+        Authorization serviceDemoAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceDemoAuth.setGroupId("service");
+        serviceDemoAuth.setResource(USER);
+        serviceDemoAuth.setResourceId("demo");
+        serviceDemoAuth.addPermission(READ);
+        authorizationService.saveAuthorization(serviceDemoAuth);
+
+        Authorization serviceClerkAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceClerkAuth.setGroupId("service");
+        serviceClerkAuth.setResource(USER);
+        serviceClerkAuth.setResourceId("clerk");
+        serviceClerkAuth.addPermission(READ);
+        authorizationService.saveAuthorization(serviceClerkAuth);
 
         Authorization manDemoAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
         manDemoAuth.setGroupId("management");
@@ -209,40 +240,21 @@ public class TestDataUtil {
         manDemoAuth.addPermission(READ);
         authorizationService.saveAuthorization(manDemoAuth);
 
-        Authorization manPeterAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        manPeterAuth.setGroupId("management");
-        manPeterAuth.setResource(USER);
-        manPeterAuth.setResourceId("peter");
-        manPeterAuth.addPermission(READ);
-        authorizationService.saveAuthorization(manPeterAuth);
-
-        Authorization accDemoAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        accDemoAuth.setGroupId("accounting");
-        accDemoAuth.setResource(USER);
-        accDemoAuth.setResourceId("demo");
-        accDemoAuth.addPermission(READ);
-        authorizationService.saveAuthorization(accDemoAuth);
-
-        Authorization accMaryAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        accMaryAuth.setGroupId("accounting");
-        accMaryAuth.setResource(USER);
-        accMaryAuth.setResourceId("mary");
-        accMaryAuth.addPermission(READ);
-        authorizationService.saveAuthorization(accMaryAuth);
-
-        Authorization taskMaryAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        taskMaryAuth.setUserId("mary");
-        taskMaryAuth.setResource(TASK);
-        taskMaryAuth.setResourceId(ANY);
-        taskMaryAuth.addPermission(READ);
-        taskMaryAuth.addPermission(UPDATE);
-        authorizationService.saveAuthorization(taskMaryAuth);
+        Authorization manHeadAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        manHeadAuth.setGroupId("management");
+        manHeadAuth.setResource(USER);
+        manHeadAuth.setResourceId("head");
+        manHeadAuth.addPermission(READ);
+        authorizationService.saveAuthorization(manHeadAuth);
 
         // create default filters
 
+
         FilterService filterService = engine.getFilterService();
 
+
         Map<String, Object> filterProperties = new HashMap<String, Object>();
+
         filterProperties.put("description", "Tasks assigned to me");
         filterProperties.put("priority", -10);
         addVariables(filterProperties);
@@ -273,54 +285,9 @@ public class TestDataUtil {
         globalGroupFilterRead.addPermission(READ);
         authorizationService.saveAuthorization(globalGroupFilterRead);
 
-
         // management filter
 
-        filterProperties.clear();
-        filterProperties.put("description", "Tasks for Group Accounting");
-        filterProperties.put("priority", -3);
-        addVariables(filterProperties);
-        query = taskService.createTaskQuery().taskCandidateGroupIn(Arrays.asList("accounting")).taskUnassigned();
-        Filter candidateGroupTasksFilter = filterService.newTaskFilter().setName("Accounting").setProperties(filterProperties).setOwner("demo").setQuery(query);
-        filterService.saveFilter(candidateGroupTasksFilter);
 
-        Authorization managementGroupFilterRead = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        managementGroupFilterRead.setResource(FILTER);
-        managementGroupFilterRead.setResourceId(candidateGroupTasksFilter.getId());
-        managementGroupFilterRead.addPermission(READ);
-        managementGroupFilterRead.setGroupId("accounting");
-        authorizationService.saveAuthorization(managementGroupFilterRead);
-
-
-        // john's tasks
-
-        filterProperties.clear();
-        filterProperties.put("description", "Tasks assigned to John");
-        filterProperties.put("priority", -1);
-        addVariables(filterProperties);
-        query = taskService.createTaskQuery().taskAssignee("john");
-        Filter johnsTasksFilter = filterService.newTaskFilter().setName("John's Tasks").setProperties(filterProperties).setOwner("demo").setQuery(query);
-        filterService.saveFilter(johnsTasksFilter);
-
-        // mary's tasks
-
-        filterProperties.clear();
-        filterProperties.put("description", "Tasks assigned to Mary");
-        filterProperties.put("priority", -1);
-        addVariables(filterProperties);
-        query = taskService.createTaskQuery().taskAssignee("mary");
-        Filter marysTasksFilter = filterService.newTaskFilter().setName("Mary's Tasks").setProperties(filterProperties).setOwner("demo").setQuery(query);
-        filterService.saveFilter(marysTasksFilter);
-
-        // peter's tasks
-
-        filterProperties.clear();
-        filterProperties.put("description", "Tasks assigned to Peter");
-        filterProperties.put("priority", -1);
-        addVariables(filterProperties);
-        query = taskService.createTaskQuery().taskAssignee("peter");
-        Filter petersTasksFilter = filterService.newTaskFilter().setName("Peter's Tasks").setProperties(filterProperties).setOwner("demo").setQuery(query);
-        filterService.saveFilter(petersTasksFilter);
 
         // all tasks
 
@@ -339,10 +306,13 @@ public class TestDataUtil {
     protected void addVariables(Map<String, Object> filterProperties) {
         List<Object> variables = new ArrayList<Object>();
 
+        /*
         addVariable(variables, "amount", "Invoice Amount");
         addVariable(variables, "invoiceNumber", "Invoice Number");
         addVariable(variables, "creditor", "Creditor");
         addVariable(variables, "approver", "Approver");
+
+         */
 
         filterProperties.put("variables", variables);
     }
