@@ -1,0 +1,1 @@
+psql -U POSTGRES -f /tmp/gpm.sql GPM

@@ -5,7 +5,7 @@ version: "3.8"
 services:
   camunda:
     image: vgb:0.0.1-SNAPSHOT
-    environment: 
+    environment:
       #LDAP_ENABLED: "false"
       #REST_AUTH_ENABLED: "false"
       - CAMUNDA_USERNAME=demo
@@ -36,6 +36,7 @@ services:
     volumes:
 #      - ./docker-data/psql_vol:/var/lib/postgresql/data
       - ./docker-data/docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
+      - ./docker-data/db-dump:/tmp
 
 volumes:
   psql_vol:
