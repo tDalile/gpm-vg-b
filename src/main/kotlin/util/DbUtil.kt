@@ -19,7 +19,7 @@ object DbUtil {
 
     val dbWithDocker by lazy {
         Database.connect(
-            "jdbc:postgresql://host.docker.internal:5432/GPM",
+            "jdbc:postgresql://psql:5432/GPM",
             driver = "org.postgresql.Driver",
             user = "POSTGRES", password = "POSTGRES"
         )

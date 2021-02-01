@@ -12,17 +12,17 @@ services:
       - CAMUNDA_PASSWORD=demo
       - TZ=Europe/Berlin
       - DB_DRIVER=org.postgresql.Driver
-      - 'DB_URL=jdbc:postgresql://psql:5432/ENGINE'
+      - DB_URL=jdbc:postgresql://psql:5432/ENGINE
       - DB_USERNAME=POSTGRES
       - DB_PASSWORD=POSTGRES
-      - 'WAIT_FOR=psql:5432'
+      - WAIT_FOR=psql:5432
     container_name: "camunda"
     ports:
       - "8080:8080"
     volumes:
       - ./target/vgb.war:/camunda/webapps/vgb.war
     links:
-      - 'psql'
+      - psql
 
   psql:
     container_name: gpm-db
