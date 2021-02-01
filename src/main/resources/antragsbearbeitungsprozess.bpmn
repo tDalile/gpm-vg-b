@@ -124,7 +124,7 @@
       <bpmn:incoming>Flow_0a8pp10</bpmn:incoming>
       <bpmn:outgoing>Flow_1n8i4kr</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:assignee="demo" camunda:candidateGroups="head">
+    <bpmn:userTask id="Activity_0hlefub" name="Risikozuschlagsbegründung hinzufügen" camunda:candidateGroups="head">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_insurancePolicyRiskSurchargeReason" label="Begründung für den Risikozuschlag" type="string" />
@@ -194,7 +194,7 @@
     <bpmn:endEvent id="Event_0ryofou" name="Antragsbestätigung widersprochen">
       <bpmn:incoming>Flow_0eycv6j</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:formKey="embedded:app:forms/complete-policy.html" camunda:assignee="demo" camunda:candidateGroups="service">
+    <bpmn:userTask id="Activity_0n2yobs" name="Eingabe Versicherungspolice" camunda:formKey="embedded:app:forms/complete-policy.html" camunda:candidateGroups="service">
       <bpmn:incoming>Flow_0v1zzw4</bpmn:incoming>
       <bpmn:outgoing>Flow_12k16mv</bpmn:outgoing>
     </bpmn:userTask>
@@ -369,168 +369,10 @@
         <bpmn:flowNodeRef>AblehnungsgrundAnzeigenTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AntragAbgelehntEndEvent1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0vrnzx6</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_00mtnog</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>WiderspruchEinreichen</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_00mtnog</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:exclusiveGateway id="Gateway_1az1ia7">
-      <bpmn:incoming>Flow_122gdmp</bpmn:incoming>
-      <bpmn:incoming>Flow_1s86tul</bpmn:incoming>
-      <bpmn:outgoing>Flow_09cbrw9</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:eventBasedGateway id="Gateway_16hpjdz">
-      <bpmn:incoming>Flow_0ubzf56</bpmn:incoming>
-      <bpmn:outgoing>Flow_1f3wniz</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1sayprk</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1j3693a</bpmn:outgoing>
-    </bpmn:eventBasedGateway>
-    <bpmn:intermediateCatchEvent id="Event_0iddq7y">
-      <bpmn:incoming>Flow_1f3wniz</bpmn:incoming>
-      <bpmn:outgoing>Flow_0vr0k9o</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1kjs8hp" messageRef="Message_1f441az" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="UberarbeitungAntragTask" name="Überarbeitung Antrag" camunda:formKey="embedded:app:forms/start-form.html" camunda:candidateGroups="customer">
-      <bpmn:incoming>Flow_0vr0k9o</bpmn:incoming>
-      <bpmn:outgoing>Flow_1fhmoab</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="AntragAnpassenTask" name="Antrag anpassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.EditClaimDelegate">
-      <bpmn:incoming>Flow_1fhmoab</bpmn:incoming>
-      <bpmn:outgoing>Flow_122gdmp</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ewjjav">
-        <bpmn:targetRef>DatenbankDataStoreReference1</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:dataStoreReference id="DatenbankDataStoreReference1" name="Datenbank" />
-    <bpmn:startEvent id="AntragsprozessGestartetStartEvent" name="Antragsprozess gestartet" camunda:formKey="embedded:app:forms/choose-customer-type.html">
-      <bpmn:extensionElements>
-        <camunda:executionListener class="de.thkoeln.inf.gpm.vgb.listener.ProcessStartEventListener" event="start" />
-      </bpmn:extensionElements>
-      <bpmn:outgoing>Flow_0i55j18</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:sendTask id="AntragUbermittelnTask" name="Antrag übermitteln" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.InstantiateProcessByMessageDelegate">
-      <bpmn:incoming>Flow_09cbrw9</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ubzf56</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:exclusiveGateway id="Gateway_1kvxlq2" name="Neukunde?">
-      <bpmn:incoming>Flow_0i55j18</bpmn:incoming>
-      <bpmn:outgoing>Flow_1fo22fo</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1vrldjq</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_0hse3q1" name="Kundenkonto anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CreateCustomerAccountDelegate">
-      <bpmn:incoming>Flow_1vw8w4a</bpmn:incoming>
-      <bpmn:outgoing>Flow_1u0ha0g</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0d3vb45">
-        <bpmn:targetRef>DataStoreReference_0jrwt15</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="Gateway_0fg6uqt">
-      <bpmn:incoming>Flow_1u0ha0g</bpmn:incoming>
-      <bpmn:incoming>Flow_050i7if</bpmn:incoming>
-      <bpmn:outgoing>Flow_1uvvnp2</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_1jv1xft" name="Antrag anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CreateClaimDelegate">
-      <bpmn:incoming>Flow_0x17gtt</bpmn:incoming>
-      <bpmn:outgoing>Flow_1bgxsc1</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0xzc3lb">
-        <bpmn:targetRef>DataStoreReference_0apxbl4</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:formKey="embedded:app:forms/precondition-select.html" camunda:candidateGroups="customer">
-      <bpmn:incoming>Flow_1bgxsc1</bpmn:incoming>
-      <bpmn:outgoing>Flow_0zlcwmp</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Activity_1ncv6kk" name="Auswahl Vertragsart" camunda:formKey="embedded:app:forms/choose-tariff.html" camunda:candidateGroups="customer">
-      <bpmn:incoming>Flow_1dspndu</bpmn:incoming>
-      <bpmn:outgoing>Flow_0x17gtt</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_17g15ym" name="BMI berechnen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CalculateBmiDelegate">
-      <bpmn:incoming>Flow_1uvvnp2</bpmn:incoming>
-      <bpmn:outgoing>Flow_1dspndu</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0hlbx0t" name="Eingabe KundenID" camunda:candidateGroups="customer">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="int_customerId" label="Kundennummer" type="long" defaultValue="1" />
-          <camunda:formField id="int_customerPassword" label="Passwort" type="string" defaultValue="demo" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1vrldjq</bpmn:incoming>
-      <bpmn:incoming>Flow_0db4m1q</bpmn:incoming>
-      <bpmn:outgoing>Flow_1q6xjui</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_18uzkd9" name="KundenID erfassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.DetermineCustomerIdDelegate">
-      <bpmn:incoming>Flow_1q6xjui</bpmn:incoming>
-      <bpmn:outgoing>Flow_1yew2z9</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0j259fc">
-        <bpmn:targetRef>DataStoreReference_1ei0iid</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="Gateway_0k09nel" name="Login erfolgreich?">
-      <bpmn:incoming>Flow_1yew2z9</bpmn:incoming>
-      <bpmn:outgoing>Flow_0db4m1q</bpmn:outgoing>
-      <bpmn:outgoing>Flow_194fqs1</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_1shvr6b" name="Eingabe Vertragsdaten" camunda:candidateGroups="customer">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="int_customerId" label="Kundennr" type="long" defaultValue="12345" />
-          <camunda:formField id="int_isClaimForFamilyMember" label="Antrag für abweichende Person?" type="boolean" defaultValue="false" />
-          <camunda:formField id="int_insurantName" label="Name des zu Versicherten" type="string" defaultValue="Fischer" />
-          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" defaultValue="Hannah" />
-          <camunda:formField id="int_insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/10/2001" />
-          <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="w" />
-          <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="175" />
-          <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="70" />
-          <camunda:formField id="int_locationZip" label="PLZ" type="string" defaultValue="51515" />
-          <camunda:formField id="int_locationName" label="Ort" type="string" defaultValue="Kürten" />
-          <camunda:formField id="int_addressStreet" label="Straße" type="string" defaultValue="Hofwiese" />
-          <camunda:formField id="int_addressHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_194fqs1</bpmn:incoming>
-      <bpmn:outgoing>Flow_050i7if</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:formKey="embedded:app:forms/input-customer-data.html" camunda:candidateGroups="customer">
-      <bpmn:incoming>Flow_1fo22fo</bpmn:incoming>
-      <bpmn:outgoing>Flow_1vw8w4a</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0xa6q3z" name="Vorerkrankungen anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CreatePreDiseasesDelegate">
-      <bpmn:incoming>Flow_0zlcwmp</bpmn:incoming>
-      <bpmn:outgoing>Flow_1s86tul</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1c8cn3e">
-        <bpmn:targetRef>DataStoreReference_107uhbo</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:intermediateCatchEvent id="Event_0cdtrrs">
-      <bpmn:incoming>Flow_1j3693a</bpmn:incoming>
-      <bpmn:outgoing>Flow_1g6naee</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0s4rypp" messageRef="Message_0s7ityb" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="Activity_0aitxl9" name="Prüfe Antragsbestätigung" camunda:formKey="embedded:app:forms/check-policy.html" camunda:assignee="demo" camunda:candidateGroups="customer">
-      <bpmn:incoming>Flow_1g6naee</bpmn:incoming>
-      <bpmn:outgoing>Flow_0viktu0</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:endEvent id="Event_14jycph" name="Antrag genehmigt">
-      <bpmn:incoming>Flow_0eatyjd</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:userTask id="AblehnungsgrundAnzeigenTask" name="Ablehnungsgrund anzeigen" camunda:formKey="embedded:app:forms/show-rejection-message.html" camunda:candidateGroups="customer">
-      <bpmn:incoming>Flow_1cbc860</bpmn:incoming>
-      <bpmn:outgoing>Flow_1xeni61</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:endEvent id="AntragAbgelehntEndEvent1" name="Antrag abgelehnt">
-      <bpmn:incoming>Flow_1xeni61</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:intermediateCatchEvent id="Event_0vrnzx6">
-      <bpmn:incoming>Flow_1sayprk</bpmn:incoming>
-      <bpmn:outgoing>Flow_1cbc860</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1vm3p9j" messageRef="Message_1uw6e3j" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:boundaryEvent id="Event_00mtnog" name="14 Tage" attachedToRef="Activity_0aitxl9">
-      <bpmn:outgoing>Flow_0eatyjd</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_086djkj">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_1xeni61" sourceRef="AblehnungsgrundAnzeigenTask" targetRef="AntragAbgelehntEndEvent1" />
     <bpmn:sequenceFlow id="Flow_1cbc860" sourceRef="Event_0vrnzx6" targetRef="AblehnungsgrundAnzeigenTask" />
     <bpmn:sequenceFlow id="Flow_0eatyjd" sourceRef="Event_00mtnog" targetRef="Event_14jycph" />
@@ -568,11 +410,169 @@
     <bpmn:sequenceFlow id="Flow_0vr0k9o" sourceRef="Event_0iddq7y" targetRef="UberarbeitungAntragTask" />
     <bpmn:sequenceFlow id="Flow_1fhmoab" sourceRef="UberarbeitungAntragTask" targetRef="AntragAnpassenTask" />
     <bpmn:sequenceFlow id="Flow_0ubzf56" sourceRef="AntragUbermittelnTask" targetRef="Gateway_16hpjdz" />
-    <bpmn:dataStoreReference id="DataStoreReference_1ei0iid" name="Datenbank" />
+    <bpmn:boundaryEvent id="Event_00mtnog" name="14 Tage" attachedToRef="Activity_0aitxl9">
+      <bpmn:outgoing>Flow_0eatyjd</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_086djkj">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
     <bpmn:endEvent id="WiderspruchEinreichen" name="Widerspruch einreichen" camunda:asyncBefore="true">
       <bpmn:incoming>Flow_0viktu0</bpmn:incoming>
       <bpmn:messageEventDefinition id="MessageEventDefinition_12phlrn" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.ContinueProcessByObjectionMessageDelegate" />
     </bpmn:endEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_1ei0iid" name="Datenbank" />
+    <bpmn:intermediateCatchEvent id="Event_0vrnzx6">
+      <bpmn:incoming>Flow_1sayprk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1cbc860</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1vm3p9j" messageRef="Message_1uw6e3j" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="AntragAbgelehntEndEvent1" name="Antrag abgelehnt">
+      <bpmn:incoming>Flow_1xeni61</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="AblehnungsgrundAnzeigenTask" name="Ablehnungsgrund anzeigen" camunda:formKey="embedded:app:forms/show-rejection-message.html" camunda:candidateGroups="customer">
+      <bpmn:incoming>Flow_1cbc860</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xeni61</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_14jycph" name="Antrag genehmigt">
+      <bpmn:incoming>Flow_0eatyjd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Activity_0aitxl9" name="Prüfe Antragsbestätigung" camunda:formKey="embedded:app:forms/check-policy.html" camunda:candidateGroups="customer">
+      <bpmn:incoming>Flow_1g6naee</bpmn:incoming>
+      <bpmn:outgoing>Flow_0viktu0</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateCatchEvent id="Event_0cdtrrs">
+      <bpmn:incoming>Flow_1j3693a</bpmn:incoming>
+      <bpmn:outgoing>Flow_1g6naee</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0s4rypp" messageRef="Message_0s7ityb" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="Activity_0xa6q3z" name="Vorerkrankungen anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CreatePreDiseasesDelegate">
+      <bpmn:incoming>Flow_0zlcwmp</bpmn:incoming>
+      <bpmn:outgoing>Flow_1s86tul</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1c8cn3e">
+        <bpmn:targetRef>DataStoreReference_107uhbo</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0qb5vvg" name="Eingabe Kundendaten" camunda:formKey="embedded:app:forms/input-customer-data.html" camunda:candidateGroups="customer">
+      <bpmn:incoming>Flow_1fo22fo</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vw8w4a</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1shvr6b" name="Eingabe Vertragsdaten" camunda:candidateGroups="customer">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="int_customerId" label="Kundennr" type="long" defaultValue="12345" />
+          <camunda:formField id="int_isClaimForFamilyMember" label="Antrag für abweichende Person?" type="boolean" defaultValue="false" />
+          <camunda:formField id="int_insurantName" label="Name des zu Versicherten" type="string" defaultValue="Fischer" />
+          <camunda:formField id="int_insurantFirstName" label="Vorname" type="string" defaultValue="Hannah" />
+          <camunda:formField id="int_insurantBirthday" label="Geburtsdatum" type="date" defaultValue="10/10/2001" />
+          <camunda:formField id="int_insurantSex" label="Geschlecht" type="string" defaultValue="w" />
+          <camunda:formField id="int_insurantSize" label="Größe in cm" type="long" defaultValue="175" />
+          <camunda:formField id="int_insurantWeight" label="Gewicht in Kg" type="long" defaultValue="70" />
+          <camunda:formField id="int_locationZip" label="PLZ" type="string" defaultValue="51515" />
+          <camunda:formField id="int_locationName" label="Ort" type="string" defaultValue="Kürten" />
+          <camunda:formField id="int_addressStreet" label="Straße" type="string" defaultValue="Hofwiese" />
+          <camunda:formField id="int_addressHouseNumber" label="Hausnummer" type="string" defaultValue="7b" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_194fqs1</bpmn:incoming>
+      <bpmn:outgoing>Flow_050i7if</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0k09nel" name="Login erfolgreich?">
+      <bpmn:incoming>Flow_1yew2z9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0db4m1q</bpmn:outgoing>
+      <bpmn:outgoing>Flow_194fqs1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_18uzkd9" name="KundenID erfassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.DetermineCustomerIdDelegate">
+      <bpmn:incoming>Flow_1q6xjui</bpmn:incoming>
+      <bpmn:outgoing>Flow_1yew2z9</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0j259fc">
+        <bpmn:targetRef>DataStoreReference_1ei0iid</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0hlbx0t" name="Eingabe KundenID" camunda:candidateGroups="customer">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="int_customerId" label="Kundennummer" type="long" defaultValue="1" />
+          <camunda:formField id="int_customerPassword" label="Passwort" type="string" defaultValue="demo" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1vrldjq</bpmn:incoming>
+      <bpmn:incoming>Flow_0db4m1q</bpmn:incoming>
+      <bpmn:outgoing>Flow_1q6xjui</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_17g15ym" name="BMI berechnen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CalculateBmiDelegate">
+      <bpmn:incoming>Flow_1uvvnp2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dspndu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_1ncv6kk" name="Auswahl Vertragsart" camunda:formKey="embedded:app:forms/choose-tariff.html" camunda:candidateGroups="customer">
+      <bpmn:incoming>Flow_1dspndu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0x17gtt</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1bbg8yf" name="Eingabe Vorerkrankungen" camunda:formKey="embedded:app:forms/precondition-select.html" camunda:candidateGroups="customer">
+      <bpmn:incoming>Flow_1bgxsc1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zlcwmp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_1jv1xft" name="Antrag anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CreateClaimDelegate">
+      <bpmn:incoming>Flow_0x17gtt</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bgxsc1</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0xzc3lb">
+        <bpmn:targetRef>DataStoreReference_0apxbl4</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0fg6uqt">
+      <bpmn:incoming>Flow_1u0ha0g</bpmn:incoming>
+      <bpmn:incoming>Flow_050i7if</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uvvnp2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_0hse3q1" name="Kundenkonto anlegen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.CreateCustomerAccountDelegate">
+      <bpmn:incoming>Flow_1vw8w4a</bpmn:incoming>
+      <bpmn:outgoing>Flow_1u0ha0g</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0d3vb45">
+        <bpmn:targetRef>DataStoreReference_0jrwt15</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1kvxlq2" name="Neukunde?">
+      <bpmn:incoming>Flow_0i55j18</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fo22fo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1vrldjq</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sendTask id="AntragUbermittelnTask" name="Antrag übermitteln" camunda:asyncBefore="true" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.InstantiateProcessByMessageDelegate">
+      <bpmn:incoming>Flow_09cbrw9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ubzf56</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:startEvent id="AntragsprozessGestartetStartEvent" name="Antragsprozess gestartet" camunda:formKey="embedded:app:forms/choose-customer-type.html">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="de.thkoeln.inf.gpm.vgb.listener.ProcessStartEventListener" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0i55j18</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:dataStoreReference id="DatenbankDataStoreReference1" name="Datenbank" />
+    <bpmn:serviceTask id="AntragAnpassenTask" name="Antrag anpassen" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.EditClaimDelegate">
+      <bpmn:incoming>Flow_1fhmoab</bpmn:incoming>
+      <bpmn:outgoing>Flow_122gdmp</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ewjjav">
+        <bpmn:targetRef>DatenbankDataStoreReference1</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UberarbeitungAntragTask" name="Überarbeitung Antrag" camunda:formKey="embedded:app:forms/start-form.html" camunda:candidateGroups="customer">
+      <bpmn:incoming>Flow_0vr0k9o</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fhmoab</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateCatchEvent id="Event_0iddq7y">
+      <bpmn:incoming>Flow_1f3wniz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vr0k9o</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1kjs8hp" messageRef="Message_1f441az" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:eventBasedGateway id="Gateway_16hpjdz">
+      <bpmn:incoming>Flow_0ubzf56</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f3wniz</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1sayprk</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1j3693a</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:exclusiveGateway id="Gateway_1az1ia7">
+      <bpmn:incoming>Flow_122gdmp</bpmn:incoming>
+      <bpmn:incoming>Flow_1s86tul</bpmn:incoming>
+      <bpmn:outgoing>Flow_09cbrw9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
     <bpmn:textAnnotation id="TextAnnotation_0q15ukm">
       <bpmn:text>Kunde sieht alle laufenden Verträge + Button "neuen Antrag anlegen"</bpmn:text>
     </bpmn:textAnnotation>
@@ -1263,7 +1263,7 @@
       <bpmndi:BPMNShape id="Event_14jycph_di" bpmnElement="Event_14jycph">
         <dc:Bounds x="4462" y="492" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4437" y="468" width="87" height="14" />
+          <dc:Bounds x="4438" y="468" width="86" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_18j96jd_di" bpmnElement="AblehnungsgrundAnzeigenTask">
@@ -1272,7 +1272,7 @@
       <bpmndi:BPMNShape id="Event_1fv0kj6_di" bpmnElement="AntragAbgelehntEndEvent1">
         <dc:Bounds x="3622" y="402" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3601" y="445" width="84" height="14" />
+          <dc:Bounds x="3602" y="445" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0vrnzx6_di" bpmnElement="Event_0vrnzx6">
@@ -1287,7 +1287,7 @@
       <bpmndi:BPMNShape id="Event_1dzx93o_di" bpmnElement="WiderspruchEinreichen">
         <dc:Bounds x="4331" y="606" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4319" y="569" width="61" height="27" />
+          <dc:Bounds x="4319" y="569" width="62" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0q15ukm_di" bpmnElement="TextAnnotation_0q15ukm">
@@ -1296,7 +1296,7 @@
       <bpmndi:BPMNShape id="Event_00mtnog_di" bpmnElement="Event_00mtnog">
         <dc:Bounds x="4212" y="492" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4211" y="455" width="40" height="14" />
+          <dc:Bounds x="4211" y="455" width="41" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_0zemvnf_di" bpmnElement="Association_0zemvnf">
