@@ -102,6 +102,14 @@ public class InternalProcessContext {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_WEIGHT, insurantWeight);
     }
 
+    public String getInsurantFurtherInformation() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_INSURANT_FURTHER_INFORMATION);
+    }
+
+    public void setInsurantFurtherInformation(String insurantFurtherInformation) {
+        execution.setVariable(ProcessVariableConstants.INT_INSURANT_FURTHER_INFORMATION, insurantFurtherInformation);
+    }
+
 
     // Location
     public Long getLocationId() {
@@ -436,6 +444,14 @@ public class InternalProcessContext {
 
     public void setInsurantAge(Integer insurantAge) {
         execution.setVariable(ProcessVariableConstants.INT_INSURANT_AGE, insurantAge);
+    }
+
+    public String getClaimRevisionReason() {
+        return (String) execution.getVariable(ProcessVariableConstants.INT_CLAIM_REVISION_REASON);
+    }
+
+    public void setClaimRevisionReason(String claimRevisionReason) {
+        execution.setVariable(ProcessVariableConstants.INT_CLAIM_REVISION_REASON, claimRevisionReason);
     }
 
 

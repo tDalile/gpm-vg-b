@@ -37,6 +37,7 @@ public final class ProcessVariableConstants {
     public static final String INT_INSURANT_SEX = "int_insurantSex";
     public static final String INT_INSURANT_SIZE = "int_insurantSize";
     public static final String INT_INSURANT_WEIGHT = "int_insurantWeight";
+    public static final String INT_INSURANT_FURTHER_INFORMATION = "int_insurantFurtherInformation";
 
     // Location
     public static final String INT_LOCATION_ID = "int_locationId";
@@ -96,6 +97,7 @@ public final class ProcessVariableConstants {
 
     // (here volatile variables)
     public static final String INT_INSURANT_AGE = "int_insurantAge";
+    public static final String INT_CLAIM_REVISION_REASON = "int_claimRevisionReason";
 
 
     // (here messages)
