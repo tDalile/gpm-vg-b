@@ -1,0 +1,189 @@
+<form role="form" name="variablesForm">
+  
+<div class="row">
+
+  <div class="col-xs-6">
+    <h2>Persönliche Daten</h2>
+    <br>
+    <h3>Bitte passen Sie die Daten an die abweichende, zu versichernde Person an.</h3>
+    <br>
+    <!-- Vorname -->
+    <div class="form-group">
+      <label for="vorname">Vorname</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="text"
+               cam-variable-name="int_insurantFirstName"
+               cam-variable-type="String"
+               placeholder="Max"
+               ng-minlength="2"
+               ng-maxlength="20" />
+      </div>
+    </div>
+
+    <!-- Nachname -->
+    <div class="form-group">
+      <label for="nachname">Nachname</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="text"
+               cam-variable-name="int_insurantName"
+               cam-variable-type="String"
+               placeholder="Mustermann"
+               ng-minlength="2"
+               ng-maxlength="20" />
+      </div>
+    </div>
+
+    <!-- Geburtsdatum -->
+    <label>Geburtsdatum</label>
+    <p class="input-group">
+
+      <input type="dateFieldOpened"
+
+             cam-variable-name="int_insurantBirthdate"
+             cam-variable-type="Date"
+             class="form-control"
+             uib-datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
+             is-open="test" />
+
+      <span class="input-group-btn">
+    <button type="button"
+            class="btn btn-default"
+            ng-click="testopen($event)">
+      <i class="glyphicon glyphicon-calendar"></i>
+    </button>
+  </span>
+    </p>
+
+    <!-- Geschlecht -->
+    <div class="form-group">
+      <label for="geschlecht">Geschlecht</label>
+      <div class="controls">
+
+        <!--select box -->
+        <select class="form-control"
+                cam-variable-name="int_insurantSex"
+                cam-variable-type="String">
+          <option value="maennlich">Männlich</option>
+          <option value="weiblich">Weiblich</option>
+        </select>
+
+      </div>
+    </div>
+
+    <!-- Größe -->
+    <div class="form-group">
+      <label for="groesse">Größe in Meter</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="number"
+               cam-variable-name="int_insurantSize"
+               cam-variable-type="Double"
+               placeholder="1,75"
+               ng-minlength="2"
+               ng-maxlength="25" />
+      </div>
+    </div>
+
+    <!-- Gewicht -->
+    <div class="form-group">
+      <label for="gewicht">Gewicht in kg</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="number"
+               cam-variable-name="int_insurantWeight"
+               cam-variable-type="Double"
+               placeholder="80"
+               ng-minlength="2"
+               ng-maxlength="25" />
+      </div>
+    </div>
+
+    <!-- PLZ -->
+    <div class="form-group">
+      <label for="plz">PLZ</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="text"
+               cam-variable-name="int_locationZip"
+               cam-variable-type="String"
+               placeholder="54515"
+               ng-minlength="5"
+               ng-maxlength="25" />
+      </div>
+    </div>
+
+    <!-- Ort -->
+    <div class="form-group">
+      <label for="ort">Ort</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="text"
+               cam-variable-name="int_locationName"
+               cam-variable-type="String"
+               placeholder="Kürten"
+               ng-minlength="3"
+               ng-maxlength="25" />
+      </div>
+    </div>
+
+    <!-- Straße -->
+    <div class="form-group">
+      <label for="strasse">Straße</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="text"
+               cam-variable-name="int_addressStreet"
+               cam-variable-type="String"
+               placeholder="Hofwiese"
+               ng-minlength="3"
+               ng-maxlength="25" />
+      </div>
+    </div>
+
+    <!-- Hausnummer -->
+    <div class="form-group">
+      <label for="hausnummer">Hausnummer</label>
+      <div class="controls">
+        <input class="form-control"
+               required
+               type="text"
+               cam-variable-name="int_addressHouseNumber"
+               cam-variable-type="String"
+               placeholder="7b"
+               ng-minlength="1"
+               ng-maxlength="25" />
+      </div>
+    </div>
+  </div>
+
+</div>
+  <script cam-script type="text/form-script">
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.dateFieldOpened = true;
+  };
+   $scope.testopen = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.test = true;
+  };
+
+
+
+
+ </script>
+
+
+</form>

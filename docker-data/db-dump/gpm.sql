@@ -427,7 +427,7 @@ COPY public.addresses (id, "Strasse", "Hausnummer", "Ort") FROM stdin;
 --
 
 COPY public.claims (id, antragsdatum, gewuenschtes_anfangs_datum, bmi, risikofaktor_alter, risikofaktor_bmi, risikofaktor_krankenhistorie, versicherungsfaehig, ablehnungsbegruendung, versicherter_id, versicherungspolice_id, krankenhistorie_id) FROM stdin;
-1	2020-10-10T00:00:00	2020-10-11T00:00:00	35	\N	\N	\N	\N	\N	1	\N	1
+1	2020-10-10T00:00:00	2020-10-11T00:00:00	22.31	\N	\N	\N	\N	\N	1	\N	1
 \.
 
 
@@ -465,7 +465,7 @@ COPY public.insurancepolicies (id, neukunde, risikozuschlag, risikozuschlagsbegr
 --
 
 COPY public.insurants (id, "Name", "Vorname", "Geburtstag", "Geschlecht", "Groesse", "Gewicht", "Adresse", "Kundennr") FROM stdin;
-1	Fischer2	Jens	2001-10-10T00:00:00	m	1.87000000000000011	78	1	1
+1	Fischer	    Jens	2001-10-10T00:00:00	m	1.87000000000000011	78	1	1
 \.
 
 
