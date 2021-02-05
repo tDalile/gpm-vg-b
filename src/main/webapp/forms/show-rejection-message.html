@@ -1,36 +1,16 @@
 <form role="form" name="variablesForm">
   <script cam-script type="text/form-script">
     camForm.on('form-loaded', function() {
-      camForm.variableManager.fetchVariable('mkundennr');
-      camForm.variableManager.fetchVariable('mversicherter_id');
-      camForm.variableManager.fetchVariable('mvorname');
-      camForm.variableManager.fetchVariable('mnachname');
-      camForm.variableManager.fetchVariable('mgeschlecht');
-      camForm.variableManager.fetchVariable('mtarif');
-      camForm.variableManager.fetchVariable('mvorerkrankung');
-      camForm.variableManager.fetchVariable('alter');
-      camForm.variableManager.fetchVariable('rf_alter');
-      camForm.variableManager.fetchVariable('bmi');
-      camForm.variableManager.fetchVariable('rf_bmi');
-      camForm.variableManager.fetchVariable('rf_krankenhistorie');
-      camForm.variableManager.fetchVariable('risikokategorie');
+      camForm.variableManager.fetchVariable('int_insurantFirstName');
+      camForm.variableManager.fetchVariable('int_insurantName');
+      camForm.variableManager.fetchVariable('int_insurantSex');
       camForm.variableManager.fetchVariable('ablehnungsnachricht');
 
     });
     camForm.on('variables-restored', function() {
-      $scope.mkundennr = camForm.variableManager.variableValue('mkundennr');
-      $scope.mversicherter_id = camForm.variableManager.variableValue('mversicherter_id');
-      $scope.mvorname = camForm.variableManager.variableValue('mvorname');
-      $scope.mnachname = camForm.variableManager.variableValue('mnachname');
-      $scope.mgeschlecht = camForm.variableManager.variableValue('mgeschlecht');
-      $scope.mtarif = camForm.variableManager.variableValue('mtarif');
-      $scope.mvorerkrankung = camForm.variableManager.variableValue('mvorerkrankung');
-      $scope.alter = camForm.variableManager.variableValue('alter');
-      $scope.rfalter = camForm.variableManager.variableValue('rf_alter');
-      $scope.bmi = camForm.variableManager.variableValue('bmi');
-      $scope.rfbmi = camForm.variableManager.variableValue('rf_bmi');
-      $scope.rfkrankenhistorie = camForm.variableManager.variableValue('rf_krankenhistorie');
-      $scope.risikokategorie = camForm.variableManager.variableValue('risikokategorie');
+      $scope.int_insurantFirstName = camForm.variableManager.variableValue('int_insurantFirstName');
+      $scope.int_insurantName = camForm.variableManager.variableValue('int_insurantName');
+      $scope.int_insurantSex = camForm.variableManager.variableValue('int_insurantSex');
       $scope.ablehnungsnachricht = camForm.variableManager.variableValue('ablehnungsnachricht');
       console.log("setting variables to scope");
     });
@@ -44,9 +24,9 @@
 
       <!-- Ablehnungsnachricht -->
       Sehr geehrter
-      <span ng-if="mgeschlecht == 'weiblich'">Frau</span>
-      <span ng-if="mgeschlecht == 'maennlich'">Herr</span>
-      {{mvorname}} {{mnachname}},
+      <span ng-if="int_insurantSex == 'weiblich'">Frau</span>
+      <span ng-if="int_insurantSex == 'maennlich'">Herr</span>
+      {{int_insurantFirstName}} {{int_insurantName}},
       <br><br>
       Es tut uns außerordentlich leid, Ihnen mitteilen zu müssen, dass wir Ihnen aufgrund
       {{ablehnungsnachricht}}

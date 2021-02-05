@@ -1,14 +1,9 @@
-<h3>Test Form</h3>
-<form role="form"
-      name="variablesForm">
-
+<form role="form" name="variablesForm">
 
 <div class="row">
 
   <div class="col-xs-6">
-    <h2>Versicherungsdaten</h2>
-
-
+    <h2>Persönliche Daten</h2>
 
     <!-- Vorname -->
     <div class="form-group">
@@ -79,14 +74,14 @@
 
     <!-- Größe -->
     <div class="form-group">
-      <label for="groesse">Größe</label>
+      <label for="groesse">Größe in Meter</label>
       <div class="controls">
         <input class="form-control"
                required
                type="number"
                cam-variable-name="int_insurantSize"
                cam-variable-type="Double"
-               placeholder="170cm"
+               placeholder="1,75"
                ng-minlength="2"
                ng-maxlength="25" />
       </div>
@@ -94,14 +89,14 @@
 
     <!-- Gewicht -->
     <div class="form-group">
-      <label for="gewicht">Gewicht</label>
+      <label for="gewicht">Gewicht in kg</label>
       <div class="controls">
         <input class="form-control"
                required
                type="number"
                cam-variable-name="int_insurantWeight"
                cam-variable-type="Double"
-               placeholder="80kg"
+               placeholder="80"
                ng-minlength="2"
                ng-maxlength="25" />
       </div>
