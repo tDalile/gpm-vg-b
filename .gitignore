@@ -80,3 +80,4 @@ fastlane/readme.md
 .classpath
 .factorypath
 .project
+.vscode
