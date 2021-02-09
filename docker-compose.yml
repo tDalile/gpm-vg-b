@@ -1,13 +1,16 @@
-# docker exec -it gpm-vg-b_camunda_1 bash
-# open browser with url: http://localhost:8080/camunda-welcome/index.html
+### open browser with url:
+# http://localhost:8080/camunda/app/admin/default/ for admin interface
+# http://localhost:8080/camunda/app/cockpit/default/ for cockpit interface
+# http://localhost:8080/camunda/app/tasklist/default/ for tasklist interface
+###
 
 version: "3.8"
 services:
   camunda:
-    image: vgb:0.0.1-SNAPSHOT
+    build:
+      context: .
+      dockerfile: docker-data/camunda/Dockerfile
     environment:
-      #LDAP_ENABLED: "false"
-      #REST_AUTH_ENABLED: "false"
       - CAMUNDA_USERNAME=demo
       - CAMUNDA_PASSWORD=demo
       - TZ=Europe/Berlin
@@ -19,24 +22,17 @@ services:
     container_name: "camunda"
     ports:
       - "8080:8080"
-    volumes:
-      - ./target/vgb.war:/camunda/webapps/vgb.war
     links:
       - psql
 
   psql:
     container_name: gpm-db
-    image: postgres:11.4
+    build:
+      context: .
+      dockerfile: docker-data/postgres/Dockerfile
     ports:
       - 5432:5432
     environment:
       - POSTGRES_MULTIPLE_DATABASES="GPM","ENGINE"
       - POSTGRES_USER=POSTGRES
       - POSTGRES_PASSWORD=POSTGRES
-    volumes:
-#      - ./docker-data/psql_vol:/var/lib/postgresql/data
-      - ./docker-data/docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
-      - ./docker-data/db-dump:/tmp
-
-volumes:
-  psql_vol:

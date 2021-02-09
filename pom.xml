@@ -360,7 +360,7 @@
             Create new docker image using Dockerfile which must be present in current working directory.
             Tag the image using maven project version information.
           -->
-          <execution>
+          <!--<execution>
             <id>docker-build</id>
             <phase>install</phase>
             <goals>
@@ -371,8 +371,8 @@
               <workingDirectory>${project.basedir}</workingDirectory>
               <arguments>
                 <argument>build</argument>
-                <argument>--pull</argument>
-                <argument>--rm</argument>
+                <argument>&#45;&#45;pull</argument>
+                <argument>&#45;&#45;rm</argument>
                 <argument>-f</argument>
                 <argument>Dockerfile</argument>
                 <argument>-t</argument>
@@ -380,7 +380,7 @@
                 <argument>.</argument>
               </arguments>
             </configuration>
-          </execution>
+          </execution>-->
 
 
         </executions>
