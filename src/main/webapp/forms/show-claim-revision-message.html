@@ -33,15 +33,19 @@
   <div class="form-group">
     <label for="int_insurantFurtherInformation">Informationen für die weitere Antragsbearbeitung</label>
     <div class="controls">
-      <input class="form-control"
-             required
-             type="text"
-             cam-variable-name="int_insurantFurtherInformation"
-             cam-variable-type="String"
-             placeholder="Hier ist die Ärztliche Bescheinigung"
-             ng-minlength="2"
-             ng-maxlength="200" />
+        <textarea class="form-control"
+                  cam-variable-name="int_insurantFurtherInformation"
+                  cam-variable-type="String"
+                  placeholder="Weitere Informationen..."
+                  rows="10"
+                  required></textarea>
     </div>
   </div>
+
+  <button type="button"
+          class="btn btn-default">
+    <i class="glyphicon glyphicon-upload"></i>
+    Datei anhängen
+  </button>
 
 </form>
