@@ -465,7 +465,7 @@ COPY public.insurancepolicies (id, neukunde, risikozuschlag, risikozuschlagsbegr
 --
 
 COPY public.insurants (id, "Name", "Vorname", "Geburtstag", "Geschlecht", "Groesse", "Gewicht", "Adresse", "Kundennr") FROM stdin;
-1	Fischer	    Jens	2001-10-10T00:00:00	m	1.87000000000000011	78	1	1
+1	Fischer	Jens	2001-10-10T00:00:00	maennlich	1.87000000000000011	78	1	1
 \.
 
 
