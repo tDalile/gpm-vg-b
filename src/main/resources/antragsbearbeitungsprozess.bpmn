@@ -160,7 +160,7 @@
       <bpmn:outgoing>Flow_119acip</bpmn:outgoing>
       <bpmn:outgoing>Flow_0085hw1</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0c3js60" name="Ablehnungs-begründung hinzufügen" camunda:candidateGroups="head">
+    <bpmn:userTask id="Activity_0c3js60" name="Ablehnungs-begründung hinzufügen" camunda:candidateGroups="management">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_claimRejectionReason" label="Begründung für die Ablehnung" type="string" />
@@ -169,7 +169,7 @@
       <bpmn:incoming>Flow_119acip</bpmn:incoming>
       <bpmn:outgoing>Flow_1y4qqdk</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag und Risikozuschlagsbegründung hinzufügen" camunda:formKey="embedded:app:forms/add-risk-surcharge.html" camunda:candidateGroups="head">
+    <bpmn:userTask id="Activity_195m3xx" name="Risikozuschlag und Risikozuschlagsbegründung hinzufügen" camunda:formKey="embedded:app:forms/add-risk-surcharge.html" camunda:candidateGroups="management">
       <bpmn:incoming>Flow_0a8pp10</bpmn:incoming>
       <bpmn:outgoing>Flow_072fdqo</bpmn:outgoing>
     </bpmn:userTask>
@@ -178,7 +178,7 @@
       <bpmn:outgoing>Flow_0a8pp10</bpmn:outgoing>
       <bpmn:outgoing>Flow_1d0hem6</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_1x0f001" name="Risikozuschlag auswählen" camunda:candidateGroups="head">
+    <bpmn:userTask id="Activity_1x0f001" name="Risikozuschlag auswählen" camunda:candidateGroups="management">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_isAddSurcharge" label="Soll ein Risikozuschlag hinzugefügt werden?" type="boolean" />
@@ -187,7 +187,7 @@
       <bpmn:incoming>Flow_0085hw1</bpmn:incoming>
       <bpmn:outgoing>Flow_1qovpep</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:formKey="embedded:app:forms/show-claim-data.html" camunda:candidateGroups="head">
+    <bpmn:userTask id="Activity_0t6o040" name="Überprüfung" camunda:formKey="embedded:app:forms/show-claim-data.html" camunda:candidateGroups="management">
       <bpmn:incoming>Flow_0cw5btk</bpmn:incoming>
       <bpmn:outgoing>Flow_0yheq9s</bpmn:outgoing>
     </bpmn:userTask>
@@ -398,7 +398,7 @@
       <bpmn:incoming>Flow_194fqs1</bpmn:incoming>
       <bpmn:outgoing>Flow_1uvvnp2</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_1p3q9qu" name="Auswahl der zu versichernden Person">
+    <bpmn:userTask id="Activity_1p3q9qu" name="Auswahl der zu versichernden Person" camunda:candidateGroups="customer">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="int_isClaimForFamilyMember" label="Antrag für abweichende Person?" type="boolean" defaultValue="false" />
