@@ -30,7 +30,6 @@ public class CreateClaimDelegate implements JavaDelegate {
         processContext.getInternal().setInsurantAge(age);
         processContext.getInternal().setClaimId(claimId);
 
-        // get all available diseases
         val diseases = Disease.findAll();
         StringBuilder stringBuilder = new StringBuilder();
         for (Disease d: diseases) stringBuilder.append(d.getDescription()).append(";");

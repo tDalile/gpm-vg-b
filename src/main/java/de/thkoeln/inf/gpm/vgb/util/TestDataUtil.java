@@ -36,21 +36,6 @@ public class TestDataUtil {
             "Schlossallee"};
 
 
-    /*
-    public static Customer createCustomer() {
-        Long id = new Random().nextLong()*1000000;
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        Date date = new Date();
-        String entry = formatter.format(date);
-
-        Long insurantId = new Random().nextLong()*1000000;
-
-        return new Customer(id,entry, insurantId);
-    }
-    */
-
-
     private static <T> T randomEntry(T[] array) {
         int random = new Random().nextInt(array.length);
         return array[random];
@@ -66,7 +51,6 @@ public class TestDataUtil {
     }
 
     public void createUsers(ProcessEngine engine) {
-
 
         final IdentityServiceImpl identityService = (IdentityServiceImpl) engine.getIdentityService();
 
@@ -107,7 +91,6 @@ public class TestDataUtil {
         identityService.saveUser(user3, true);
 
 
-
         final AuthorizationService authorizationService = engine.getAuthorizationService();
 
         Group customerGroup = identityService.newGroup("customer");
@@ -127,7 +110,7 @@ public class TestDataUtil {
 
 
         // create group
-        if(identityService.createGroupQuery().groupId(Groups.CAMUNDA_ADMIN).count() == 0) {
+        if (identityService.createGroupQuery().groupId(Groups.CAMUNDA_ADMIN).count() == 0) {
             Group camundaAdminGroup = identityService.newGroup(Groups.CAMUNDA_ADMIN);
             camundaAdminGroup.setName("camunda BPM Administrators");
             camundaAdminGroup.setType(Groups.GROUP_TYPE_SYSTEM);
@@ -136,7 +119,7 @@ public class TestDataUtil {
 
         // create ADMIN authorizations on all built-in resources
         for (Resource resource : Resources.values()) {
-            if(authorizationService.createAuthorizationQuery().groupIdIn(Groups.CAMUNDA_ADMIN).resourceType(resource).resourceId(ANY).count() == 0) {
+            if (authorizationService.createAuthorizationQuery().groupIdIn(Groups.CAMUNDA_ADMIN).resourceType(resource).resourceId(ANY).count() == 0) {
                 AuthorizationEntity userAdminAuth = new AuthorizationEntity(AUTH_TYPE_GRANT);
                 userAdminAuth.setGroupId(Groups.CAMUNDA_ADMIN);
                 userAdminAuth.setResource(resource);
@@ -251,9 +234,7 @@ public class TestDataUtil {
 
 
         FilterService filterService = engine.getFilterService();
-
-
-        Map<String, Object> filterProperties = new HashMap<String, Object>();
+        Map<String, Object> filterProperties = new HashMap<>();
 
         filterProperties.put("description", "Tasks assigned to me");
         filterProperties.put("priority", -10);
@@ -287,10 +268,7 @@ public class TestDataUtil {
 
         // management filter
 
-
-
         // all tasks
-
         filterProperties.clear();
         filterProperties.put("description", "All Tasks - Not recommended to be used in production :)");
         filterProperties.put("priority", 10);
@@ -299,21 +277,10 @@ public class TestDataUtil {
         Filter allTasksFilter = filterService.newTaskFilter().setName("All Tasks").setProperties(filterProperties).setOwner("demo").setQuery(query);
         filterService.saveFilter(allTasksFilter);
 
-
-
     }
 
     protected void addVariables(Map<String, Object> filterProperties) {
         List<Object> variables = new ArrayList<Object>();
-
-        /*
-        addVariable(variables, "amount", "Invoice Amount");
-        addVariable(variables, "invoiceNumber", "Invoice Number");
-        addVariable(variables, "creditor", "Creditor");
-        addVariable(variables, "approver", "Approver");
-
-         */
-
         filterProperties.put("variables", variables);
     }
 
