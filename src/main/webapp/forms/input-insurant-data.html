@@ -1,22 +1,24 @@
 <form name="variablesForm" role="form">
-
+  
 <div class="row">
 
   <div class="col-xs-6">
     <h2>Persönliche Daten</h2>
-
+    <br>
+    <h3>Bitte passen Sie die Daten an die abweichende, zu versichernde Person an.</h3>
+    <br>
     <!-- Vorname -->
     <div class="form-group">
       <label for="vorname">Vorname</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="text"
-               cam-variable-name="int_insurantFirstName"
+        <input cam-variable-name="int_insurantFirstName"
                cam-variable-type="String"
-               placeholder="Max"
+               class="form-control"
+               ng-maxlength="20"
                ng-minlength="2"
-               ng-maxlength="20" />
+               placeholder="Max"
+               required
+               type="text" />
       </div>
     </div>
 
@@ -24,14 +26,14 @@
     <div class="form-group">
       <label for="nachname">Nachname</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="text"
-               cam-variable-name="int_insurantName"
+        <input cam-variable-name="int_insurantName"
                cam-variable-type="String"
-               placeholder="Mustermann"
+               class="form-control"
+               ng-maxlength="20"
                ng-minlength="2"
-               ng-maxlength="20" />
+               placeholder="Mustermann"
+               required
+               type="text" />
       </div>
     </div>
 
@@ -39,18 +41,18 @@
     <label>Geburtsdatum</label>
     <p class="input-group">
 
-      <input type="dateFieldOpened"
+      <input cam-variable-name="int_insurantBirthdate"
 
-             cam-variable-name="int_insurantBirthdate"
              cam-variable-type="Date"
              class="form-control"
-             uib-datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
-             is-open="test" />
+             is-open="test"
+             type="dateFieldOpened"
+             uib-datepicker-popup="yyyy-MM-dd'T'HH:mm:ss" />
 
       <span class="input-group-btn">
-    <button type="button"
-            class="btn btn-default"
-            ng-click="testopen($event)">
+    <button class="btn btn-default"
+            ng-click="testopen($event)"
+            type="button">
       <i class="glyphicon glyphicon-calendar"></i>
     </button>
   </span>
@@ -62,9 +64,9 @@
       <div class="controls">
 
         <!--select box -->
-        <select class="form-control"
-                cam-variable-name="int_insurantSex"
-                cam-variable-type="String">
+        <select cam-variable-name="int_insurantSex"
+                cam-variable-type="String"
+                class="form-control">
           <option value="maennlich">Männlich</option>
           <option value="weiblich">Weiblich</option>
         </select>
@@ -76,14 +78,14 @@
     <div class="form-group">
       <label for="groesse">Größe in Meter</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="number"
-               cam-variable-name="int_insurantSize"
+        <input cam-variable-name="int_insurantSize"
                cam-variable-type="Double"
-               placeholder="1,75"
+               class="form-control"
+               ng-maxlength="25"
                ng-minlength="2"
-               ng-maxlength="25" />
+               placeholder="1,75"
+               required
+               type="number" />
       </div>
     </div>
 
@@ -91,14 +93,14 @@
     <div class="form-group">
       <label for="gewicht">Gewicht in kg</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="number"
-               cam-variable-name="int_insurantWeight"
+        <input cam-variable-name="int_insurantWeight"
                cam-variable-type="Double"
-               placeholder="80"
+               class="form-control"
+               ng-maxlength="25"
                ng-minlength="2"
-               ng-maxlength="25" />
+               placeholder="80"
+               required
+               type="number" />
       </div>
     </div>
 
@@ -106,14 +108,14 @@
     <div class="form-group">
       <label for="plz">PLZ</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="text"
-               cam-variable-name="int_locationZip"
+        <input cam-variable-name="int_locationZip"
                cam-variable-type="String"
-               placeholder="54515"
+               class="form-control"
+               ng-maxlength="25"
                ng-minlength="5"
-               ng-maxlength="25" />
+               placeholder="54515"
+               required
+               type="text" />
       </div>
     </div>
 
@@ -121,14 +123,14 @@
     <div class="form-group">
       <label for="ort">Ort</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="text"
-               cam-variable-name="int_locationName"
+        <input cam-variable-name="int_locationName"
                cam-variable-type="String"
-               placeholder="Kürten"
+               class="form-control"
+               ng-maxlength="25"
                ng-minlength="3"
-               ng-maxlength="25" />
+               placeholder="Kürten"
+               required
+               type="text" />
       </div>
     </div>
 
@@ -136,14 +138,14 @@
     <div class="form-group">
       <label for="strasse">Straße</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="text"
-               cam-variable-name="int_addressStreet"
+        <input cam-variable-name="int_addressStreet"
                cam-variable-type="String"
-               placeholder="Hofwiese"
+               class="form-control"
+               ng-maxlength="25"
                ng-minlength="3"
-               ng-maxlength="25" />
+               placeholder="Hofwiese"
+               required
+               type="text" />
       </div>
     </div>
 
@@ -151,34 +153,16 @@
     <div class="form-group">
       <label for="hausnummer">Hausnummer</label>
       <div class="controls">
-        <input class="form-control"
-               required
-               type="text"
-               cam-variable-name="int_addressHouseNumber"
+        <input cam-variable-name="int_addressHouseNumber"
                cam-variable-type="String"
+               class="form-control"
+               ng-maxlength="25"
+               ng-minlength="1"
                placeholder="7b"
-               ng-minlength="1"
-               ng-maxlength="25" />
-      </div>
-    </div>
-
-    <!-- Passwort -->
-    <div class="form-group">
-      <label for="password">Passwort</label>
-      <div class="controls">
-        <input class="form-control"
                required
-               type="text"
-               cam-variable-name="int_customerPassword"
-               cam-variable-type="String"
-               placeholder="demo"
-               ng-minlength="1"
-               ng-maxlength="25" />
+               type="text" />
       </div>
     </div>
-
-
-
   </div>
 
 </div>

@@ -15,36 +15,20 @@ import java.util.Map;
  */
 @Slf4j
 public class InstantiateProcessByMessageDelegate implements JavaDelegate {
-    public void execute(DelegateExecution execution) throws Exception {
-        Map<String, Object> processVariables = execution.getVariables();
+    public void execute(DelegateExecution delegateExecution) throws Exception {
+        RuntimeService runtimeService = delegateExecution.getProcessEngineServices().getRuntimeService();
 
-
-        //TODO: setup serialization for objects?
-		 /*
-		 processVariables.put("mkundennr", execution.getVariable("kundennr"));
-		 processVariables.put("meintritt", execution.getVariable("eintritt"));
-		 processVariables.put("mversicherter_id", execution.getVariable("versicherter_id"));
-		 processVariables.put("mnachname", execution.getVariable("nachname"));
-		 processVariables.put("mvorname", execution.getVariable("vorname"));
-		 processVariables.put("mgeburtsdatum", execution.getVariable("geburtsdatum"));
-		 processVariables.put("mgeschlecht", execution.getVariable("geschlecht"));
-		 processVariables.put("mgroesse", execution.getVariable("groesse"));
-		 processVariables.put("mgewicht", execution.getVariable("gewicht"));
-		 processVariables.put("mtarif", execution.getVariable("tarif"));
-		 processVariables.put("mvorerkrankung", execution.getVariable("vorerkrankung"));
-		 */
-
+        Map<String, Object> processVariables = delegateExecution.getVariables();
 
         // TODO: Set up Variable Store
         // set the correlation id to identify this in receiving process
-        String correlationId = execution.getBusinessKey();
-        if (correlationId == null) {            // if not set at process start
-            correlationId = execution.getProcessInstanceId();
-            execution.setProcessBusinessKey(correlationId);
+        String correlationId = delegateExecution.getBusinessKey();
+        if (correlationId == null) {
+            correlationId = delegateExecution.getProcessInstanceId();
+            delegateExecution.setProcessBusinessKey(correlationId);
         }
         processVariables.put("correlationId", correlationId);
 
-        RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         // correlate process with message name
         runtimeService.startProcessInstanceByMessage(
                 ProcessVariableConstants.INT_INSTANTIATION_MESSAGE,

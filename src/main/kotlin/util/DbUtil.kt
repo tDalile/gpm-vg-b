@@ -19,7 +19,7 @@ object DbUtil {
 
     val dbWithDocker by lazy {
         Database.connect(
-            "jdbc:postgresql://host.docker.internal:5432/GPM",
+            "jdbc:postgresql://psql:5432/GPM",
             driver = "org.postgresql.Driver",
             user = "POSTGRES", password = "POSTGRES"
         )
@@ -71,7 +71,7 @@ object DbUtil {
         val customer = Customer.createOrUpdate(Customer("2010-10-10T00:00:00", "demo"))
         val insurant = Insurant.createOrUpdate(
             Insurant(
-                "Fischer2",
+                "Fischer",
                 "Jens",
                 "2001-10-10T00:00:00",
                 "m",
@@ -87,7 +87,7 @@ object DbUtil {
             Claim(
                 "2020-10-10T00:00:00",
                 "2020-10-11T00:00:00",
-                35.0,
+                22.31,
                 null,
                 null,
                 null,

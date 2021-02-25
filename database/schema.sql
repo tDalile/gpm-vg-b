@@ -120,11 +120,11 @@ CREATE TABLE Versicherter
 );
 
 INSERT INTO Versicherter
-VALUES (1, 'Pufpaff', 'Sebastian', now(), 'm', 187, 72, 1, 12345);
+VALUES (1, 'Pufpaff', 'Sebastian', now(), 'maennlich', 187, 72, 1, 12345);
 INSERT INTO Versicherter
-VALUES (2, 'Müller', 'Sarah', '2001-10-05', 'w', 187, 72, 2, 12345);
+VALUES (2, 'Müller', 'Sarah', '2001-10-05', 'weiblich', 187, 72, 2, 12345);
 INSERT INTO Versicherter
-VALUES (3, 'Page', 'Eliot', '1987-02-21', 'd', 155, 57, 2, 12693);
+VALUES (3, 'Page', 'Eliot', '1987-02-21', 'diverse', 155, 57, 2, 12693);
 
 
 ALTER TABLE Kunde

@@ -24,23 +24,20 @@
       console.log("setting variables to scope");
     });
   </script>
-    <h2>Vertragszusammenfassung</h2>
+    <h3>Vertragszusammenfassung</h3>
 
     <table>
-
         <tr>
             <td>Kundennummer:</td>
             <td>{{ int_customerId }}</td>
         </tr>
-
         <tr>
             <td>Versicherungsnummer:</td>
             <td>{{ int_insurantId }}</td>
         </tr>
-
     </table>
 
-    <h2>Kundendaten:</h2>
+    <h3>Kundendaten:</h3>
 
     <data>
         <table>
@@ -59,21 +56,18 @@
 
             <tr>
                 <td>Größe:</td>
-                <td>{{ int_insurantSize }}cm</td>
+                <td>{{ int_insurantSize }}m</td>
             </tr>
 
             <tr>
                 <td>Gewicht:</td>
                 <td>{{ int_insurantWeight }}kg</td>
             </tr>
-
         </table>
-
     </data>
 
-    <h2>Tarifauswahl:</h2>
+    <h3>Tarifauswahl:</h3>
     <table>
-
         <tr>
             <td>Tarif:</td>
             <td>
@@ -81,20 +75,17 @@
                 <span ng-if="!int_isPremiumClaim">Basis</span>
             </td>
         </tr>
-
     </table>
 
-    <h2>Vorerkrankung:</h2>
+    <h3>Vorerkrankung:</h3>
     <table>
-
         <tr>
             <td>Krankheit:</td>
             <td>{{ int_diseaseDescription }}</td>
         </tr>
-
     </table>
 
-    <h2>Weiterverarbeitung</h2>
+    <h3>Weiterverarbeitung</h3>
 
     Ist der Antrag vollständig?
 

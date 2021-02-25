@@ -27,7 +27,7 @@ public class CreatePolicyDelegate implements JavaDelegate {
                 DateUtil.toString(processContext.getInternal().getClaimDesiredStartDate()),
                 processContext.getInternal().getIsPremiumClaim(),
                 DateUtil.nowAsString(),
-                false, // processContext.getInternal().getInsurancePolicyIsActive(),
+                false,
                 insurant,
                 medicalHistory
         );
@@ -35,6 +35,9 @@ public class CreatePolicyDelegate implements JavaDelegate {
         processContext.getInternal().setInsurancePolicyId(insurePolicy.getId());
     }
 
+    /**
+     * @return complete InsurancePolicy
+     */
     private InsurancePolicy savePolicy(
             Boolean isNewCustomer,
             Double riskSurcharge,

@@ -1,0 +1,51 @@
+<form name="variablesForm" role="form">
+  <script cam-script type="text/form-script">
+    camForm.on('form-loaded', function() {
+      camForm.variableManager.fetchVariable('int_insurantFirstName');
+      camForm.variableManager.fetchVariable('int_insurantName');
+      camForm.variableManager.fetchVariable('int_insurantSex');
+      camForm.variableManager.fetchVariable('int_claimRevisionReason');
+
+    });
+    camForm.on('variables-restored', function() {
+      $scope.int_insurantFirstName = camForm.variableManager.variableValue('int_insurantFirstName');
+      $scope.int_insurantName = camForm.variableManager.variableValue('int_insurantName');
+      $scope.int_insurantSex = camForm.variableManager.variableValue('int_insurantSex');
+      $scope.int_claimRevisionReason = camForm.variableManager.variableValue('int_claimRevisionReason');
+      console.log("setting variables to scope");
+    });
+  </script>
+
+  <h2>Wir benötigen weitere Informationen von Ihnen</h2>
+
+  <!-- Ablehnungsnachricht -->
+  Sehr geehrter
+  <span ng-if="int_insurantSex == 'weiblich'">Frau</span>
+  <span ng-if="int_insurantSex == 'maennlich'">Herr</span>
+  {{int_insurantFirstName}} {{int_insurantName}},
+  <br><br>
+  Für die weitere Bearbeitung des Antrags, benötigen wir folgende Informationen von Ihnen:
+  <br>
+  {{int_claimRevisionReason}}
+
+  <br><br>
+
+  <div class="form-group">
+    <label for="int_insurantFurtherInformation">Informationen für die weitere Antragsbearbeitung</label>
+    <div class="controls">
+        <textarea cam-variable-name="int_insurantFurtherInformation"
+                  cam-variable-type="String"
+                  class="form-control"
+                  placeholder="Weitere Informationen..."
+                  required
+                  rows="10"></textarea>
+    </div>
+  </div>
+
+  <button class="btn btn-default"
+          type="button">
+    <i class="glyphicon glyphicon-upload"></i>
+    Datei anhängen
+  </button>
+
+</form>
