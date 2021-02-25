@@ -6,7 +6,6 @@ import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-
 public class CalculateBmiDelegate implements JavaDelegate {
 
     @Override
@@ -19,9 +18,14 @@ public class CalculateBmiDelegate implements JavaDelegate {
 
         processContext.getInternal().setClaimBMI(bmi);
     }
-    
-    // BMI = weight (in kg) divided by size² (in m)
+
+    /**
+     *
+     * @param weight the weight on the insurant in kg
+     * @param size the height of the insurant in m
+     * @return BMI (weight / size² ) of the insurant
+     */
     private double calcBmi(double weight, double size) {
-        return Math.round((weight / (1.0 * size * size)) * 100.0) / 100.0; // *1.0 for simple double cast
+        return Math.round((weight / (1.0 * size * size)) * 100.0) / 100.0;
     }
 }

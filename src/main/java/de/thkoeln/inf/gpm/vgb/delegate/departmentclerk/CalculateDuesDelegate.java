@@ -28,6 +28,11 @@ public class CalculateDuesDelegate implements JavaDelegate {
         processContext.getInternal().setInsurancePolicyInitialContribution(contribution);
     }
 
+    /**
+     * @param age calculated age of the insurant
+     * @param riskSurcharge surcharge for the insured if he has a higher risk
+     * @return calculated monthly Contribution with risk Surcharge
+     */
     double calculateContribution(Integer age, Double riskSurcharge) {
         if (age == 0) age = 1;
 
