@@ -31,7 +31,7 @@
 <p align="center">
 
   <a href="https://github.com/tDalile/gpm-vg-b">
-    <img src="images/url.png" alt="Logo" width="80" height="80"><br>
+    <img src="images/url.png" alt="Logo" width="160" height="160"><br>
     <a href="https://github.com/tDalile/gpm-vg-b">Repository auf Github</a>
   </a>
 
