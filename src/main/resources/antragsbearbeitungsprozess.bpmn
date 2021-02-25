@@ -517,7 +517,7 @@
     <bpmn:sequenceFlow id="Flow_1yhlnqp" sourceRef="Activity_1ohoizj" targetRef="Activity_19kzmpd" />
     <bpmn:endEvent id="WiderspruchEinreichen" name="Widerspruch einreichen" camunda:asyncBefore="true">
       <bpmn:incoming>Flow_0viktu0</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_12phlrn" camunda:class="de.thkoeln.inf.gpm.vgb.delegate.customer.ContinueProcessByObjectionMessageDelegate" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_12phlrn" messageRef="Message_05lu0on" camunda:expression="${execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#34;int_objectionMessage&#34;).correlateWithResult()}" />
     </bpmn:endEvent>
     <bpmn:intermediateCatchEvent id="Event_0vrnzx6">
       <bpmn:incoming>Flow_1sayprk</bpmn:incoming>
