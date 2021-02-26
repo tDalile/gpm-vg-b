@@ -72,7 +72,7 @@ Optionen:
 **Klonen des Repositories:**
 
 ```sh
-    git clone https://github.com/tDalile/gpm-vg-b.git
+git clone https://github.com/tDalile/gpm-vg-b.git
 ```
 
 **oder .zip-Datei herunterladen und entpacken:**
