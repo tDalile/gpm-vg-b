@@ -136,10 +136,11 @@ Verwendbare Nutzerdaten:
 
 ## Beispielprozess
 
-<!--TODO
-Mit welchen Eingaben ist ein Probedurchlauf auszuführen und mit welchen
-Ergebnissen ist zu rechnen?
--->
+Ist alles gestartet, kann ein Probedurchlauf mit den oben genannten Nutzern durchgeführt werden. Ein Beispiel hierfür kann im folgendem Video eingesehen werden: [Ilias-Video](https://ilias.th-koeln.de/goto.php?target=file_1823708_download&client_id=ILIAS_FH_Koeln).
+
+Für abweichende Ergebnisse können die Daten des Kunden entsprechend der Aufgabenstellung angepasst werden. Bspw. Premiumtarif und alle Vorerkranungen ergibt eine automatische Ablehnung. Der Sachbearbeiter muss in diesem Fall nur die Ablehnungsbegründung hinzufügen.
+
+
 
 ## Weitere Informationen
 
