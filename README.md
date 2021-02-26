@@ -127,15 +127,14 @@ Nachdem die Anwendung erfolgreich installiert und gestartet wurde, müssen folge
 Verwendbare Nutzerdaten:
 | Username | Password | Funktion | Zugriff auf Tasklist? | Zugriff auf Cockpit? | Zugriff auf Adminpanel? |
 |---|---|---|---|---|---|
-| demo | demo | Admin, kann alles, darf alles | <ul><li>[x]</li></ul> |  <ul><li>[x]</li></ul> |  <ul><li>[x]</li></ul>
-| customer | customer | Kunde, kann Prozessinstanzen starten |  <ul><li>[x]</li></ul> |  <ul><li>[ ]</li></ul> |  <ul><li>[ ]</li></ul> |
-| clerk | clerk | Sachbearbeiter, bearbeitet Anträge des Kunden |  <ul><li>[x]</li></ul> |  <ul><li>[ ]</li></ul> |  <ul><li>[ ]</li></ul> |
-| head | head | Abteilungsleiter, entscheidet bei Sonderfällen |  <ul><li>[x]</li></ul> |  <ul><li>[ ]</li></ul> |  <ul><li>[ ]</li></ul> |
+| demo | demo | Admin, kann alles, darf alles | <ul><li>- [x] </li> |  <ul><li>- [x] </li> |  <ul><li>- [x] </li>
+| customer | customer | Kunde, kann Prozessinstanzen starten |  <ul><li>- [x] </li> |  <ul><li>- [ ] </li> |  <ul><li>- [ ] </li> |
+| clerk | clerk | Sachbearbeiter, bearbeitet Anträge des Kunden |  <ul><li>- [x] </li> |  <ul><li>- [ ] </li> |  <ul><li>- [ ] </li> |
+| head | head | Abteilungsleiter, entscheidet bei Sonderfällen |  <ul><li>- [x] </li> |  <ul><li>- [ ] </li> |  <ul><li>- [ ] </li> |
 
 3. Starten einer Prozessinstanz mit dem Kundenkonto
 
 ## Beispielprozess
-
 
 <!--TODO
 Mit welchen Eingaben ist ein Probedurchlauf auszuführen und mit welchen
