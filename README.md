@@ -141,7 +141,7 @@ Verwendbare Nutzerdaten:
 **Prozessmodell:**
 ![BPMN-Modell](images/antragsbearbeitungsprozess.png)
 
-Alle Modelle (BPMN und DMN) sind hier zu finden: [Modelle](src\main\resources)
+Alle Modelle (BPMN und DMN) sind hier zu finden: [Modelle](src/main/resources)
 
 Ist alles gestartet, kann ein Probedurchlauf mit den oben genannten Nutzern durchgeführt werden. Ein Beispiel hierfür kann im folgendem Video eingesehen werden: [Ilias-Video](https://ilias.th-koeln.de/goto.php?target=file_1823708_download&client_id=ILIAS_FH_Koeln).
 
