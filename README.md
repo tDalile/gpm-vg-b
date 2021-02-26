@@ -1,4 +1,3 @@
-
 <!-- TABLE OF CONTENTS -->
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -36,7 +35,12 @@
   </a>
 
 <!-- ABOUT THE PROJECT -->
+
 ## Über das Projekt
+
+Dies ist ein studentisches Projekt an der TH Köln für das Modul Geschäftsprozessmanagement.
+
+**Projektauftrag:**
 
 Sie arbeiten in der IT Abteilung der Versicherungsgesellschaft VG AG. Die VG
 AG bietet Krankenversicherungen für Privatpersonen an.
@@ -48,12 +52,13 @@ nagement System (WFMS) beauftragt.
 
 Folgende Technologien wurden zur Umsetzung des Projektauftrages verwendet.
 
-* [Camunda](https://camunda.com/download/)
-* [PostgreSQL](https://www.postgresql.org/)
-* [Tomcat](https://tomcat.apache.org/)
-* [Docker](https://www.docker.com/)
+- [Camunda](https://camunda.com/download/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Tomcat](https://tomcat.apache.org/)
+- [Docker](https://www.docker.com/)
 
 <!-- GETTING STARTED -->
+
 ## Erste Schritte
 
 Dank der Verwendung von Docker in diesem Projekt, kann die Applikation mit nur einem Befehl gestartet werden. Für den Fall das nichtsdestotrotz die WAR Datei benötigt werden sollte, folgt auch für diese (etwas kompliziertere) Vorgehensweise die Installationsanleitung.
@@ -76,30 +81,71 @@ Optionen:
 
 Für die Installation wird Docker benötigt. Eine ausführliche Installationsanleitung für Docker ist hier zu finden: [Install Docker](https://docs.docker.com/docker-for-windows/install/)
 
->*Hinweis: Für die Installationsmöglichkeit mithilfe von [Maven](https://maven.apache.org/install.html) muss Maven auch installiert werden! Bei der Installation mittels Docker muss Maven nicht zusätlich installiert werden*
+> _Hinweis: Für die Installationsmöglichkeit mithilfe von [Maven](https://maven.apache.org/install.html) muss Maven auch installiert werden! Bei der Installation mittels Docker muss Maven nicht zusätlich installiert werden._
 
 ### Installation
 
 **Installation via Docker** (einfach)
 
-1. Welche Archivdateien sind in Eclipse wie zu importieren?
-2. Wie ist die Camunda-Umgebung (insbesondere Benutzerrechte) zu konfigurieren?
-3. Was genau ist zu tun, um den Prozess auszuführen?
-4. Mit welchen Eingaben ist ein Probedurchlauf auszuführen und mit welchen
-Ergebnissen ist zu rechnen?
+Nachdem Docker erfolgreich installiert wurde, bitte folgenden Befehl in dem Projektverzeichnis per CLI ausführen:
+
+```sh
+docker-compose up -d
+```
+
+Sobald Docker alle Dependencies heruntergeladen und den Build-Prozess abgeschlossen hat, kann mit dem Schritt [Verwendung der Applikation](#verwendung-der-applikation) fortgefahren werden.
 
 **Installation via Maven** (komplizierter und benötigt trotzdem Docker)
+
+> *Erklärung*: Da dieses Projekt Kundendaten nutzt und dabei eine Postgresql Datenbank innerhalb eines Docker-Containers verwendet, muss der entsprechende Container vor dem Starten der Camunda Plattform bereits laufen!
+
+Nachdem Docker **und** Maven erfolgreich installiert wurden, bitte folgende Befehle in dem Projektverzeichnis per CLI ausführen.
+
+1. Datenbank-Container starten:
+
+```sh
+docker-compose up -d psql
+```
+
+2. Maven Build:
+
+```sh
+mvn clean compile package
+```
+
+3. Maven erzeugt die Datei *vgb.war* und legt diese im Ordner *./target* ab. Dieser Ordner muss in den Deployment Ordner *tomcat/webapps* des Webservers kopiert werden.
 
 ## Verwendung der Applikation
 
 Nachdem die Anwendung erfolgreich installiert und gestartet wurde, müssen folgende Schritte ausgeführt werden um diese zu verwenden.
 
 1. Öffnen der Weboberfläche:
-[Camunda Weboberfläche](http://localhost:8080/camunda/app/welcome/default/#!/login)
+   [Camunda Weboberfläche](http://localhost:8080/camunda/app/welcome/default/#!/login)
+
+2. Login mit Nutzerdaten
+
+Verwendbare Nutzerdaten:
+| Username | Password | Funktion | Zugriff auf Tasklist? | Zugriff auf Cockpit? | Zugriff auf Adminpanel? |
+|---|---|---|---|---|---|
+| demo | demo | Admin, kann alles, darf alles | <ul><li>[x]</li></ul> |  <ul><li>[x]</li></ul> |  <ul><li>[x]</li></ul>
+| customer | customer | Kunde, kann Prozessinstanzen starten |  <ul><li>[x]</li></ul> |  <ul><li>[ ]</li></ul> |  <ul><li>[ ]</li></ul> |
+| clerk | clerk | Sachbearbeiter, bearbeitet Anträge des Kunden |  <ul><li>[x]</li></ul> |  <ul><li>[ ]</li></ul> |  <ul><li>[ ]</li></ul> |
+| head | head | Abteilungsleiter, entscheidet bei Sonderfällen |  <ul><li>[x]</li></ul> |  <ul><li>[ ]</li></ul> |  <ul><li>[ ]</li></ul> |
+
+3. Starten einer Prozessinstanz mit dem Kundenkonto
+
+## Beispielprozess
+
+
+<!--TODO
+Mit welchen Eingaben ist ein Probedurchlauf auszuführen und mit welchen
+Ergebnissen ist zu rechnen?
+-->
 
 ## Weitere Informationen
 
-* Logs der Container anzeigen lassen
-* Neustart
-* Beenden
-* Laufen die Container?
+<!-- TODO-->
+- Logs der Container anzeigen lassen
+- Neustart
+- Beenden
+- Laufen die Container?
